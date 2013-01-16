@@ -1,0 +1,101 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+#*.jar
+#*.war
+#*.ear
+#*.rar
+#*.tar
+#*.zip
+
+# Logs and databases #
+######################
+*.log
+#*.sql
+#*.sqlite
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon?
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# eclipse project #
+###################
+*.pydevproject
+#.project
+.classpath
+#.settings/
+#local.properties
+.metadata
+bin/
+output/
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+.loadpath
+# was env dependent file
+org.eclipse.wst.common.project.facet.core.xml
+# just ui pref
+org.eclipse.jdt.ui.prefs
+
+# External tool builders
+#.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+#.cproject
+
+# PDT-specific
+#.buildpath
+
+# node ignore 
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+
+# SublimeText project files
+/*.sublime-project
+*.sublime-workspace
+
+# JavaEE WAR
+classes/
