@@ -1,0 +1,7 @@
+{
+	"requireJS": "2.1.2",
+	"backbone": "0.9.9",
+	"jquery": "1.8.3",
+	"jquery.ui": "1.9.2"
+}
+	
