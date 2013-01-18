@@ -10,7 +10,6 @@
 <title>통계청 Data Explorer PoC</title>
 <!-- link rel="shortcut icon" href="images/favicon.ico" -->
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&language=ko"></script>
 <script>
 	var require = {
 		config : {
