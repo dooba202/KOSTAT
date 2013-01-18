@@ -22,6 +22,6 @@
 <script data-main="js/main" src="js/require.js"></script>
 </head>
 <body>
-	Main
+	<div id="results"></div>
 </body>
 </html>
