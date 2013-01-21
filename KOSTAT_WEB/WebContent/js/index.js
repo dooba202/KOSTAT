@@ -5,22 +5,31 @@ define ([
 		 'backbone', 
 		 'underscore',
 		 'utils/local_logger',
+		 'views/xmlResult',
          'jquery.ui'
 		 ], 
 
-function( module, $, Backbone, _, Logger){
+function( module, $, Backbone, _, Logger, xmlResult){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 	
 	var init = function(){
 		logger.log("index.js init");
 		
+		var resultView = new xmlResult;
 		function parseXml(xml) {
-			var item = $(xml).find("content");
+			var resultObj = {"documents": []};
+			var item = $(xml).find("document");
 
 			  $(item).each(function() {
-			    $("#results").append($(this).text()+ "<br />");
+				  var document = {};
+				  $(this).find('content').each(function() {
+					  document[$(this).attr('name')] = $(this).text();
+				  });
+				  resultObj["documents"].push(document);
+				  //$("#results").append($(this).text()+ "<br />");
 			  });
+			  return resultObj;
 
 		}
 		//var myTest = new restTest;
@@ -40,7 +49,9 @@ function( module, $, Backbone, _, Logger){
 		        	'v.username': "admin"
 		        },
 		        success: function(data) {
-		           parseXml(data);
+		        	$("#results").append(
+		        			resultView.render(parseXml(data)).el
+		        	);
 		        }
 		    });
 

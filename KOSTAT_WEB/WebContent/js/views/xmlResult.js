@@ -8,11 +8,11 @@ define([ 'jquery',
          'backbone', 
          'underscore', 
          'mustache', 
-         'text!templates/restTest.html!strip',
+         'text!templates/xmlResult.html!strip',
          'utils/local_logger' ], 
 
 function($,Backbone, _, Mustache, template, Logger) {
-	var logger = new Logger("cognosView");
+	var logger = new Logger("xmlResult");
 		logger.setLevel("ALL");
 		
 	return Backbone.View.extend({
@@ -33,12 +33,11 @@ function($,Backbone, _, Mustache, template, Logger) {
 		/* common event handling --> */
 
 		initialize : function(options) {
-			logger.log("restTest init");
-		    this.template = Mustache.to_html(template);
+			logger.log("xmlResultView init");
 		},
 		
-		render : function() {
-			this.$el.html( this.template );
+		render : function(document) {
+			$(this.el).html( Mustache.to_html(template, document));
 			return this;
 		}
 	});
