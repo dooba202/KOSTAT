@@ -5,74 +5,281 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="js/libs/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
-	$(function () {
-	    var chart;
-	    $(document).ready(function() {
-	        chart = new Highcharts.Chart({
-	            chart: {
-	                renderTo: 'container',
-	                type: 'line',
-	                marginRight: 130,
-	                marginBottom: 25
-	            },
-	            title: {
-	                text: '산업별 지수',
-	                x: -20 //center
-	            },
-	            subtitle: {
-	                text: '(생산, 출하, 재고, 내수)',
-	                x: -20
-	            },
-	            xAxis: {
-	                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-	                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-	            },
-	            yAxis: {
-	                title: {
-	                    text: '지수(Point)'
-	                },
-	                plotLines: [{
-	                    value: 0,
-	                    width: 1,
-	                    color: '#808080'
-	                }]
-	            },
-	            tooltip: {
-	                formatter: function() {
-	                        return '<b>'+ this.series.name +'</b><br/>'+
-	                        this.x +': '+ this.y +'포인트';
-	                }
-	            },
-	            legend: {
-	                layout: 'vertical',
-	                align: 'right',
-	                verticalAlign: 'top',
-	                x: -10,
-	                y: 100,
-	                borderWidth: 0
-	            },
-	            series: [{
-	                name: '생산',
-	                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-	            }, {
-	                name: '출하',
-	                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-	            }, {
-	                name: '재고',
-	                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-	            }, {
-	                name: '내수',
-	                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-	            }]
-	        });
-	    });
-	    
+	$(function() {
+		var seriesOptions = [],
+			yAxisOptions = [],
+			seriesCounter = 0,
+			names = ['MSFT', 'AAPL', 'GOOG'],
+			colors = Highcharts.getOptions().colors;
+	
+		$.each(names, function(i, name) {
+	
+			$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename='+ name.toLowerCase() +'-c.json&callback=?',	function(data) {
+	
+				seriesOptions[i] = {
+					name: name,				
+					marker : {
+						enabled : true,
+						radius : 3
+					},
+					data: data
+				};
+	
+				// As we're loading the data asynchronously, we don't know what order it will arrive. So
+				// we keep a counter and create the chart when all the data is loaded.
+				seriesCounter++;
+	
+				if (seriesCounter == names.length) {
+					createChart();
+				}
+			});
+		});
+	
+		var preparedData1 = [
+			{
+				name: "재고",				
+				marker : {
+					enabled : true,
+					radius : 3
+				},
+				data: [ [ Date.UTC(2012,0), 100 ],[ Date.UTC(2012,1), 200 ],[ Date.UTC(2012,2), 250 ],[ Date.UTC(2012,3), 300 ],[ Date.UTC(2012,4), 350 ],[ Date.UTC(2012,5), 400 ],[ Date.UTC(2012,6), 250 ],[ Date.UTC(2012,7), 350 ],[ Date.UTC(2012,8), 400 ],[ Date.UTC(2012,9), 350 ] ]	
+			},
+		
+		];
+	
+	
+		// create the chart when all data is loaded
+		function createChart() {
+	
+			chart1 = new Highcharts.StockChart({
+				credits: false,
+				
+			    chart: {
+			        renderTo: 'container1'
+			    },
+			    
+			    title: {
+		       		text: '물량'
+		    	},
+		    	
+		    	xAxis: {
+		    		dateTimeLabelFormats: 
+					{ 
+						second: '%Y-%m-%d<br/>%H:%M:%S',
+						minute: '%Y-%m-%d<br/>%H:%M',
+						hour: '%Y-%m-%d<br/>%H:%M',
+						day: '%Y<br/>%m-%d',
+						week: '%Y<br/>%m-%d',
+						month: '%Y-%m',
+						year: '%Y'
+					}
+		    	},
+		    	
+			    yAxis: {
+			    	/*
+			    	labels: {
+			    		formatter: function() {
+			    			return (this.value > 0 ? '+' : '') + this.value + '%';
+			    		}
+			    	},
+			    	*/
+			    	plotLines: [{
+			    		value: 0,
+			    		width: 2,
+			    		color: 'silver'
+			    	}]
+			    },
+				
+				navigator: {
+					enabled: true,
+					xAxis: {
+			    		dateTimeLabelFormats: 
+						{ 
+							second: '%Y-%m-%d<br/>%H:%M:%S',
+							minute: '%Y-%m-%d<br/>%H:%M',
+							hour: '%Y-%m-%d<br/>%H:%M',
+							day: '%Y<br/>%m-%d',
+							week: '%Y<br/>%m-%d',
+							month: '%Y-%m',
+							year: '%Y'
+						}
+		    	},
+					
+				},
+				
+			    legend: {
+			    	enabled: true,
+			    	align: 'right',
+		        	backgroundColor: '#FCFFC5',
+		        	borderColor: 'black',
+		        	borderWidth: 2,
+			    	layout: 'vertical',
+			    	verticalAlign: 'top',
+			    	y: 100,
+			    	shadow: true
+			    },	
+			    
+			    rangeSelector: { 
+			    	selected: 0, 
+			    	buttons: [
+				    	/*
+				    	{
+							type: 'month',
+							count: 3,
+							text: '3m'
+						},*/ {
+							type: 'month',
+							count: 6,
+							text: '6m'
+						}, {
+							type: 'ytd',
+							text: 'YTD'
+						}, {
+							type: 'year',
+							count: 1,
+							text: '1y'
+						}, {
+							type: 'all',
+							text: 'All'
+						}
+					],
+					inputDateFormat: '%Y-%m',
+					inputEditDateFormat: '%Y-%m'
+			    },
+			    /*
+			    plotOptions: {
+			    	series: {
+			    		compare: 'percent'
+			    	}
+			    },
+				*/			    
+			    tooltip: {
+			    	xDateFormat: '%Y-%m',
+			    	headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+			    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>', //({point.change}%)
+			    	//valueDecimals: 2
+			    },
+			    
+			    series: preparedData1
+			});
+			
+			chart = new Highcharts.StockChart({
+				credits: false,
+				
+			    chart: {
+			        renderTo: 'container2'
+			    },
+	
+			    rangeSelector: {
+			        selected: 4
+			    },
+				    
+			    title: {
+		       		text: '전월비'
+		    	},
+		    	
+			    yAxis: {
+			    	labels: {
+			    		formatter: function() {
+			    			return (this.value > 0 ? '+' : '') + this.value + '%';
+			    		}
+			    	},
+			    	plotLines: [{
+			    		value: 0,
+			    		width: 2,
+			    		color: 'silver'
+			    	}]
+			    },
+			    
+			    legend: {
+			    	enabled: true,
+			    	align: 'right',
+		        	backgroundColor: '#FCFFC5',
+		        	borderColor: 'black',
+		        	borderWidth: 2,
+			    	layout: 'vertical',
+			    	verticalAlign: 'top',
+			    	y: 100,
+			    	shadow: true
+			    },	
+			    
+			    plotOptions: {
+			    	series: {
+			    		compare: 'percent'
+			    	}
+			    },
+			    
+			    tooltip: {
+			    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+			    	valueDecimals: 2
+			    },
+			    
+			    series: seriesOptions
+			});
+
+			chart = new Highcharts.StockChart({
+				credits: false,
+				
+			    chart: {
+			        renderTo: 'container3'
+			    },
+	
+			    rangeSelector: {
+			        selected: 4
+			    },
+				    
+			    title: {
+		       		text: '전년동월비'
+		    	},
+		    	
+			    yAxis: {
+			    	labels: {
+			    		formatter: function() {
+			    			return (this.value > 0 ? '+' : '') + this.value + '%';
+			    		}
+			    	},
+			    	plotLines: [{
+			    		value: 0,
+			    		width: 2,
+			    		color: 'silver'
+			    	}]
+			    },
+			    legend: {
+			    	enabled: true,
+			    	align: 'right',
+		        	backgroundColor: '#FCFFC5',
+		        	borderColor: 'black',
+		        	borderWidth: 2,
+			    	layout: 'vertical',
+			    	verticalAlign: 'top',
+			    	y: 100,
+			    	shadow: true
+			    },			    
+			    plotOptions: {
+			    	series: {
+			    		compare: 'percent'
+			    	}
+			    },
+			    
+			    tooltip: {
+			    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+			    	valueDecimals: 2
+			    },
+			    
+			    series: seriesOptions
+			});
+		}
+	
 	});
 </script>
 </head>
 <body>
-<script type="text/javascript" src="js/libs/highcharts.js"></script>
+<script type="text/javascript" src="js/libs/highstock.js"></script>
 <script type="text/javascript" src="js/libs/modules/exporting.js"></script>
-<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div style="width: 550px">
+	<div id="container1" style="height: 500px; min-width: 600px"></div>
+	<div id="container2" style="height: 500px; min-width: 600px"></div>
+	<div id="container3" style="height: 500px; min-width: 600px"></div>
+</div>
 </body>
 </html>
