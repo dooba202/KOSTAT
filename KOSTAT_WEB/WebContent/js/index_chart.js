@@ -110,8 +110,8 @@ function( module, $, Backbone, _, Logger, chart){
 		
 		$('#chartContainer').append(chartView1.el);
 		$('#chartContainer').append(chartView2.el);
-		chartView1.render(temp_data2);
-		chartView2.render(temp_data3);
+		chartView1.render(temp_data2, "%");
+		chartView2.render(temp_data3, "%");
 		
 		$(function(){
 

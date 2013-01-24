@@ -42,7 +42,7 @@ function($,Backbone, _, Mustache, Logger) {
 			this.el = $("<div id="+ options.id + " style='" + "height:" + options.height + ";min-width:" + options.width + "'></div>");
 		},
 		
-		render : function(data) {
+		render : function(data, unit) {
  			this.chart = new Highcharts.StockChart({
  				credits: false,
  				
@@ -69,13 +69,15 @@ function($,Backbone, _, Mustache, Logger) {
  		    	},
  		    	
  			    yAxis: {
- 			    	/*
- 			    	labels: {
- 			    		formatter: function() {
- 			    			return (this.value > 0 ? '+' : '') + this.value + '%';
- 			    		}
- 			    	},
- 			    	*/
+ 			    	labels : {
+ 				    		formatter: function() {
+ 				    			if (unit == '%') {
+ 				    				return (this.value > 0 ? '+' : '') + this.value + '%';
+ 				    			} else {
+ 				    				return this.value + unit;
+ 				    			}
+ 				    		}
+ 				    },
  			    	plotLines: [{
  			    		value: 0,
  			    		width: 2,
@@ -149,7 +151,7 @@ function($,Backbone, _, Mustache, Logger) {
  			    tooltip: {
  			    	xDateFormat: '%Y-%m',
  			    	headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
- 			    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>', //({point.change}%)
+ 			    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}' + unit +'</b><br/>', //({point.change}%)
  			    	//valueDecimals: 2
  			    },
  			    
