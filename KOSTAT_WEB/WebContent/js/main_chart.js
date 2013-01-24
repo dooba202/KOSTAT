@@ -9,6 +9,8 @@ require.config({
 		'underscore': 'libs/underscore-min',
 		'backbone': 'libs/backbone-min',
 		'mustache': 'libs/mustache',
+		'highstock': 'libs/highstock',
+		'highstock.export': 'libs/modules/exporting'
 	},
 	'waitSeconds': 45,
 	'shim': 	{
@@ -28,6 +30,6 @@ require.config({
 	}
 });
 //'jquery','underscore','backbone', $, _, Backbone, 
-require(['index'], function(index) {
+require(['index_chart'], function(index) {
     index.init();
 });
