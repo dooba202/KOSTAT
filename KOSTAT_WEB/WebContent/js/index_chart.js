@@ -17,7 +17,7 @@ function( module, $, Backbone, _, Logger, chart){
 		logger.log("index.js init");
 		
 		var chartView1 = new chart({el: "chart1", title:"지수"});
-		var chartView2 = new chart({el: "chart2", title:"물량"});
+		var chartView2 = new chart({el: "chart2", title:"가자"});
 		
 		$(function(){
 

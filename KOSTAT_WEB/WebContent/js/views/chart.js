@@ -40,15 +40,14 @@ function($,Backbone, _, Mustache, Logger) {
 			this.el = options.el;
 			
 			var preparedData1 = [
-			         			{
-			         				name: "재고",				
-			         				marker : {
-			         					enabled : true,
-			         					radius : 3
-			         				},
-			         				data: [ [ Date.UTC(2012,0), 100 ],[ Date.UTC(2012,1), 200 ],[ Date.UTC(2012,2), 250 ],[ Date.UTC(2012,3), 300 ],[ Date.UTC(2012,4), 350 ],[ Date.UTC(2012,5), 400 ],[ Date.UTC(2012,6), 250 ],[ Date.UTC(2012,7), 350 ],[ Date.UTC(2012,8), 400 ],[ Date.UTC(2012,9), 350 ] ]	
-			         			}
-			         		
+	 			{
+	 				name: "재고",				
+	 				marker : {
+	 					enabled : true,
+	 					radius : 3
+	 				},
+	 				data: [ [ Date.UTC(2012,0), 100 ],[ Date.UTC(2012,1), 200 ],[ Date.UTC(2012,2), 250 ],[ Date.UTC(2012,3), 300 ],[ Date.UTC(2012,4), 350 ],[ Date.UTC(2012,5), 400 ],[ Date.UTC(2012,6), 250 ],[ Date.UTC(2012,7), 350 ],[ Date.UTC(2012,8), 400 ],[ Date.UTC(2012,9), 350 ] ]	
+	 			}
 			];
 			
 			this.chart = new Highcharts.StockChart({
