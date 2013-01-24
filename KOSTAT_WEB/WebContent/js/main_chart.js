@@ -10,7 +10,9 @@ require.config({
 		'backbone': 'libs/backbone-min',
 		'mustache': 'libs/mustache',
 		'highstock': 'libs/highstock',
-		'highstock.export': 'libs/modules/exporting'
+		'highstock.export': 'libs/modules/exporting',
+		'highstock.themes.gray': 'libs/themes/gray',
+		'highstock.themes.grid': 'libs/themes/grid'
 	},
 	'waitSeconds': 45,
 	'shim': 	{

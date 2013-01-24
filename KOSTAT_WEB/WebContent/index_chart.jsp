@@ -22,7 +22,6 @@
 <script data-main="js/main_chart" src="js/require.js"></script>
 </head>
 <body>
-	<div id="chart1" style="height: 500px; min-width: 600px"></div>
-	<div id="chart2" style="height: 500px; min-width: 600px"></div>
+	<div id="chartContainer"></div>
 </body>
 </html>
