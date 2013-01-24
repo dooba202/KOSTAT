@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+
+
+
+</head>
+<body>
+	<div> <!--브라우저 사이즈에 따라서 동적으로 가로 너비 변경-->
+		<div class="header" style="width:100%">
+			<div class="l-title" style="float:left;">
+				<div class="c-logo"></div><!--로고 영역-->
+			</div> <!--너비 고정-->
+			<div class="l-logout" style="float:right;">
+				<div class="c-logout"></div><!--로그아웃버튼 영역-->
+			</div> <!--너비 고정-->
+		</div>
+		<div class="side"> <!--너비%값-->
+			<div class="l-side" style="width: 50%;">
+				<div class="l-list">
+					<div id="c-list-1">
+					<!-- radio template -->
+					<div class="l-list-top"></div>
+						<ul>
+							<!-- {{#sanup}} -->
+							<li>
+								<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+								<label> {{name}} </label>
+							</li>
+							<!-- {{/sanup}} -->
+						</ul>
+					<!-- radio template end -->
+					</div>
+					<div class="l-list-bottom"></div>
+				</div> <!--min-height, max-height-->
+				<div class="l-list">
+					<div id="c-list-2"></div>
+				</div> <!--min-height, max-height-->
+			</div>
+			<div class="l-side" style="width: 50%;">
+				<div class="l-list">
+					<div id="c-list-3"></div>
+				</div> <!--min-height, max-height-->
+			</div>
+		</div>
+		<div class="main" style="border:1px solid #ccc;"> <!--너비%값-->
+			<div class="l-selector">
+				<div class="c-display-selected"></div>
+				<div class="c-date-spinner"></div>
+				<div class="c-search-button"></div>
+			</div>
+			<div class="l-category"></div>
+			<div class="l-chart"> <!-- 스크롤러 적용부분 -->
+				<div class="chart">
+					<div class="l-chart-title">
+						<div id="c-chart-title-1"></div>
+					</div>
+					<div id="c-chart-1"></div>
+				</div>
+				<div class="chart">
+					<div class="l-chart-title">
+						<div id="c-chart-title-2"></div>
+					</div>
+					<div id="c-chart-2"></div>
+				</div>
+				<div class="chart">
+					<div class="l-chart-title">
+						<div id="c-chart-title-3"></div>
+					</div>
+					<div id="c-chart-3"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+	
+</script>
+</body>
+</html>
