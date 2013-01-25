@@ -8,14 +8,14 @@ define([ 'jquery',
          'backbone', 
          'underscore', 
          'mustache', 
-         //'text!templates/xmlResult.html!strip',
+         'text!templates/chart.html!strip',
          'utils/local_logger',
          'highstock',
          'highstock.export',
          'highstock.themes.grid'
          ], 
 
-function($,Backbone, _, Mustache, Logger) {
+function($,Backbone, _, Mustache, template, Logger) {
 	var logger = new Logger("chartView");
 		logger.setLevel("ALL");
 		
@@ -38,8 +38,8 @@ function($,Backbone, _, Mustache, Logger) {
 
 		initialize : function(options) {
 			logger.log("chartView init");
-			//this.el = options.container;
-			this.el = $("<div id="+ options.id + " style='" + "height:" + options.height + ";min-width:" + options.width + "'></div>");
+			this.chartId = options.id;
+			this.el = Mustache.to_html(template,{id: options.id, title: options.title,width: options.width, height: options.height});
 		},
 		
 		render : function(data, unit) {
@@ -53,7 +53,7 @@ function($,Backbone, _, Mustache, Logger) {
  				credits: false,
  				
  			    chart: {
- 			        renderTo: this.el.attr("id")
+ 			        renderTo: this.chartId
  			    },
  			    /*
  			    title: {

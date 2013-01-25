@@ -6,14 +6,44 @@ define ([
 		 'underscore',
 		 'utils/local_logger',
 		 'views/chart',
-         'jquery.ui'
+         'jquery.ui',
+         'jquery.mCustomScrollbar',
+         'jquery.mousewheel'
 		 ], 
 
 function( module, $, Backbone, _, Logger, chart){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 	
-	/* sample data */	
+	/* sample data */
+	var temp_list1 = [
+	                  {"id": "xx","name": "xx1"},
+	                  {"id": "xx","name": "xx2"},
+	                  {"id": "xx","name": "xx3"},
+	                  {"id": "xx","name": "xx4"},
+	                  {"id": "xx","name": "xx5"},
+	                  {"id": "xx","name": "xx6"},
+	                  {"id": "xx","name": "xx7"}
+	                  ];	
+	var temp_list2 = [
+	                  {"id": "xx","name": "yy1"},
+	                  {"id": "xx","name": "yy2"},
+	                  {"id": "xx","name": "yy3"},
+	                  {"id": "xx","name": "yy4"},
+	                  {"id": "xx","name": "yy5"},
+	                  {"id": "xx","name": "yy6"},
+	                  {"id": "xx","name": "yy7"}
+	                  ];
+	var temp_list3 = [
+	                  {"id": "xx","name": "zz1"},
+	                  {"id": "xx","name": "zz2"},
+	                  {"id": "xx","name": "zz3"},
+	                  {"id": "xx","name": "zz4"},
+	                  {"id": "xx","name": "zz5"},
+	                  {"id": "xx","name": "zz6"},
+	                  {"id": "xx","name": "zz7"}
+	                  ];
+	
 	var temp_data1 = [
 		{
 			name: "내수",				
@@ -148,9 +178,9 @@ function( module, $, Backbone, _, Logger, chart){
 		logger.log("index.js init");
 		
 		/* chartView를 생성해서 el을 존재하는 dom node에 append한 후 render를 호출한다 */
-		var chartView1 = new chart({id: 'chartA', width: '600px', height: '500px'});
-		var chartView2 = new chart({id: 'chartB', width: '600px', height: '500px'});
-		var chartView3 = new chart({id: 'chartC', width: '600px', height: '500px'});
+		var chartView1 = new chart({id: 'chartA', title:"물량", width: '100px', height: '50px'});
+		var chartView2 = new chart({id: 'chartB', title:"전월비", width: '100px', height: '50px'});
+		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100px', height: '50px'});
 		
 		$('#chartContainer').append(chartView1.el);
 		$('#chartContainer').append(chartView2.el);
@@ -160,7 +190,39 @@ function( module, $, Backbone, _, Logger, chart){
 		chartView3.render(temp_data3, "%");
 		
 		$(function(){
-
+			var resizeWindow = function(){
+				$("#side, #main").css("height", function(){
+					var winHeight = document.documentElement.offsetHeight;
+					return winHeight - 168;
+				});
+				$(".l-chart").css("height", function(){
+					var winHeight = document.documentElement.offsetHeight;
+					return winHeight - 280;
+				});
+			};
+			$(window).bind("resize", resizeWindow);
+			resizeWindow();
+					
+			$(".l-chart").mCustomScrollbar({
+					scrollButtons:{
+						enable:true
+					},
+					
+					advanced:{
+						updateOnBrowserResize:true, 
+						updateOnContentResize:true
+					}
+			});
+			
+			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+					scrollButtons:{
+						enable:true
+					},
+					advanced:{
+						updateOnBrowserResize:true, 
+						updateOnContentResize:true
+					}
+			});
 		});		
 		//this.router = new router();
 	};
