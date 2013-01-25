@@ -17,6 +17,7 @@
 		height: 100%;
 		margin: 0;
 		padding: 0;
+		overflow-x: hidden;
 	}
 	#wrap {
 		-webkit-box-sizing: border-box;
@@ -50,7 +51,6 @@
 		width: 25%;
 		min-height: 600px;
 		vertical-align: top;
-		border: 1px solid #ccc;
 		background: transparent;
 	}
 	#main {
@@ -59,7 +59,7 @@
 		box-sizing: border-box;
 		display: inline-block;
 		width: 70%;
-		min-height: 600px;
+		/* min-height: 600px; */
 		vertical-align: top;
 		border: 1px solid #ccc;
 		background: #fff;
@@ -80,6 +80,76 @@
 		height: 120px;
 		background: url("images/header-l-logout.png") no-repeat;
 	}
+	.l-side {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		width: 50%;
+		padding: 0 10px 0 0;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.l-list {
+		border: 1px solid #ccc;
+		position: relative;
+	}
+	.l-list .l-list-top {
+		width: 100%;
+		height: 50px;
+		position: absolute;
+		background: url("images/side-l-list-top.png") no-repeat;
+		z-index: 999;
+	}
+	.l-list .l-list-top-bg {
+		width: 100%;
+		height: 50px;
+		position: relative;
+		background: url("images/side-l-list-top-bg.png") repeat-x;
+	}
+	.l-list .l-list-mid-5 {
+		height: 150px;
+	}
+	.l-list .l-list-mid-10 {
+		height: 300px;
+	}
+	.l-list ul {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		
+	}
+	.l-list ul li {
+	    display: inline-block;
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	    width: 100%;
+	    height: 30px;
+	    text-align: center;
+	    text-decoration: none;
+	    font-family: "Malgun Gothic", NG, 나눔고딕;
+	    font-size: 0.7em;
+	    line-height: 30px;
+	    background: -webkit-gradient(linear,left top,left bottom,from(#ffffff),to(#dcdcdc));
+		background: -moz-linear-gradient(top,#ffffff,#dcdcdc);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+	    cursor: pointer;
+	}
+	.l-list ul li:hover {
+	    background: #eee;
+	    -webkit-box-shadow: inset 0 0 6px #aaa;
+	    -moz-box-shadow: inset 0 0 6px #aaa;
+	    box-shadow: inset 0 0 6px #aaa;
+	    cursor: pointer;
+	}
+	.l-list ul li label {
+		cursor: pointer;
+	}
+	.l-list-bottom {
+		width: 100%;
+		height: 25px;
+		background: url("images/side-l-list-bottom.png") repeat-x;
+	}
 	.l-selector {
 		width: 100%;
 		height: 70px;
@@ -95,9 +165,18 @@
 	.l-chart {
 		height: 540px;
 	}
-	.chart {
-		height: 400px;
+	
+	.l-chart .l-chart-title {
+		width: 250px;
+		height: 55px;
+		background: url("images/chart-l-chart-title.png") no-repeat;
+	}
+	.l-chart .chart {
+		height: 350px;
 		/* border: 1px solid #ccc; */
+		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
+		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
 	}
 </style>
 
@@ -113,31 +192,150 @@
 			</div> <!--너비 고정-->
 		</div>
 		<div id="side"> <!--너비%값-->
-			<div class="l-side" style="width: 50%;">
+			<div class="l-side">
 				<div class="l-list">
-					<div id="c-list-1">
-					<!-- radio template -->
-					<div class="l-list-top"></div>
-						<ul>
-							<!-- {{#sanup}} -->
-							<li>
-								<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
-								<label> {{name}} </label>
-							</li>
-							<!-- {{/sanup}} -->
-						</ul>
-					<!-- radio template end -->
+						<div id="c-list-1">
+							<!-- radio template -->
+							<div class="l-list-top"></div>
+							<div class="l-list-top-bg"></div>
+							<div class="l-list-mid-5">
+								<ul>
+									<!-- {{#sanup}} -->
+									<li>
+										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+										<label> {{name}} </label>
+									</li>
+									<li>
+										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+										<label> {{name}} </label>
+									</li>
+									<li>
+										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+										<label> {{name}} </label>
+									</li>
+									<li>
+										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+										<label> {{name}} </label>
+									</li>
+									<li>
+										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+										<label> {{name}} </label>
+									</li>
+									<li>
+										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+										<label> {{name}} </label>
+									</li>
+									<!-- {{/sanup}} -->
+								</ul>
+							</div>
+							<div class="l-list-bottom"></div>
+							<!-- radio template end -->
+						</div>
+				</div>
+				<div class="l-list">
+					<div id="c-list-2">
+						<!-- radio template -->
+						<div class="l-list-top"></div>
+						<div class="l-list-top-bg"></div>
+						<div class="l-list-mid-5">
+							<ul>
+								<!-- {{#sanup}} -->
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<!-- {{/sanup}} -->
+							</ul>
+						</div>
+						<div class="l-list-bottom"></div>
+						<!-- radio template end -->
 					</div>
-					<div class="l-list-bottom"></div>
-				</div> <!--min-height, max-height-->
+					
+				</div>
+			</div><div class="l-side">
 				<div class="l-list">
-					<div id="c-list-2"></div>
-				</div> <!--min-height, max-height-->
-			</div>
-			<div class="l-side" style="width: 50%;">
-				<div class="l-list">
-					<div id="c-list-3"></div>
-				</div> <!--min-height, max-height-->
+					<div id="c-list-3">
+						<!-- radio template -->
+						<div class="l-list-top"></div>
+						<div class="l-list-top-bg"></div>
+						<div class="l-list-mid-10">
+							<ul>
+								<!-- {{#sanup}} -->
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<li>
+									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<label> {{name}} </label>
+								</li>
+								<!-- {{/sanup}} -->
+							</ul>
+						</div>
+						<div class="l-list-bottom"></div>
+						<!-- radio template end -->
+					</div>
+				</div>
 			</div>
 		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
 			<div class="l-selector">
@@ -173,14 +371,29 @@
 	$(function(){
 		var resizeWindow = function(){
 			$("#side, #main").css("height", function(){
-				var winHeight = document.documentElement.clientHeight;
-				return winHeight - 140;
+				var winHeight = document.documentElement.offsetHeight;
+				return winHeight - 168;
+			});
+			$(".l-chart").css("height", function(){
+				var winHeight = document.documentElement.offsetHeight;
+				return winHeight - 280;
 			});
 		};
 		$(window).bind("resize", resizeWindow);
 		resizeWindow();
 				
 		$(".l-chart").mCustomScrollbar({
+				scrollButtons:{
+					enable:true
+				},
+				
+				advanced:{
+					updateOnBrowserResize:true, 
+					updateOnContentResize:true
+				}
+		});
+		
+		$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 				scrollButtons:{
 					enable:true
 				},
