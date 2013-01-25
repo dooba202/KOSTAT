@@ -153,12 +153,12 @@
 	}
 	.l-selector {
 		width: 100%;
-		height: 70px;
+		height: 60px;
 		background: #fff;
 	}
 	.l-category {
 		width: 100%;
-		height: 40px;
+		height: 50px;
 		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
 		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
@@ -179,19 +179,63 @@
 		background: -moz-linear-gradient(top,#f5f5f5,#cccccc);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#cccccc');
 	}
-	
+	.c-date-from, .c-date-to {
+		min-width: 90px;
+		width: 120px;
+		height: 40px;
+	}
+	.c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
+		background: red !important;
+	}
+	.c-display-selected {
+		width: auto;
+		min-width: 100px;
+		height: 60px;
+		float: left;
+	}
+	.c-display-selected-1 {
+		width: 148px;
+		height: 50px;
+		margin-left: 2px;
+		display: inline-block;
+		background: url("images/main-c-display-selected-1.png") no-repeat;
+	}
+	.c-display-selected-2 {
+		width: 175px;
+		height: 50px;
+		margin-left: -28px;
+		display: inline-block;
+		background: url("images/main-c-display-selected-2.png") no-repeat;
+	}
+	.c-date-spinner {
+		width: auto;
+		min-width: 100px;
+		height: 60px;
+		padding: 1px;
+		float: left;
+	}
+	.c-search {
+		width: 170px;
+		height: 60px;
+		float: right;
+		text-align: right;
+	}
+	.c-search-button {
+		width: 154px;
+		height: 56px;
+		display: inline-block;
+		background: url("images/main-c-search-button.png") no-repeat;
+	}
+	.c-search-button {
+		display: inline-block;
+	}
 	
 	.ui-spinner {
 		border: 1px solid #656e84;
 		background: url("images/main-spinner-bg.png") repeat-x center center;
 	}
-	
 	.ui-spinner a.ui-spinner-button {
 		border-left: 1px solid #656e84;
-	}
-	
-	.spinner-year .ui-spinner-button {
-		background: red !important;
 	}
 </style>
 
@@ -354,12 +398,18 @@
 			</div>
 		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
 			<div class="l-selector">
-				<div class="c-display-selected"></div>
+				<div class="c-display-selected">
+					<div class="c-display-selected-1"></div>
+					<div class="c-display-selected-2"></div>
+					<div class="c-display-selected-2"></div>
+				</div>
 				<div class="c-date-spinner">
 					<input class="c-date-from" id="spinner" name="value" />
 					<input class="c-date-to" id="spinner" name="value" />
 				</div>
-				<div class="c-search-button"></div>
+				<div class="c-search">
+					<div class="c-search-button"></div>
+				</div>
 			</div>
 			<div class="l-category"></div>
 			<div class="l-chart"> <!-- 스크롤러 적용부분 -->
