@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all" />
 
 <script src="js/libs/jquery-1.8.3.min.js"></script>
@@ -174,9 +175,23 @@
 	.l-chart .chart {
 		height: 350px;
 		/* border: 1px solid #ccc; */
-		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
-		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
+		background: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#cccccc));
+		background: -moz-linear-gradient(top,#f5f5f5,#cccccc);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#cccccc');
+	}
+	
+	
+	.ui-spinner {
+		border: 1px solid #656e84;
+		background: url("images/main-spinner-bg.png") repeat-x center center;
+	}
+	
+	.ui-spinner a.ui-spinner-button {
+		border-left: 1px solid #656e84;
+	}
+	
+	.spinner-year .ui-spinner-button {
+		background: red !important;
 	}
 </style>
 
@@ -340,7 +355,10 @@
 		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
 			<div class="l-selector">
 				<div class="c-display-selected"></div>
-				<div class="c-date-spinner"></div>
+				<div class="c-date-spinner">
+					<input class="c-date-from" id="spinner" name="value" />
+					<input class="c-date-to" id="spinner" name="value" />
+				</div>
 				<div class="c-search-button"></div>
 			</div>
 			<div class="l-category"></div>
@@ -402,6 +420,8 @@
 					updateOnContentResize:true
 				}
 		});
+		
+		$(".c-date-from, .c-date-to").spinner();
 	})
 </script>
 </html>
