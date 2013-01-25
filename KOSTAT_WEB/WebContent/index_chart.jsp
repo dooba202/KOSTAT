@@ -10,6 +10,8 @@
 <title>통계청 Data Explorer PoC</title>
 <!-- link rel="shortcut icon" href="images/favicon.ico" -->
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all" />
 <style>
 	html, body {
 		height: 100%;
@@ -160,8 +162,8 @@
 		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
 	}
-	.l-chart {
-		height: 540px;
+	.l-chart {v
+		/* height: 540px; */
 	}
 	
 	.l-chart .l-chart-title {
@@ -170,7 +172,7 @@
 		background: url("images/chart-l-chart-title.png") no-repeat;
 	}
 	.l-chart .chart {
-		height: 350px;
+		/* height: 300px; */
 		/* border: 1px solid #ccc; */
 		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
 		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
