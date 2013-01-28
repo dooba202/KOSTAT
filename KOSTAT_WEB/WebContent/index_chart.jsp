@@ -221,9 +221,9 @@
 	.l-category {
 		width: 100%;
 		height: 50px;
-		background: -webkit-gradient(linear,left top,left bottom,from(#cccccc),to(#aaaaaa));
-		background: -moz-linear-gradient(top,#cccccc,#aaaaaa);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#aaaaaa');
+		background: -webkit-gradient(linear,left top,left bottom,from(#fefefe),to(#cecece));
+		background: -moz-linear-gradient(top,#fefefe,#cecece);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefefe', endColorstr='#cecece');
 	}
 	#c-category-title1 {
 		width: 134px;
