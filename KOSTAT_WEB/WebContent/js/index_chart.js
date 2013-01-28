@@ -178,9 +178,9 @@ function( module, $, Backbone, _, Logger, chart){
 		logger.log("index.js init");
 		
 		/* chartView를 생성해서 el을 존재하는 dom node에 append한 후 render를 호출한다 */
-		var chartView1 = new chart({id: 'chartA', title:"물량", width: '100px', height: '50px'});
-		var chartView2 = new chart({id: 'chartB', title:"전월비", width: '100px', height: '50px'});
-		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100px', height: '50px'});
+		var chartView1 = new chart({id: 'chartA', title:"물량", width: '100%', height: '350px'});
+		var chartView2 = new chart({id: 'chartB', title:"전월비", width: '100%', height: '350px'});
+		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100%', height: '350px'});
 		
 		$('#chartContainer').append(chartView1.el);
 		$('#chartContainer').append(chartView2.el);
@@ -224,6 +224,7 @@ function( module, $, Backbone, _, Logger, chart){
 					}
 			});
 		});		
+		$(".c-date-from, .c-date-to").spinner();
 		//this.router = new router();
 	};
 	return {

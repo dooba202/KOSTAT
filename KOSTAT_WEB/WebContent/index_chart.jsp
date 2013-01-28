@@ -10,6 +10,8 @@
 <title>통계청 Data Explorer PoC</title>
 <!-- link rel="shortcut icon" href="images/favicon.ico" -->
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all" />
 <style>
 	html, body {
 		height: 100%;
@@ -150,12 +152,12 @@
 	}
 	.l-selector {
 		width: 100%;
-		height: 70px;
+		height: 60px;
 		background: #fff;
 	}
 	.l-category {
 		width: 100%;
-		height: 40px;
+		height: 50px;
 		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
 		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
@@ -170,11 +172,69 @@
 		background: url("images/main-l-chart-title.png") no-repeat;
 	}
 	.l-chart .chart {
-		height: 350px;
+		/* height: 350px; should be much higher */
 		/* border: 1px solid #ccc; */
-		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
-		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
+		background: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#cccccc));
+		background: -moz-linear-gradient(top,#f5f5f5,#cccccc);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#cccccc');
+	}
+	.c-date-from, .c-date-to {
+		min-width: 90px;
+		width: 120px;
+		height: 40px;
+	}
+	.c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
+		background: red !important;
+	}
+	.c-display-selected {
+		width: auto;
+		min-width: 100px;
+		height: 60px;
+		float: left;
+	}
+	.c-display-selected-1 {
+		width: 148px;
+		height: 50px;
+		margin-left: 2px;
+		display: inline-block;
+		background: url("images/main-c-display-selected-1.png") no-repeat;
+	}
+	.c-display-selected-2 {
+		width: 175px;
+		height: 50px;
+		margin-left: -28px;
+		display: inline-block;
+		background: url("images/main-c-display-selected-2.png") no-repeat;
+	}
+	.c-date-spinner {
+		width: auto;
+		min-width: 100px;
+		height: 60px;
+		padding: 1px;
+		float: left;
+	}
+	.c-search {
+		width: 170px;
+		height: 60px;
+		float: right;
+		text-align: right;
+	}
+	.c-search-button {
+		width: 154px;
+		height: 56px;
+		display: inline-block;
+		background: url("images/main-c-search-button.png") no-repeat;
+	}
+	.c-search-button {
+		display: inline-block;
+	}
+	
+	.ui-spinner {
+		border: 1px solid #656e84;
+		background: url("images/main-spinner-bg.png") repeat-x center center;
+	}
+	.ui-spinner a.ui-spinner-button {
+		border-left: 1px solid #656e84;
 	}
 </style>
 <script>
@@ -346,9 +406,18 @@
 			</div>
 		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
 			<div class="l-selector">
-				<div class="c-display-selected"></div>
-				<div class="c-date-spinner"></div>
-				<div class="c-search-button"></div>
+				<div class="c-display-selected">
+					<div class="c-display-selected-1"></div>
+					<div class="c-display-selected-2"></div>
+					<div class="c-display-selected-2"></div>
+				</div>
+				<div class="c-date-spinner">
+					<input class="c-date-from" id="spinner" name="value" />
+					<input class="c-date-to" id="spinner" name="value" />
+				</div>
+				<div class="c-search">
+					<div class="c-search-button"></div>
+				</div>
 			</div>
 			<div class="l-category"></div>
 			<div class="l-chart" id="chartContainer"> <!-- 스크롤러 적용부분 -->
