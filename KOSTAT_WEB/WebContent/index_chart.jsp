@@ -201,9 +201,9 @@
 	.l-category {
 		width: 100%;
 		height: 50px;
-		background: -webkit-gradient(linear,left top,left bottom,from(#f1f6fd),to(#e3eefb));
-		background: -moz-linear-gradient(top,#f1f6fd,#e3eefb);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f6fd', endColorstr='#e3eefb');
+		background: -webkit-gradient(linear,left top,left bottom,from(#cccccc),to(#aaaaaa));
+		background: -moz-linear-gradient(top,#cccccc,#aaaaaa);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#aaaaaa');
 	}
 	#c-category-title1 {
 		width: 134px;

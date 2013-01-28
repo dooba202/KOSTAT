@@ -53,6 +53,10 @@ function($,Backbone, _, Mustache, template, Logger) {
  				credits: false,
  				
  			    chart: {
+ 			    	borderWidth: 0,
+ 			    	borderRadius: 0,
+ 			    	marginLeft: 10,
+ 			    	marginRight: 80,
  			        renderTo: this.chartId
  			    },
  			    /*
@@ -114,8 +118,10 @@ function($,Backbone, _, Mustache, template, Logger) {
  			    	enabled: true,
  			    	align: 'right',
  		        	backgroundColor: '#FCFFC5',
- 		        	borderColor: 'black',
- 		        	borderWidth: 2,
+ 		        	borderColor: '#cccccc',
+ 		        	borderWidth: 1,
+ 		        	borderRadius: 0,
+ 		        	margin: 20,
  			    	layout: 'vertical',
  			    	verticalAlign: 'top',
  			    	y: 100,
