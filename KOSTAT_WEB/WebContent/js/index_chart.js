@@ -224,6 +224,7 @@ function( module, $, Backbone, _, Logger, chart){
 					}
 			});
 		});		
+		$(".c-date-from, .c-date-to").spinner();
 		//this.router = new router();
 	};
 	return {
