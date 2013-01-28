@@ -247,7 +247,19 @@ function( module, $, Backbone, _, Logger, chart){
 					}
 			});
 		});		
-		$(".c-date-from, .c-date-to").datepicker();
+		$(".c-date-from, .c-date-to").datepicker({
+			dateFormat: 'mm/yy',
+			changeMonth:true,
+			changeYear:true,
+	        beforeShow: function(input, instance) { 
+	        	$(input).datepicker('setDate', new Date());
+	        },
+	        onChangeMonthYear: function(year, month) {
+	        //	$(this).datepicker('setDate', new Date(year, month));
+	        console.log(year+'/'+month);
+	        }
+		});
+		$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
 		//this.router = new router();
 	};
 	return {
