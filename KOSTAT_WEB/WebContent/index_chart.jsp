@@ -18,7 +18,6 @@
 		src:url(css/NGE.eot);
 		src:local(※),url(css/NGE.woff) format('woff')
 	}
-	
 	html, body {
 		height: 100%;
 		margin: 0;
@@ -112,35 +111,46 @@
 		border: 1px solid #ccc;
 		position: relative;
 	}
-	.l-list .l-list-top {
+	.l-list-top-title {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		width: 100%;
+		height: 50px;
+		border: 1px solid #ccc !important;
+		-webkit-border-radius: 0 !important;
+		-moz-border-radius: 0 !important;
+		border-radius: 0 !important;
+	}
+	.l-list-top {
 		width: 100%;
 		height: 50px;
 		position: absolute;
 		background: url("images/side-l-list-top.png") no-repeat;
 		z-index: 999;
 	}
-	.l-list .l-list-top .l-list-title1 {
+	.l-list-top .l-list-title1 {
 		width: 70px;
 		height: 24px;
 		margin-top: 12px;
 		margin-left: 10px;
 		background: url(images/side-l-list-title.png) 0 0 no-repeat;
 	}
-	.l-list .l-list-top .l-list-title2 {
+	.l-list-top .l-list-title2 {
 		width: 70px;
 		height: 24px;
 		margin-top: 12px;
 		margin-left: 10px;
 		background: url(images/side-l-list-title.png) 0 -48px no-repeat;
 	}
-	.l-list .l-list-top .l-list-title3 {
+	.l-list-top .l-list-title3 {
 		width: 70px;
 		height: 24px;
 		margin-top: 12px;
 		margin-left: 10px;
 		background: url(images/side-l-list-title.png) 0 -24px no-repeat;
 	}
-	.l-list .l-list-top-bg {
+	.l-list-top-bg {
 		width: 100%;
 		height: 50px;
 		position: relative;
@@ -156,7 +166,6 @@
 		padding: 0;
 		margin: 0;
 		width: 100%;
-		
 	}
 	.l-list ul li {
 	    display: inline-block;
@@ -179,11 +188,22 @@
 	    cursor: pointer;
 	}
 	.l-list ul li:hover {
-	    background: #eee;
-	    -webkit-box-shadow: inset 0 0 6px #aaa;
-	    -moz-box-shadow: inset 0 0 6px #aaa;
-	    box-shadow: inset 0 0 6px #aaa;
-	    cursor: pointer;
+		font-weight: bold;
+		color: #fff;
+		background: #ccc;
+		cursor: pointer;
+	}
+	.l-list ul li.selected {
+		font-weight: bold;
+	    color: #fff;
+	    background: #7dbae7;
+		background: #ffb001;
+		background: -webkit-gradient(linear,left top,left bottom,from(#ffb001),to(#ff8400));
+		background: -moz-linear-gradient(top,#ffb001,#ff8400);
+		-webkit-box-shadow: inset 0 0 6px #e42b00;
+		-moz-box-shadow: inset 0 0 6px #e42b00;
+		box-shadow: inset 0 0 6px #e42b00;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffb001', endColorstr='#ff8400');
 	}
 	.l-list ul li label {
 		cursor: pointer;
@@ -278,7 +298,7 @@
 		display: inline-block;
 		background: url("images/main-c-display-selected-1.png") no-repeat;
 	}
-	.c-display-selected-2 {
+	.c-display-selected-2, .c-display-selected-3 {
 		width: 175px;
 		height: 50px;
 		margin-left: -28px;
@@ -324,13 +344,16 @@
 		margin-right: 10px;
 		background: url("images/footer-c-logo-ibm.png") no-repeat;
 	}
-	.ui-spinner {
-		border: 1px solid #656e84;
-		background: url("images/main-spinner-bg.png") repeat-x center center;
+	.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+		border: none;
 	}
-	.ui-spinner a.ui-spinner-button {
-		border-left: 1px solid #656e84;
+	.ui-accordion .ui-accordion-icons {
+		padding: 0 !important;
 	}
+	.ui-accordion .ui-accordion-content {
+		padding: 0 !important;
+	}
+	
 </style>
 <script>
 	var require = {
@@ -355,9 +378,15 @@
 		</div>
 		<div id="side"> <!--너비%값-->
 			<div class="l-side">
+			<div id="accordion">
+				<div class="l-list-top-title">
+					<div class="l-list-top">
+						<div class="l-list-title1"></div>
+					</div>
+					<div class="l-list-top-bg"></div>
+				</div>
 				<div class="l-list">
 						<div id="c-list-1">
-							
 							<!-- radio template
 							<div class="l-list-top"></div>
 							<div class="l-list-top-bg"></div>
@@ -375,35 +404,32 @@
 							radio template end -->
 							
 							<!-- radio template -->
-							<div class="l-list-top">
-								<div class="l-list-title1"></div>
-							</div>
-							<div class="l-list-top-bg"></div>
+							
 							<div class="l-list-mid-5">
 								<ul>
 									<!-- {{#sanup}} -->
-									<li>
-										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<li class="sanup" id="san001">
+										<input type="radio" value="san001" name="sanup" style="display: none;">
 										<label> 의약품 </label>
 									</li>
-									<li>
-										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<li class="sanup" id="san002">
+										<input type="radio" value="san002" name="sanup" style="display: none;">
 										<label> 1차금속 </label>
 									</li>
-									<li>
-										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<li class="sanup" id="san003">
+										<input type="radio" value="san003" name="sanup" style="display: none;">
 										<label> 반도체및부품 </label>
 									</li>
-									<li>
-										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<li class="sanup" id="san004">
+										<input type="radio" value="san004" name="sanup" style="display: none;">
 										<label> 영상음향통신 </label>
 									</li>
-									<li>
-										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<li class="sanup" id="san005">
+										<input type="radio" value="san005" name="sanup" style="display: none;">
 										<label> 컴퓨터 </label>
 									</li>
-									<li>
-										<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+									<li class="sanup" id="{{id}}">
+										<input type="radio" value="{{id}}" name="sanup" style="display: none;">
 										<label> 전기장비 </label>
 									</li>
 									<!-- {{/sanup}} -->
@@ -413,37 +439,39 @@
 							<!-- radio template end -->
 						</div>
 				</div>
+				<div class="l-list-top-title">
+					<div class="l-list-top">
+						<div class="l-list-title2"></div>
+					</div>
+					<div class="l-list-top-bg"></div>
+				</div>
 				<div class="l-list">
 					<div id="c-list-2">
 						<!-- radio template -->
-						<div class="l-list-top">
-							<div class="l-list-title2"></div>
-						</div>
-						<div class="l-list-top-bg"></div>
 						<div class="l-list-mid-5">
 							<ul>
 								<!-- {{#sanup}} -->
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> SAUPNAME </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 아이티씨(주) </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 라니(주) </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 홍우선재(주) </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 대양전기공업(주) </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 금화전선(주) </label>
 								</li>
@@ -455,61 +483,63 @@
 					</div>
 					
 				</div>
+				<div class="l-list-top-title">
+					<div class="l-list-top">
+						<div class="l-list-title3"></div>
+					</div>
+					<div class="l-list-top-bg"></div>
+				</div>
 				<div class="l-list">
 					<div id="c-list-3">
 						<!-- radio template -->
-						<div class="l-list-top">
-							<div class="l-list-title3"></div>
-						</div>
-						<div class="l-list-top-bg"></div>
 						<div class="l-list-mid-10">
 							<ul>
 								<!-- {{#sanup}} -->
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 의약품 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 선철 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 슬랩 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 블룸 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 빌렛 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 합금철 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 봉강 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 철근 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 선재 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 형강 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 중후판 </label>
 								</li>
-								<li>
+								<li class="{{className}}" id="{{id}}">
 									<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
 									<label> 열연대강 </label>
 								</li>
@@ -521,12 +551,13 @@
 					</div>
 				</div>
 			</div>
+			</div>
 		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
 			<div class="l-selector">
 				<div class="c-display-selected">
 					<div class="c-display-selected-1">의약품</div>
 					<div class="c-display-selected-2">블룸</div>
-					<div class="c-display-selected-2">지오닉스(주)</div>
+					<div class="c-display-selected-3">지오닉스(주)</div>
 				</div>
 				<div class="c-date-picker">
 					<input class="c-date-from" name="value" />
@@ -540,6 +571,10 @@
 				<div id="c-category-title2"></div>
 			</div>
 			<div class="l-chart" id="chartContainer"> <!-- 스크롤러 적용부분 -->
+			</div>
+			<div id="footer">
+				<div id="c-logo-kostat"></div>
+				<div id="c-logo-ibm"></div>
 			</div>
 		</div>
 	</div>

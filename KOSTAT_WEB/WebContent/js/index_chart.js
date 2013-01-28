@@ -202,7 +202,30 @@ function( module, $, Backbone, _, Logger, chart){
 			};
 			$(window).bind("resize", resizeWindow);
 			resizeWindow();
-					
+			
+			$("#accordion").accordion({ heightStyle: "content" });
+			
+			var mCustomScrollSelectable = function(className) {
+				$(className).on("click", function(e) {
+					e.preventDefault();
+					var inputName = $(this).children("input").attr("name");
+					var liClass = $(this).attr("class");
+					var liId = $(this).attr("id");
+					var nameFilter = "[name='"+inputName+"']";
+					var valueFilter = "[value='"+liId+"']";
+					if($(this).hasClass("selected")) { 
+						// already selected 
+					} else {
+						$("li." + liClass ).removeClass("selected");
+						$("input").filter(nameFilter).removeAttr("checked");
+						$(this).addClass("selected");
+						$(this).children("input").filter(valueFilter).attr("checked", true);
+					}
+				});
+			};
+			
+			mCustomScrollSelectable(".l-list li");
+			
 			$(".l-chart").mCustomScrollbar({
 					scrollButtons:{
 						enable:true
