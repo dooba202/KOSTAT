@@ -353,7 +353,9 @@
 	.ui-accordion .ui-accordion-content {
 		padding: 0 !important;
 	}
-	
+	.ui-datepicker-calendar {
+    	display: none; !important
+	}	
 </style>
 <script>
 	var require = {
