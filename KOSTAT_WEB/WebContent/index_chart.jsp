@@ -167,7 +167,7 @@
 	.l-chart .l-chart-title {
 		width: 250px;
 		height: 55px;
-		background: url("images/chart-l-chart-title.png") no-repeat;
+		background: url("images/main-l-chart-title.png") no-repeat;
 	}
 	.l-chart .chart {
 		height: 350px;
