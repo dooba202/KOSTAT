@@ -54,7 +54,7 @@
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 		display: inline-block;
-		width: 25%;
+		width: 20%;
 		min-height: 600px;
 		vertical-align: top;
 		background: transparent;
@@ -64,7 +64,7 @@
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 		display: inline-block;
-		width: 70%;
+		width: 75%;
 		/* min-height: 600px; */
 		vertical-align: top;
 		border: 1px solid #ccc;
@@ -103,7 +103,7 @@
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
-		width: 50%;
+		width: 100%;
 		padding: 0 10px 0 0;
 		display: inline-block;
 		vertical-align: top;
@@ -285,7 +285,7 @@
 		display: inline-block;
 		background: url("images/main-c-display-selected-2.png") no-repeat;
 	}
-	.c-date-spinner {
+	.c-date-picker {
 		width: auto;
 		min-width: 100px;
 		height: 60px;
@@ -455,7 +455,6 @@
 					</div>
 					
 				</div>
-			</div><div class="l-side">
 				<div class="l-list">
 					<div id="c-list-3">
 						<!-- radio template -->
@@ -529,9 +528,9 @@
 					<div class="c-display-selected-2">블룸</div>
 					<div class="c-display-selected-2">지오닉스(주)</div>
 				</div>
-				<div class="c-date-spinner">
-					<input class="c-date-from" id="spinner" name="value" />
-					<input class="c-date-to" id="spinner" name="value" />
+				<div class="c-date-picker">
+					<input class="c-date-from" name="value" />
+					<input class="c-date-to" name="value" />
 				</div>
 				<div class="c-search">
 					<div class="c-search-button"></div>
