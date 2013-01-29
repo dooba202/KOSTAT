@@ -259,12 +259,10 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 			
 			$(".c-search-button").click(function(){
 				if (selections.length > 2) {
-					$(".placeholder").fadeOut("slow", function () {
-						$(this).css({display:"none"});
-						chartView1.render(temp_data1, "");
-						chartView2.render(temp_data2, "%");
-						chartView3.render(temp_data3, "%");
-					});
+					$(".placeholder").css({display:"none"});
+					chartView1.render(temp_data1, "");
+					chartView2.render(temp_data2, "%");
+					chartView3.render(temp_data3, "%");
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
