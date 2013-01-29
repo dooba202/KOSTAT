@@ -258,6 +258,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 			
 			$(".c-search-button").click(function(){
 				if (selections.length > 2) {
+					$(".placeholder").css("display","none");
 					chartView1.render(temp_data1, "");
 					chartView2.render(temp_data2, "%");
 					chartView3.render(temp_data3, "%");
