@@ -129,6 +129,7 @@ function($,Backbone, _, Mustache, template, Logger) {
  			    },	
  			    
  			    rangeSelector: { 
+ 			    	inputEnabled: false,
  			    	selected: 2, 
  			    	buttons: [
  				    	{
