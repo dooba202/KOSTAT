@@ -23,7 +23,8 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 	                  {"id": "san002","name": "1차금속"},
 	                  {"id": "san003","name": "반도체및부품"},
 	                  {"id": "san004","name": "영상음향통신"},
-	                  {"id": "san005","name": "컴퓨터"}
+	                  {"id": "san005","name": "컴퓨터"},
+	                  {"id": "san006","name": "전기장비"}
 	                 ];	
 	var temp_list2 = [
 	                  {"id": "saup000","name": "전체"},

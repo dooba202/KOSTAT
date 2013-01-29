@@ -32,8 +32,8 @@ function( module, $, Backbone, _, Logger, xmlResult){
 			  return resultObj;
 
 		}
-		//var myTest = new restTest;
 		$(function(){
+			/*
 		    $.ajax({
 		        url: "http://211.109.180.11/vivisimo/cgi-bin/velocity.exe",
 		        //url: 'xml/test.xml',
@@ -54,7 +54,7 @@ function( module, $, Backbone, _, Logger, xmlResult){
 		        	);
 		        }
 		    });
-
+		    */
 		});		
 		//this.router = new router();
 	};
