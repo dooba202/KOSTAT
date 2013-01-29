@@ -63,12 +63,14 @@
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 		display: inline-block;
+		position: relative;
 		width: 75%;
 		/* min-height: 600px; */
 		vertical-align: top;
 		border: 1px solid #ccc;
 		background: #fff;
 	}
+	
 	.l-title {
 		float: left;
 		margin-top: -10px;
@@ -92,9 +94,9 @@
 		background: url("images/header-l-logout.png") no-repeat;
 	}
 	.c-logout {
-		width: 120px;
-		height: 36px;
-		margin: 44px auto;
+		width: 80px;
+		height: 24px;
+		margin: 48px auto;
 		background: url("images/header-c-logout.png") no-repeat;
 		cursor: pointer;
 	}
@@ -248,7 +250,16 @@
 	}
 	
 	.l-chart {
+		position: relative;
 		height: 540px;
+	}
+	.l-chart .placeholder {
+		width: 100%;
+		height: 540px;
+		position: absolute;
+		background: url("images/main-c-placeholder.png") center center no-repeat #ffffff;
+		display: block;
+		z-index: 999;
 	}
 	
 	.l-chart .l-chart-title {
@@ -280,13 +291,19 @@
 	    border-radius: 4px;
 		background: url("images/main-datepicker-bg.png") center center  repeat-x;
 	}
+	.c-date-from-text, .c-date-to-text {
+		height: 15px;
+		display: inline-block;
+		vertical-align: bottom;
+	}
+	.c-date-from-text { width: 46px; background: url("images/main-c-date-from.png") no-repeat; }
+	.c-date-to-text { width: 26px; background: url("images/main-c-date-to.png") no-repeat; }
 	.c-date-from, .c-date-to {
 		min-width: 90px;
 		width: 120px;
 		height: 46px;
-		font-family: arial;
-		font-size: 1.8em;
-		font-weight: bold;
+		font-family: NGE, "NanumGothic", 나눔고딕;
+		font-size: 1.2em;
 		color: #fff;
 		text-align: center;
 	}
@@ -374,8 +391,8 @@
 	#ui-datepicker-div {
 		border: none;
 		border-radius: 0;
-		padding: 0;
-		background: transparent;
+		padding: 2px;
+		background: #fff;
 	}
 </style>
 <script>
@@ -412,8 +429,8 @@
 					<div class="c-display-selected-3">품목 분류</div>
 				</div>
 				<div class="c-date-picker">
-					<input class="c-date-from" name="value" />
-					<input class="c-date-to" name="value" />
+					<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
+					<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
 				</div>
 				<div class="c-search">
 					<div class="c-search-button"></div>
@@ -422,7 +439,8 @@
 			<div class="l-category">
 				<div id="c-category-title2"></div>
 			</div>
-			<div class="l-chart" id="chartContainer"> <!-- 스크롤러 적용부분 -->
+			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
+				<div class="placeholder"></div>
 			</div>
 			<div id="footer">
 				<div id="c-logo-ibm"></div>

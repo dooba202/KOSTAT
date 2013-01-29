@@ -225,7 +225,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 					var winHeight = document.documentElement.offsetHeight;
 					return winHeight - 168;
 				});
-				$(".l-chart").css("height", function(){
+				$(".l-chart, .placeholder").css("height", function(){
 					var winHeight = document.documentElement.offsetHeight;
 					return winHeight - 280;
 				});
