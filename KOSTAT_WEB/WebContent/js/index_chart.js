@@ -5,43 +5,48 @@ define ([
 		 'backbone', 
 		 'underscore',
 		 'utils/local_logger',
+		 'views/listMenu',
 		 'views/chart',
          'jquery.ui',
          'jquery.mCustomScrollbar',
          'jquery.mousewheel'
 		 ], 
 
-function( module, $, Backbone, _, Logger, chart){
+function( module, $, Backbone, _, Logger, listMenu, chart){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 	
+	var selections = []; //to store category selections
 	/* sample data */
 	var temp_list1 = [
-	                  {"id": "xx","name": "xx1"},
-	                  {"id": "xx","name": "xx2"},
-	                  {"id": "xx","name": "xx3"},
-	                  {"id": "xx","name": "xx4"},
-	                  {"id": "xx","name": "xx5"},
-	                  {"id": "xx","name": "xx6"},
-	                  {"id": "xx","name": "xx7"}
-	                  ];	
+	                  {"id": "san001","name": "의약품"},
+	                  {"id": "san002","name": "1차금속"},
+	                  {"id": "san003","name": "반도체및부품"},
+	                  {"id": "san004","name": "영상음향통신"},
+	                  {"id": "san005","name": "컴퓨터"}
+	                 ];	
 	var temp_list2 = [
-	                  {"id": "xx","name": "yy1"},
-	                  {"id": "xx","name": "yy2"},
-	                  {"id": "xx","name": "yy3"},
-	                  {"id": "xx","name": "yy4"},
-	                  {"id": "xx","name": "yy5"},
-	                  {"id": "xx","name": "yy6"},
-	                  {"id": "xx","name": "yy7"}
+	                  {"id": "saup000","name": "전체"},
+	                  {"id": "saup001","name": "아이티씨(주)"},
+	                  {"id": "saup002","name": "라니(주)"},
+	                  {"id": "saup003","name": "홍우선재(주)"},
+	                  {"id": "saup004","name": "대양전기공업(주)"},
+	                  {"id": "saup005","name": "금화전선(주)"}
 	                  ];
 	var temp_list3 = [
-	                  {"id": "xx","name": "zz1"},
-	                  {"id": "xx","name": "zz2"},
-	                  {"id": "xx","name": "zz3"},
-	                  {"id": "xx","name": "zz4"},
-	                  {"id": "xx","name": "zz5"},
-	                  {"id": "xx","name": "zz6"},
-	                  {"id": "xx","name": "zz7"}
+	                  {"id": "prod000","name": "전체"},
+	                  {"id": "prod001","name": "의약품"},
+	                  {"id": "prod002","name": "선철"},
+	                  {"id": "prod003","name": "슬랩"},
+	                  {"id": "prod004","name": "블룸"},
+	                  {"id": "prod005","name": "빌렛"},
+	                  {"id": "prod006","name": "합금철"},
+	                  {"id": "prod007","name": "봉강"},
+	                  {"id": "prod008","name": "철근"},
+	                  {"id": "prod009","name": "선재"},
+	                  {"id": "prod0010","name": "형강"},
+	                  {"id": "prod0011","name": "중후판"},
+	                  {"id": "prod0012","name": "열연대강"}
 	                  ];
 	
 	var temp_data1 = [
@@ -174,20 +179,45 @@ function( module, $, Backbone, _, Logger, chart){
 		}
 	];
 	
+	/* utility function to make menu selectable */
+	var mCustomScrollSelectable = function(className) {
+		$(className).on("click", function(e) {
+			e.preventDefault();
+			var inputName = $(this).children("input").attr("name");
+			var liClass = $(this).attr("class");
+			var liId = $(this).attr("id");
+			var nameFilter = "[name='"+inputName+"']";
+			var valueFilter = "[value='"+liId+"']";
+			if($(this).hasClass("selected")) { 
+				// already selected 
+			} else {
+				$("li." + liClass ).removeClass("selected");
+				$("input").filter(nameFilter).removeAttr("checked");
+				$(this).addClass("selected");
+				$(this).children("input").filter(valueFilter).attr("checked", true);
+			}
+		});
+	};	
+	
 	var init = function(){
 		logger.log("index.js init");
 		
+		var listMenuView1 = new listMenu;
+		var listMenuView2 = new listMenu;
+		var listMenuView3 = new listMenu;
 		/* chartView를 생성해서 el을 존재하는 dom node에 append한 후 render를 호출한다 */
 		var chartView1 = new chart({id: 'chartA', title:"물량", width: '100%', height: '350px'});
 		var chartView2 = new chart({id: 'chartB', title:"전월비", width: '100%', height: '350px'});
 		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100%', height: '350px'});
 		
+		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
+		$("#accordion").append(listMenuView2.render({listNumber:2, className: "saup", list: temp_list2}).el);
+		$("#accordion").append(listMenuView3.render({listNumber:3, className: "product", list: temp_list3}).el);
+		mCustomScrollSelectable(".l-list li");
+		
 		$('#chartContainer').append(chartView1.el);
 		$('#chartContainer').append(chartView2.el);
 		$('#chartContainer').append(chartView3.el);
-		chartView1.render(temp_data1, "");
-		chartView2.render(temp_data2, "%");
-		chartView3.render(temp_data3, "%");
 		
 		$(function(){
 			var resizeWindow = function(){
@@ -204,27 +234,6 @@ function( module, $, Backbone, _, Logger, chart){
 			resizeWindow();
 			
 			$("#accordion").accordion({ heightStyle: "content" });
-			
-			var mCustomScrollSelectable = function(className) {
-				$(className).on("click", function(e) {
-					e.preventDefault();
-					var inputName = $(this).children("input").attr("name");
-					var liClass = $(this).attr("class");
-					var liId = $(this).attr("id");
-					var nameFilter = "[name='"+inputName+"']";
-					var valueFilter = "[value='"+liId+"']";
-					if($(this).hasClass("selected")) { 
-						// already selected 
-					} else {
-						$("li." + liClass ).removeClass("selected");
-						$("input").filter(nameFilter).removeAttr("checked");
-						$(this).addClass("selected");
-						$(this).children("input").filter(valueFilter).attr("checked", true);
-					}
-				});
-			};
-			
-			mCustomScrollSelectable(".l-list li");
 			
 			$(".l-chart").mCustomScrollbar({
 					scrollButtons:{
@@ -246,21 +255,57 @@ function( module, $, Backbone, _, Logger, chart){
 						updateOnContentResize:true
 					}
 			});
+			
+			$(".c-search-button").click(function(){
+				if (selections.length > 2) {
+					chartView1.render(temp_data1, "");
+					chartView2.render(temp_data2, "%");
+					chartView3.render(temp_data3, "%");
+				} else {
+					alert("모든 분류가 선택되지 않았습니다.");
+				}
+			});
 		});		
 		$(".c-date-from, .c-date-to").datepicker({
-			dateFormat: 'mm/yy',
+			dateFormat: 'yy년 mm월',
+			currentText: "이번달",
+			closeText: "완료",
 			changeMonth:true,
 			changeYear:true,
+			showButtonPanel: true,
 	        beforeShow: function(input, instance) { 
 	        	$(input).datepicker('setDate', new Date());
 	        },
 	        onChangeMonthYear: function(year, month) {
 	        //	$(this).datepicker('setDate', new Date(year, month));
-	        console.log(year+'/'+month);
+	        	console.log(year+'/'+month);
 	        }
 		});
-		$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
+		//$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
 		//this.router = new router();
+		
+		eventHandler = {
+				"selectClick": function(className, id, label) {
+					if (className =="sanup") {
+						$(".c-display-selected-1").text(label);
+						selections[0] = id;
+					} else if (className == "saup") {
+						$(".c-display-selected-2").text(label);
+						selections[1] = id;
+					} else if (className == "product") {
+						$(".c-display-selected-3").text(label);
+						selections[2] = id;
+					}
+				}
+		};
+		
+		eventListenerRegister = function(eventName, eventSource) {
+			eventSource.on(eventName, eventHandler[eventName], this);
+		};
+		
+		/* event binding start */
+		eventListenerRegister("selectClick", listMenuView1);
+		/* event binding end */
 	};
 	return {
 		'init': init
