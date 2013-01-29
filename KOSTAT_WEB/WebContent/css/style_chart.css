@@ -233,7 +233,6 @@ html, body {
 	position: relative;
 	background: url("../images/main-c-category-title.png") 0 -72px no-repeat;
 }
-
 .l-chart {
 	position: relative;
 	height: 540px;
@@ -341,6 +340,7 @@ html, body {
 	height: 56px;
 	display: inline-block;
 	background: url("../images/main-c-search-button.png") no-repeat;
+	cursor: pointer;
 }
 .c-search-button {
 	display: inline-block;

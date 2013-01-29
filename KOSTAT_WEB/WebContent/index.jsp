@@ -37,9 +37,9 @@
 			<div class="l-side">
 				<div id="l-side-selector">
 					<div class="c-keyword-set">
-						<input type="radio" name="all" value="전체"><label>전체</label>
-						<input type="radio" name="plus" value="증가"><label>증가</label>
-						<input type="radio" name="minus" value="감소"><label>감소</label>
+						<input type="radio" id="all" name="keyword" value="전체"><label for="all">전체</label>
+						<input type="radio" id="plus" name="keyword" value="증가"><label for="plus">증가</label>
+						<input type="radio" id="minus" name="keyword" value="감소"><label for="minus">감소</label>
 					</div>
 					<div class="c-date-picker">
 						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
@@ -56,16 +56,24 @@
 					<div class="c-display-selected-2">사업체 분류</div>
 					<div class="c-display-selected-3">품목 분류</div>
 				</div>
+				<div class="l-search-box">
+					<input id="c-search-box" type="text" value="검색어 입력창" />
+					<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
+				</div>
 				<div class="c-search">
 					<div class="c-search-button"></div>
 				</div>
 			</div>
-			<div class="l-category">
-				<div id="c-category-title2"></div>
-			</div>
 			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
 				<div class="placeholder"></div>
-				<div id="results"></div>
+				<div class="chart">
+					<div class="l-chart-title">
+						<div id="c-chart-title-1">{{title}}</div>
+					</div>
+					<div id="ed" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 20px; width: 100%; background: #fff;">
+						<div id="results"></div>
+					</div>
+				</div>
 			</div>
 			<div id="footer">
 				<div id="c-logo-ibm"></div>
