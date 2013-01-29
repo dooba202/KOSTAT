@@ -289,6 +289,10 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 	        	$(this).datepicker('setDate', selectedDate);
 	        }
 		});
+		var today = new Date();
+		var eightYago = new Date(today.getFullYear()-8, today.getMonth());
+		$(".c-date-from").datepicker('setDate', eightYago);
+		$(".c-date-to").datepicker('setDate', today);
 		//$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
 		//this.router = new router();
 		
