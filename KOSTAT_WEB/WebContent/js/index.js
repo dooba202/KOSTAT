@@ -147,7 +147,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 
 		}
 		$(function(){
-			/*
+			
 		    $.ajax({
 		        url: "http://211.109.180.11/vivisimo/cgi-bin/velocity.exe",
 		        //url: 'xml/test.xml',
@@ -168,7 +168,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 		        	);
 		        }
 		    });
-		    */
+		    
 		});		
 		//this.router = new router();
 		
