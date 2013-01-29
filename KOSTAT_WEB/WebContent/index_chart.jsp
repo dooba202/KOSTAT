@@ -575,8 +575,8 @@
 			<div class="l-chart" id="chartContainer"> <!-- 스크롤러 적용부분 -->
 			</div>
 			<div id="footer">
-				<div id="c-logo-kostat"></div>
 				<div id="c-logo-ibm"></div>
+				<div id="c-logo-kostat"></div>
 			</div>
 		</div>
 	</div>
