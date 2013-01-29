@@ -270,15 +270,22 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 			dateFormat: 'yy년 mm월',
 			currentText: "이번달",
 			closeText: "완료",
+			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 			changeMonth:true,
 			changeYear:true,
 			showButtonPanel: true,
+			/*
 	        beforeShow: function(input, instance) { 
 	        	$(input).datepicker('setDate', new Date());
 	        },
+	        */
+	        onClose: function(dateText, inst) {
+	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth);
+	        	$(this).datepicker('setDate', selectedDate);
+	        },
 	        onChangeMonthYear: function(year, month) {
-	        //	$(this).datepicker('setDate', new Date(year, month));
-	        	console.log(year+'/'+month);
+	        	var selectedDate = new Date(year, month -1);
+	        	$(this).datepicker('setDate', selectedDate);
 	        }
 		});
 		//$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
