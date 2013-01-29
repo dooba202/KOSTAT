@@ -291,7 +291,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 	        }
 		});
 		var today = new Date();
-		var eightYago = new Date(today.getFullYear()-8, today.getMonth());
+		var eightYago = new Date(2005, 6);
 		$(".c-date-from").datepicker('setDate', eightYago);
 		$(".c-date-to").datepicker('setDate', today);
 		//$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
