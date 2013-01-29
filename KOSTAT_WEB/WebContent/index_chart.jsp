@@ -270,10 +270,25 @@
 		background: -moz-linear-gradient(top,#f5f5f5,#cccccc);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#cccccc');
 	}
+	.hasDatepicker {
+		-webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	    border: 1px solid #555;
+	    -webkit-border-radius: 4px;
+	    -moz-border-radius: 4px;
+	    border-radius: 4px;
+		background: url("images/main-datepicker-bg.png") center center  repeat-x;
+	}
 	.c-date-from, .c-date-to {
 		min-width: 90px;
 		width: 120px;
-		height: 40px;
+		height: 46px;
+		font-family: arial;
+		font-size: 1.8em;
+		font-weight: bold;
+		color: #fff;
+		text-align: center;
 	}
 	.c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
 		background: red !important;
@@ -355,7 +370,13 @@
 	}
 	.ui-datepicker-calendar {
     	display: none; !important
-	}	
+	}
+	#ui-datepicker-div {
+		border: none;
+		border-radius: 0;
+		padding: 0;
+		background: transparent;
+	}
 </style>
 <script>
 	var require = {
@@ -404,8 +425,8 @@
 			<div class="l-chart" id="chartContainer"> <!-- 스크롤러 적용부분 -->
 			</div>
 			<div id="footer">
-				<div id="c-logo-kostat"></div>
 				<div id="c-logo-ibm"></div>
+				<div id="c-logo-kostat"></div>
 			</div>
 		</div>
 	</div>
