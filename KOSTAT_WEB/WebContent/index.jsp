@@ -9,6 +9,8 @@
 
 <title>통계청 Data Explorer PoC</title>
 <!-- link rel="shortcut icon" href="images/favicon.ico" -->
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 <script>
 	var require = {
@@ -22,6 +24,6 @@
 <script data-main="js/main" src="js/require.js"></script>
 </head>
 <body>
-	<div id="results"></div>
+	<!-- <div id="results"></div> -->
 </body>
 </html>

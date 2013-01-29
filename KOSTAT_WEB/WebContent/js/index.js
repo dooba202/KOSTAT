@@ -5,16 +5,130 @@ define ([
 		 'backbone', 
 		 'underscore',
 		 'utils/local_logger',
+		 'views/listMenu',
 		 'views/xmlResult',
-         'jquery.ui'
+         'jquery.ui',
+         'jquery.mCustomScrollbar',
+         'jquery.mousewheel'
 		 ], 
 
-function( module, $, Backbone, _, Logger, xmlResult){
+function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
+		
+	var selections = []; //to store category selections
+	/* sample data */
+	var temp_list1 = [
+	                  {"id": "san001","name": "의약품"},
+	                  {"id": "san002","name": "1차금속"},
+	                  {"id": "san003","name": "반도체및부품"},
+	                  {"id": "san004","name": "영상음향통신"},
+	                  {"id": "san005","name": "컴퓨터"},
+	                  {"id": "san006","name": "전기장비"}
+	                 ];	
+	var temp_list2 = [
+	                  {"id": "saup000","name": "전체"},
+	                  {"id": "saup001","name": "아이티씨(주)"},
+	                  {"id": "saup002","name": "라니(주)"},
+	                  {"id": "saup003","name": "홍우선재(주)"},
+	                  {"id": "saup004","name": "대양전기공업(주)"},
+	                  {"id": "saup005","name": "금화전선(주)"}
+	                  ];
+	var temp_list3 = [
+	                  {"id": "prod000","name": "전체"},
+	                  {"id": "prod001","name": "의약품"},
+	                  {"id": "prod002","name": "선철"},
+	                  {"id": "prod003","name": "슬랩"},
+	                  {"id": "prod004","name": "블룸"},
+	                  {"id": "prod005","name": "빌렛"},
+	                  {"id": "prod006","name": "합금철"},
+	                  {"id": "prod007","name": "봉강"},
+	                  {"id": "prod008","name": "철근"},
+	                  {"id": "prod009","name": "선재"},
+	                  {"id": "prod0010","name": "형강"},
+	                  {"id": "prod0011","name": "중후판"},
+	                  {"id": "prod0012","name": "열연대강"}
+	                  ];
+	/* utility function to make menu selectable */
+	var mCustomScrollSelectable = function(className) {
+		$(className).on("click", function(e) {
+			e.preventDefault();
+			var inputName = $(this).children("input").attr("name");
+			var liClass = $(this).attr("class");
+			var liId = $(this).attr("id");
+			var nameFilter = "[name='"+inputName+"']";
+			var valueFilter = "[value='"+liId+"']";
+			if($(this).hasClass("selected")) { 
+				// already selected 
+			} else {
+				$("li." + liClass ).removeClass("selected");
+				$("input").filter(nameFilter).removeAttr("checked");
+				$(this).addClass("selected");
+				$(this).children("input").filter(valueFilter).attr("checked", true);
+			}
+		});
+	};	
 	
 	var init = function(){
 		logger.log("index.js init");
+		
+		var listMenuView1 = new listMenu;
+		var listMenuView2 = new listMenu;
+		var listMenuView3 = new listMenu;
+		
+		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
+		$("#accordion").append(listMenuView2.render({listNumber:2, className: "saup", list: temp_list2}).el);
+		$("#accordion").append(listMenuView3.render({listNumber:3, className: "product", list: temp_list3}).el);
+		mCustomScrollSelectable(".l-list li");
+		
+		$(function(){
+			var resizeWindow = function(){
+				$("#side, #main").css("height", function(){
+					var winHeight = document.documentElement.offsetHeight;
+					return winHeight - 168;
+				});
+				$(".l-chart, .placeholder").css("height", function(){
+					var winHeight = document.documentElement.offsetHeight;
+					return winHeight - 280;
+				});
+			};
+			$(window).bind("resize", resizeWindow);
+			resizeWindow();
+			
+			$("#accordion").accordion({ heightStyle: "content" });
+			
+			$(".l-chart").mCustomScrollbar({
+					scrollButtons:{
+						enable:true
+					},
+					
+					advanced:{
+						updateOnBrowserResize:true, 
+						updateOnContentResize:true
+					}
+			});
+			
+			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+					scrollButtons:{
+						enable:true
+					},
+					advanced:{
+						updateOnBrowserResize:true, 
+						updateOnContentResize:true
+					}
+			});
+			
+			$(".c-search-button").click(function(){
+				if (selections.length > 2) {
+					$(".placeholder").css({display:"none"});
+					//chartView1.render(temp_data1, "");
+					//chartView2.render(temp_data2, "%");
+					//chartView3.render(temp_data3, "%");
+				} else {
+					alert("모든 분류가 선택되지 않았습니다.");
+				}
+			});
+		});
 		
 		var resultView = new xmlResult;
 		function parseXml(xml) {
@@ -57,6 +171,29 @@ function( module, $, Backbone, _, Logger, xmlResult){
 		    */
 		});		
 		//this.router = new router();
+		
+		eventHandler = {
+				"selectClick": function(className, id, label) {
+					if (className =="sanup") {
+						$(".c-display-selected-1").text(label);
+						selections[0] = id;
+					} else if (className == "saup") {
+						$(".c-display-selected-2").text(label);
+						selections[1] = id;
+					} else if (className == "product") {
+						$(".c-display-selected-3").text(label);
+						selections[2] = id;
+					}
+				}
+		};
+		
+		eventListenerRegister = function(eventName, eventSource) {
+			eventSource.on(eventName, eventHandler[eventName], this);
+		};
+		
+		/* event binding start */
+		eventListenerRegister("selectClick", listMenuView1);
+		/* event binding end */
 	};
 	return {
 		'init': init
