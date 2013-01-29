@@ -96,7 +96,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 			resizeWindow();
 			
 			$("#accordion").accordion({ heightStyle: "content" });
-			
+			$(".c-keyword-set").buttonset();
 			$(".l-chart").mCustomScrollbar({
 					scrollButtons:{
 						enable:true
@@ -129,6 +129,32 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 				}
 			});
 		});
+		$(".c-date-from, .c-date-to").datepicker({
+			dateFormat: 'yy년 mm월',
+			currentText: "이번달",
+			closeText: "완료",
+			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			changeMonth:true,
+			changeYear:true,
+			showButtonPanel: true,
+			/*
+	        beforeShow: function(input, instance) { 
+	        	$(input).datepicker('setDate', new Date());
+	        },
+	        */
+	        onClose: function(dateText, inst) {
+	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth);
+	        	$(this).datepicker('setDate', selectedDate);
+	        },
+	        onChangeMonthYear: function(year, month) {
+	        	var selectedDate = new Date(year, month -1);
+	        	$(this).datepicker('setDate', selectedDate);
+	        }
+		});
+		var today = new Date();
+		var eightYago = new Date(2005, 6);
+		$(".c-date-from").datepicker('setDate', eightYago);
+		$(".c-date-to").datepicker('setDate', today);
 		
 		var resultView = new xmlResult;
 		function parseXml(xml) {

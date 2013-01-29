@@ -35,6 +35,17 @@
 		</div>
 		<div id="side"> <!--너비%값-->
 			<div class="l-side">
+				<div id="l-side-selector">
+					<div class="c-keyword-set">
+						<input type="radio" name="all" value="전체"><label>전체</label>
+						<input type="radio" name="plus" value="증가"><label>증가</label>
+						<input type="radio" name="minus" value="감소"><label>감소</label>
+					</div>
+					<div class="c-date-picker">
+						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
+						<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+					</div>
+				</div>
 				<div id="accordion">
 				</div>
 			</div>
@@ -45,10 +56,6 @@
 					<div class="c-display-selected-2">사업체 분류</div>
 					<div class="c-display-selected-3">품목 분류</div>
 				</div>
-				<div class="c-date-picker">
-					<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
-					<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
-				</div>
 				<div class="c-search">
 					<div class="c-search-button"></div>
 				</div>
@@ -57,7 +64,7 @@
 				<div id="c-category-title2"></div>
 			</div>
 			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
-				<!-- <div class="placeholder"></div> -->
+				<div class="placeholder"></div>
 				<div id="results"></div>
 			</div>
 			<div id="footer">
