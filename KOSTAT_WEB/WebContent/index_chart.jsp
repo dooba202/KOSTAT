@@ -42,8 +42,8 @@
 			<div class="l-selector">
 				<div class="c-display-selected">
 					<div class="c-display-selected-1">산업 분류</div>
-					<div class="c-display-selected-2">사업체 분류</div>
-					<div class="c-display-selected-3">품목 분류</div>
+					<div class="c-display-selected-2">품목 분류</div>
+					<div class="c-display-selected-3">사업체 분류</div>
 				</div>
 				<div class="c-date-picker">
 					<span class="c-date-from-text"></span><input class="c-date-from" name="value" />

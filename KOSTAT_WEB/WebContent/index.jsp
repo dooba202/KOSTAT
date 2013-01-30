@@ -53,8 +53,8 @@
 			<div class="l-selector">
 				<div class="c-display-selected">
 					<div class="c-display-selected-1">산업 분류</div>
-					<div class="c-display-selected-2">사업체 분류</div>
-					<div class="c-display-selected-3">품목 분류</div>
+					<div class="c-display-selected-2">품목 분류</div>
+					<div class="c-display-selected-3">사업체 분류</div>
 				</div>
 				<div class="l-search-box">
 					<input id="c-search-box" type="text" placeholder="검색어 입력창" />
@@ -68,7 +68,7 @@
 				<div class="placeholder"></div>
 				<div class="chart">
 					<div class="l-chart-title">
-						<div id="c-chart-title-1">{{title}}</div>
+						<div id="c-chart-title-1"></div>
 					</div>
 					<div id="ed" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 20px; width: 100%; background: #fff;">
 						<div id="results"></div>

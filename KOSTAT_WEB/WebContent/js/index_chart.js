@@ -27,14 +27,6 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 	                  {"id": "san006","name": "전기장비"}
 	                 ];	
 	var temp_list2 = [
-	                  {"id": "saup000","name": "전체"},
-	                  {"id": "saup001","name": "아이티씨(주)"},
-	                  {"id": "saup002","name": "라니(주)"},
-	                  {"id": "saup003","name": "홍우선재(주)"},
-	                  {"id": "saup004","name": "대양전기공업(주)"},
-	                  {"id": "saup005","name": "금화전선(주)"}
-	                  ];
-	var temp_list3 = [
 	                  {"id": "prod000","name": "전체"},
 	                  {"id": "prod001","name": "의약품"},
 	                  {"id": "prod002","name": "선철"},
@@ -48,6 +40,14 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 	                  {"id": "prod0010","name": "형강"},
 	                  {"id": "prod0011","name": "중후판"},
 	                  {"id": "prod0012","name": "열연대강"}
+	                  ];
+	var temp_list3 = [
+	                  {"id": "saup000","name": "전체"},
+	                  {"id": "saup001","name": "아이티씨(주)"},
+	                  {"id": "saup002","name": "라니(주)"},
+	                  {"id": "saup003","name": "홍우선재(주)"},
+	                  {"id": "saup004","name": "대양전기공업(주)"},
+	                  {"id": "saup005","name": "금화전선(주)"}
 	                  ];
 	
 	var temp_data1 = [
@@ -212,8 +212,8 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100%', height: '350px'});
 		
 		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
-		$("#accordion").append(listMenuView2.render({listNumber:2, className: "saup", list: temp_list2}).el);
-		$("#accordion").append(listMenuView3.render({listNumber:3, className: "product", list: temp_list3}).el);
+		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
+		$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: temp_list3}).el);
 		mCustomScrollSelectable(".l-list li");
 		
 		$('#chartContainer').append(chartView1.el);
@@ -263,6 +263,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 					chartView1.render(temp_data1, "");
 					chartView2.render(temp_data2, "%");
 					chartView3.render(temp_data3, "%");
+					$("#c-chart-title-1").text("사업체별");
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
@@ -302,13 +303,13 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 					if (className =="sanup") {
 						$(".c-display-selected-1").text(label);
 						selections[0] = id;
-					} else if (className == "saup") {
+					} else if (className == "product") {
 						$(".c-display-selected-2").text(label);
 						selections[1] = id;
-					} else if (className == "product") {
+					} else if (className == "saup") {
 						$(".c-display-selected-3").text(label);
 						selections[2] = id;
-					}
+					} 
 				}
 		};
 		
