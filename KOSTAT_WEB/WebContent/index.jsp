@@ -37,7 +37,7 @@
 			<div class="l-side">
 				<div id="l-side-selector">
 					<div class="c-keyword-set">
-						<input type="radio" id="all" name="keyword" value="전체" checked><label for="all">전체</label>
+						<input type="radio" id="all" name="keyword" value="전체"><label for="all">전체</label>
 						<input type="radio" id="plus" name="keyword" value="증가"><label for="plus">증가</label>
 						<input type="radio" id="minus" name="keyword" value="감소"><label for="minus">감소</label>
 					</div>
@@ -57,7 +57,7 @@
 					<div class="c-display-selected-3">사업체 분류</div>
 				</div>
 				<div class="l-search-box">
-					<input id="c-search-box" type="text" placeholder="추가검색어를 입력해주세요." />
+					<input id="c-search-box" type="text" placeholder="검색어 입력창" />
 					<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
 				</div>
 				<div class="c-search">
