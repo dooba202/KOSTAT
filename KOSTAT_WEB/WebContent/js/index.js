@@ -7,12 +7,13 @@ define ([
 		 'utils/local_logger',
 		 'views/listMenu',
 		 'views/xmlResult',
+		 'views/dataExplorer',
          'jquery.ui',
          'jquery.mCustomScrollbar',
          'jquery.mousewheel'
 		 ], 
 
-function( module, $, Backbone, _, Logger, listMenu, xmlResult){
+function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 		
@@ -76,6 +77,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
 		var listMenuView3 = new listMenu;
+		var dataExplorerView1 = new dataExplorer;
 		
 		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
 		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
@@ -124,16 +126,20 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
 					$("#c-chart-title-1").text("사업체별");
-					//chartView1.render(temp_data1, "");
-					//chartView2.render(temp_data2, "%");
-					//chartView3.render(temp_data3, "%");
+					//$('#results').append(dataExplorerView1.render().el);
+					var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '995px'></iframe>");
+					var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '995px'></iframe>");
+					var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '995px'></iframe>");
+					$('#frame1').append(frame1);
+					$('#frame2').append(frame2);
+					$('#frame3').append(frame3);
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
 			});
 		});
 		$(".c-date-from, .c-date-to").datepicker({
-			dateFormat: 'yy년 mm월',
+			dateFormat: 'yy년 m월',
 			currentText: "이번달",
 			closeText: "완료",
 			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
