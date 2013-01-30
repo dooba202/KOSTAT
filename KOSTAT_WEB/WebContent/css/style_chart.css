@@ -174,7 +174,7 @@ html, body {
     padding-left: 10px;
     text-align: center;
     text-decoration: none;
-    font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+    font-family: "NanumGothic", 나눔고딕, NGE, "Malgun Gothic";
     font-size: 0.8em;
     text-align: left;
     line-height: 30px;

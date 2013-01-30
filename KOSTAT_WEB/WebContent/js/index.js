@@ -99,6 +99,9 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			resizeWindow();
 			
 			$("#accordion").accordion({ heightStyle: "content" });
+			$("#accordion").on( "accordionactivate", function( event, ui ) {
+				
+			});
 			$(".c-keyword-set").buttonset();
 			
 			$(".l-chart").mCustomScrollbar({
