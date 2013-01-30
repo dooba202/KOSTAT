@@ -68,13 +68,21 @@
 				<div class="placeholder"></div>
 				<div class="chart">
 					<div class="l-chart-title">
-						<div id="c-chart-title-1"></div>
+						<div id="c-chart-title-1">지정사이트</div>
 					</div>
-					<div id="ed" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 20px; width: 100%; background: #fff;">
-						<div id="frame1"></div>
-						<div id="frame2"></div>
-						<div id="frame3"></div>
+					<div class="iframe" id="frame1"></div>
+				</div>
+				<div class="chart">
+					<div class="l-chart-title">
+						<div id="c-chart-title-1">경제뉴스</div>
 					</div>
+					<div class="iframe" id="frame2"></div>
+				</div>
+				<div class="chart">
+					<div class="l-chart-title">
+						<div id="c-chart-title-1">포털</div>
+					</div>
+					<div class="iframe" id="frame3"></div>
 				</div>
 			</div>
 			<div id="footer">
