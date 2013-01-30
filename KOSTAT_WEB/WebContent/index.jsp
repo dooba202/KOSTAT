@@ -57,7 +57,7 @@
 					<div class="c-display-selected-3">품목 분류</div>
 				</div>
 				<div class="l-search-box">
-					<input id="c-search-box" type="text" value="검색어 입력창" />
+					<input id="c-search-box" type="text" placeholder="검색어 입력창" />
 					<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
 				</div>
 				<div class="c-search">
