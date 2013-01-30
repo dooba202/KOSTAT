@@ -28,7 +28,6 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 	                  {"id": "san006","name": "전기장비"}
 	                 ];	
 	var temp_list2 = [
-	                  {"id": "prod000","name": "전체"},
 	                  {"id": "prod001","name": "의약품"},
 	                  {"id": "prod002","name": "선철"},
 	                  {"id": "prod003","name": "슬랩"},
@@ -43,7 +42,6 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 	                  {"id": "prod0012","name": "열연대강"}
 	                  ];
 	var temp_list3 = [
-	                  {"id": "saup000","name": "전체"},
 	                  {"id": "saup001","name": "아이티씨(주)"},
 	                  {"id": "saup002","name": "라니(주)"},
 	                  {"id": "saup003","name": "홍우선재(주)"},
