@@ -65,6 +65,7 @@
 			</div>
 			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
 				<div class="placeholder"></div>
+				<iframe src="js/templates/example.html" width="600px" height="350px"></iframe>
 				<div id="results"></div>
 			</div>
 			<div id="footer">
