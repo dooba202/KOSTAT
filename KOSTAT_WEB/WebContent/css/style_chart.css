@@ -1,7 +1,7 @@
 @font-face{
 	font-family:NGE;
 	src:url(NGE.eot);
-	src:local(※),url(NGE.woff) format('woff')
+	src:local(��,url(NGE.woff) format('woff')
 }
 html, body {
 	height: 100%;
@@ -164,7 +164,7 @@ html, body {
     padding-left: 10px;
     text-align: center;
     text-decoration: none;
-    font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+    font-family: NGE, "NanumGothic", �섎닎怨좊뵓,  "Malgun Gothic";
     font-size: 0.8em;
     text-align: left;
     line-height: 30px;
@@ -233,7 +233,6 @@ html, body {
 	position: relative;
 	background: url("../images/main-c-category-title.png") 0 -72px no-repeat;
 }
-
 .l-chart {
 	position: relative;
 	height: 540px;
@@ -254,7 +253,7 @@ html, body {
 	padding: 8px;
 }
 .l-chart .l-chart-title div {
-	font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓,  "Malgun Gothic";
 	font-size: 20pt;
 	color: #777;
 	text-align: left;
@@ -287,7 +286,7 @@ html, body {
 	min-width: 90px;
 	width: 120px;
 	height: 46px;
-	font-family: NGE, "NanumGothic", 나눔고딕;
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓;
 	font-size: 1.2em;
 	color: #fff;
 	text-align: center;
@@ -302,7 +301,7 @@ html, body {
 	float: left;
 }
 .c-display-selected div {
-	font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓,  "Malgun Gothic";
 	font-size: 0.8em;
 	color: #fff;
 	text-align: center;
@@ -341,6 +340,7 @@ html, body {
 	height: 56px;
 	display: inline-block;
 	background: url("../images/main-c-search-button.png") no-repeat;
+	cursor: pointer;
 }
 .c-search-button {
 	display: inline-block;

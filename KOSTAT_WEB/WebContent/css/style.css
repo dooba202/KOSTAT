@@ -1,7 +1,7 @@
 @font-face{
 	font-family:NGE;
 	src:url(NGE.eot);
-	src:local(※),url(NGE.woff) format('woff')
+	src:local(��,url(NGE.woff) format('woff')
 }
 html, body {
 	height: 100%;
@@ -95,9 +95,18 @@ html, body {
 	vertical-align: top;
 }
 #l-side-selector {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	width: 100%;
-	height: 100px;
+	height: auto;
+	padding: 5px;
 	border: 1px solid #ccc;
+	background: #fff;
+}
+.c-keyword-set .ui-button-text {
+	font-family: "NanumGothic", �섎닎怨좊뵓, NGE;
+	font-size: 0.8em;
 }
 .l-list {
 	border: 1px solid #ccc;
@@ -169,11 +178,11 @@ html, body {
     padding-left: 10px;
     text-align: center;
     text-decoration: none;
-    font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+    font-family: "NanumGothic", �섎닎怨좊뵓, NGE, "Malgun Gothic";
     font-size: 0.8em;
     text-align: left;
     line-height: 30px;
-    color: #777;
+    color: #555;
     background: -webkit-gradient(linear,left top,left bottom,from(#ffffff),to(#dcdcdc));
 	background: -moz-linear-gradient(top,#ffffff,#dcdcdc);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
@@ -210,48 +219,18 @@ html, body {
 	height: 60px;
 	background: #fff;
 }
-.l-category {
-	width: 100%;
-	height: 50px;
-	background: -webkit-gradient(linear,left top,left bottom,from(#fefefe),to(#cecece));
-	background: -moz-linear-gradient(top,#fefefe,#cecece);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefefe', endColorstr='#cecece');
-}
-#c-category-title1 {
-	width: 134px;
-	height: 36px;
-	top: 12px;
-	position: relative;
-	background: url("../images/main-c-category-title.png") 0 0 no-repeat;
-}
-#c-category-title2 {
-	width: 134px;
-	height: 36px;
-	top: 12px;
-	position: relative;
-	background: url("../images/main-c-category-title.png") 0 -36px no-repeat;
-}
-#c-category-title3 {
-	width: 134px;
-	height: 36px;
-	top: 12px;
-	position: relative;
-	background: url("../images/main-c-category-title.png") 0 -72px no-repeat;
-}
-
 .l-chart {
 	position: relative;
-	height: 540px;
+	height: 590px;
 }
 .l-chart .placeholder {
 	width: 100%;
-	height: 540px;
+	height: 590px;
 	position: absolute;
 	background: url("../images/main-c-placeholder.png") center center no-repeat #ffffff;
 	display: block;
 	z-index: 999;
 }
-
 .l-chart .l-chart-title {
 	width: 250px;
 	height: 55px;
@@ -259,7 +238,7 @@ html, body {
 	padding: 8px;
 }
 .l-chart .l-chart-title div {
-	font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓,  "Malgun Gothic";
 	font-size: 20pt;
 	color: #777;
 	text-align: left;
@@ -289,11 +268,10 @@ html, body {
 .c-date-from-text { width: 46px; background: url("../images/main-c-date-from.png") no-repeat; }
 .c-date-to-text { width: 26px; background: url("../images/main-c-date-to.png") no-repeat; }
 .c-date-from, .c-date-to {
-	min-width: 90px;
-	width: 120px;
-	height: 46px;
-	font-family: NGE, "NanumGothic", 나눔고딕;
-	font-size: 1.2em;
+	width: 80px;
+	height: 30px;
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓;
+	font-size: 0.7em;
 	color: #fff;
 	text-align: center;
 }
@@ -306,8 +284,28 @@ html, body {
 	height: 60px;
 	float: left;
 }
+.l-search-box {
+	widtlh: auto;
+	height: 60px;
+	float: left;
+}
+#c-search-box {
+	width: 240px;
+	height: 40px;
+	margin: 2px 10px;
+	padding: 4px;
+	border: 1px solid #ccc;
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓;
+	font-size: 1.2em;
+	color: #ccc;
+}
+.l-search-box label {
+	font-family: "NanumGothic", �섎닎怨좊뵓, NGE;
+	font-size: 1.2em;
+	color: #555;
+}
 .c-display-selected div {
-	font-family: NGE, "NanumGothic", 나눔고딕,  "Malgun Gothic";
+	font-family: NGE, "NanumGothic", �섎닎怨좊뵓,  "Malgun Gothic";
 	font-size: 0.8em;
 	color: #fff;
 	text-align: center;
@@ -328,12 +326,9 @@ html, body {
 	background: url("../images/main-c-display-selected-2.png") no-repeat;
 }
 .c-date-picker {
-	width: auto;
-	min-width: 100px;
-	height: 60px;
-	margin-left: 20px;
+	width: 100%;
 	padding: 1px;
-	float: left;
+	margin: 10px auto 0 auto;
 }
 .c-search {
 	width: 170px;
@@ -346,6 +341,7 @@ html, body {
 	height: 56px;
 	display: inline-block;
 	background: url("../images/main-c-search-button.png") no-repeat;
+	cursor: pointer;
 }
 .c-search-button {
 	display: inline-block;
@@ -385,4 +381,12 @@ html, body {
 	background: #fff;
 	position: absolute;
 	z-index: 9999 !important;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background: -webkit-gradient(linear,left top,left bottom,from(#ffb001),to(#ff8400));
+	background: -moz-linear-gradient(top,#ffb001,#ff8400);
+	-webkit-box-shadow: inset 0 0 6px #e42b00;
+	-moz-box-shadow: inset 0 0 6px #e42b00;
+	box-shadow: inset 0 0 6px #e42b00;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffb001', endColorstr='#ff8400');
 }

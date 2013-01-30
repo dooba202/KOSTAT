@@ -89,7 +89,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 				});
 				$(".l-chart, .placeholder").css("height", function(){
 					var winHeight = document.documentElement.offsetHeight;
-					return winHeight - 280;
+					return winHeight - 230;
 				});
 			};
 			$(window).bind("resize", resizeWindow);
@@ -97,6 +97,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult){
 			
 			$("#accordion").accordion({ heightStyle: "content" });
 			$(".c-keyword-set").buttonset();
+			
 			$(".l-chart").mCustomScrollbar({
 					scrollButtons:{
 						enable:true
