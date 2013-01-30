@@ -9,7 +9,8 @@ define ([
 		 'views/chart',
          'jquery.ui',
          'jquery.mCustomScrollbar',
-         'jquery.mousewheel'
+         'jquery.mousewheel',
+         'jquery.showLoading'
 		 ], 
 
 function( module, $, Backbone, _, Logger, listMenu, chart){
@@ -300,6 +301,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 		
 		eventHandler = {
 				"selectClick": function(className, id, label) {
+					//$('.c-display-selected-1').showLoading();
 					if (className =="sanup") {
 						$(".c-display-selected-1").text(label);
 						selections[0] = id;
@@ -310,6 +312,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 						$(".c-display-selected-3").text(label);
 						selections[2] = id;
 					} 
+					//setTimeout(function(){$('.c-display-selected-1').hideLoading();},1500);
 				}
 		};
 		
