@@ -28,7 +28,6 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 	                  {"id": "san006","name": "전기장비"}
 	                 ];	
 	var temp_list2 = [
-	                  {"id": "prod000","name": "전체"},
 	                  {"id": "prod001","name": "의약품"},
 	                  {"id": "prod002","name": "선철"},
 	                  {"id": "prod003","name": "슬랩"},
@@ -43,7 +42,6 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 	                  {"id": "prod0012","name": "열연대강"}
 	                  ];
 	var temp_list3 = [
-	                  {"id": "saup000","name": "전체"},
 	                  {"id": "saup001","name": "아이티씨(주)"},
 	                  {"id": "saup002","name": "라니(주)"},
 	                  {"id": "saup003","name": "홍우선재(주)"},
@@ -70,6 +68,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			}
 		});
 	};	
+	var resolved = false;
 	
 	var init = function(){
 		logger.log("index.js init");
@@ -77,7 +76,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
 		var listMenuView3 = new listMenu;
-		var dataExplorerView1 = new dataExplorer;
+		//var dataExplorerView1 = new dataExplorer;
 		
 		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
 		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
@@ -141,12 +140,15 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					$(".placeholder").css({display:"none"});
 					//$("#c-chart-title-1").text("사업체별");
 					//$('#results').append(dataExplorerView1.render().el);
-					var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-					var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-					var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-					$('#frame1').append(frame1);
-					$('#frame2').append(frame2);
-					$('#frame3').append(frame3);
+					if (!resolved) {
+						var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						$('#frame1').append(frame1);
+						$('#frame2').append(frame2);
+						$('#frame3').append(frame3);
+						resolved = true;
+					}
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
