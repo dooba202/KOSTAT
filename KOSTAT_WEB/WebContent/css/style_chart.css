@@ -280,6 +280,8 @@ html, body {
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    height: 46px;
+    line-height: 46px;
     border: 1px solid #555;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -296,11 +298,11 @@ html, body {
 .c-date-from, .c-date-to {
 	min-width: 90px;
 	width: 120px;
-	height: 46px;
 	font-family: NGE, "NanumGothic", 나눔고딕;
 	font-size: 1.2em;
 	color: #fff;
 	text-align: center;
+	line-height: 46px;
 }
 .c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
 	background: red !important;
