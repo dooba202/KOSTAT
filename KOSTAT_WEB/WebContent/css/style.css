@@ -286,6 +286,7 @@ html, body {
 	font-family: NGE, "NanumGothic", 나눔고딕;
 	font-size: 0.7em;
 	color: #fff;
+	line-height: 30px;
 	text-align: center;
 }
 .c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
@@ -311,6 +312,7 @@ html, body {
 	font-family: NGE, "NanumGothic", 나눔고딕;
 	font-size: 1.2em;
 	color: #ccc;
+	line-height: 40px;
 }
 .l-search-box label {
 	font-family: "NanumGothic", 나눔고딕, NGE;
