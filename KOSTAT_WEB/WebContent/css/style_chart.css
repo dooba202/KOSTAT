@@ -223,6 +223,9 @@ html, body {
 	background: -moz-linear-gradient(top,#fefefe,#cecece);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefefe', endColorstr='#cecece');
 }
+.l-category div {
+	display: none;
+}
 #c-category-title1 {
 	width: 134px;
 	height: 36px;
