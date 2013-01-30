@@ -68,6 +68,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			}
 		});
 	};	
+	var resolved = false;
 	
 	var init = function(){
 		logger.log("index.js init");
@@ -75,7 +76,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
 		var listMenuView3 = new listMenu;
-		var dataExplorerView1 = new dataExplorer;
+		//var dataExplorerView1 = new dataExplorer;
 		
 		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
 		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
@@ -136,12 +137,15 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					$(".placeholder").css({display:"none"});
 					//$("#c-chart-title-1").text("사업체별");
 					//$('#results').append(dataExplorerView1.render().el);
-					var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-					var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-					var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-					$('#frame1').append(frame1);
-					$('#frame2').append(frame2);
-					$('#frame3').append(frame3);
+					if (!resolved) {
+						var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						$('#frame1').append(frame1);
+						$('#frame2').append(frame2);
+						$('#frame3').append(frame3);
+						resolved = true;
+					}
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
