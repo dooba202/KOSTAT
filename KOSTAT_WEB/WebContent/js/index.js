@@ -112,6 +112,17 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					}
 			});
 			
+			$("iframe").mCustomScrollbar({
+				scrollButtons:{
+					enable:true
+				},
+				
+				advanced:{
+					updateOnBrowserResize:true, 
+					updateOnContentResize:true
+				}
+			});
+			
 			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 					scrollButtons:{
 						enable:true
@@ -125,11 +136,11 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			$(".c-search-button").click(function(){
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
-					$("#c-chart-title-1").text("사업체별");
+					//$("#c-chart-title-1").text("사업체별");
 					//$('#results').append(dataExplorerView1.render().el);
-					var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '995px'></iframe>");
-					var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '995px'></iframe>");
-					var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '995px'></iframe>");
+					var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+					var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+					var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
 					$('#frame1').append(frame1);
 					$('#frame2').append(frame2);
 					$('#frame3').append(frame3);
