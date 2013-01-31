@@ -265,7 +265,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 					chartView1.render(temp_data1, "");
 					chartView2.render(temp_data2, "%");
 					chartView3.render(temp_data3, "%");
-					$("#c-chart-title-1").text("사업체별");
+					//$("#c-chart-title-1").text("사업체별");
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
