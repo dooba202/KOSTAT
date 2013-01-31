@@ -156,7 +156,7 @@
 		background: url('images/login-l-pw-focus.png') !important;
 	}
 	#footer {
-		margin-top: 60px;
+		margin: 60px 120px;
 		text-align: center;
 	}
 	#c-logo-kostat {
