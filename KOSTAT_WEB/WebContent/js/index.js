@@ -141,7 +141,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					//$("#c-chart-title-1").text("사업체별");
 					//$('#results').append(dataExplorerView1.render().el);
 					if (!resolved) {
-						var frame1 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						var frame1 = $("<iframe src='http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=%EC%B2%A0%EA%B0%95' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
 						var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
 						var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
 						$('#frame1').append(frame1);
