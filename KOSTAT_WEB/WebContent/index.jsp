@@ -26,12 +26,15 @@
 <body>
 	<div id="wrap"> <!--브라우저 사이즈에 따라서 동적으로 가로 너비 변경-->
 		<div id="header">
-			<div class="l-title">
-				<div class="c-logo"></div><!--로고 영역-->
-			</div> <!--너비 고정-->
-			<div class="l-logout">
-				<div class="c-logout"></div><!--로그아웃버튼 영역-->
-			</div> <!--너비 고정-->
+			<div class="l-header-content">
+				<div class="l-title">
+					<div class="c-logo"></div><!--로고 영역-->
+				</div> <!--너비 고정-->
+				<div class="l-logout">
+					<div class="c-logout"></div><!--로그아웃버튼 영역-->
+				</div> <!--너비 고정-->
+				</div>
+			<div class="l-header-border"></div>
 		</div>
 		<div id="side"> <!--너비%값-->
 			<div class="l-side">
