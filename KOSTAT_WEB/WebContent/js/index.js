@@ -76,8 +76,9 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
 		var listMenuView3 = new listMenu;
-		//var dataExplorerView1 = new dataExplorer;
-		
+		var dataExplorerView1 = new dataExplorer({"width": "100%","height": "320px"});
+		var dataExplorerView2 = new dataExplorer({"width": "100%","height": "320px"});
+		var dataExplorerView3 = new dataExplorer({"width": "100%","height": "320px"});
 		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
 		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
 		$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: temp_list3}).el);
@@ -139,15 +140,25 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
 					//$("#c-chart-title-1").text("사업체별");
-					//$('#results').append(dataExplorerView1.render().el);
+					var queryString = $('#c-search-box').val(); 
 					if (!resolved) {
-						var frame1 = $("<iframe src='http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=%EC%B2%A0%EA%B0%95' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-						var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-						var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-						$('#frame1').append(frame1);
-						$('#frame2').append(frame2);
-						$('#frame3').append(frame3);
+						//var frame1 = $("<iframe src='http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=%EC%B2%A0%EA%B0%95' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						//var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						//var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+						$('#frame1').append(dataExplorerView1.el);
+						$('#frame2').append(dataExplorerView2.el);
+						$('#frame3').append(dataExplorerView3.el);
+						
+						dataExplorerView1.query(queryString);
+						dataExplorerView2.query(queryString);
+						dataExplorerView3.query(queryString);
+						//$('#frame2').append(frame2);
+						//$('#frame3').append(frame3);
 						resolved = true;
+					} else {
+						dataExplorerView1.query(queryString);
+						dataExplorerView2.query(queryString);
+						dataExplorerView3.query(queryString);
 					}
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");

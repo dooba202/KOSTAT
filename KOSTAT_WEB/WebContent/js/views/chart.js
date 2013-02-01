@@ -135,12 +135,12 @@ function($,Backbone, _, Mustache, template, Logger) {
  				    	{
  							type: 'month',
  							count: 3,
- 							text: '3m'
+ 							text: '3개월'
  						}, 
  						{
  							type: 'month',
  							count: 6,
- 							text: '6m'
+ 							text: '6개월'
  						}, 
  						/*
  						{
@@ -150,10 +150,10 @@ function($,Backbone, _, Mustache, template, Logger) {
  						{
  							type: 'year',
  							count: 1,
- 							text: '1y'
+ 							text: '1년'
  						}, {
  							type: 'all',
- 							text: 'All'
+ 							text: '전기간'
  						}
  					],
  					inputDateFormat: '%Y년%m월',
