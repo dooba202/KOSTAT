@@ -11,6 +11,7 @@
 <!-- link rel="shortcut icon" href="images/favicon.ico" -->
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/showLoading.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 <script>
 	var require = {
@@ -73,7 +74,7 @@
 					<div class="l-chart-title">
 						<div id="c-chart-title-1">지정사이트</div>
 					</div>
-					<div class="iframe" id="frame1"></div>
+					<div class="iframe" id="frame1" width='320px'></div>
 				</div>
 				<div class="chart">
 					<div class="l-chart-title">

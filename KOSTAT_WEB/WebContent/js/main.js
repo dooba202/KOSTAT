@@ -10,7 +10,7 @@ require.config({
 		'jquery.mousewheel': 'libs/jquery.mousewheel.min',
 		'underscore': 'libs/underscore-min',
 		'backbone': 'libs/backbone-min',
-		'mustache': 'libs/mustache',
+		'mustache': 'libs/mustache'
 	},
 	'waitSeconds': 45,
 	'shim': 	{
