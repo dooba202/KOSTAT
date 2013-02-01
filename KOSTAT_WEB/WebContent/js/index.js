@@ -10,7 +10,8 @@ define ([
 		 'views/dataExplorer',
          'jquery.ui',
          'jquery.mCustomScrollbar',
-         'jquery.mousewheel'
+         'jquery.mousewheel',
+         'jquery.showLoading'
 		 ], 
 
 function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
@@ -246,6 +247,24 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 						$(".c-display-selected-3").text(label);
 						selections[2] = id;
 					} 
+				},
+				"loadStart": function(name) {
+					if (name == "dataExplorer0"){
+						$('#frame1').showLoading();
+					} else if (name == "dataExplorer1"){
+						$('#frame2').showLoading();
+					} else if (name == "dataExplorer2"){
+						$('#frame3').showLoading();
+					} 
+				},
+				"loadFinish": function(name) {
+					if (name == "dataExplorer0"){
+						$('#frame1').hideLoading();
+					} else if (name == "dataExplorer1"){
+						$('#frame2').hideLoading();
+					} else if (name == "dataExplorer2"){
+						$('#frame3').hideLoading();
+					} 
 				}
 		};
 		
@@ -255,6 +274,12 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		
 		/* event binding start */
 		eventListenerRegister("selectClick", listMenuView1);
+		eventListenerRegister("loadStart", dataExplorerView1);
+		eventListenerRegister("loadStart", dataExplorerView2);
+		eventListenerRegister("loadStart", dataExplorerView3);
+		eventListenerRegister("loadFinish", dataExplorerView1);
+		eventListenerRegister("loadFinish", dataExplorerView2);
+		eventListenerRegister("loadFinish", dataExplorerView3);
 		/* event binding end */
 	};
 	return {

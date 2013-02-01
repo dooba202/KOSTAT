@@ -58,9 +58,15 @@ function($,Backbone, _, Mustache, template, Logger) {
 		},
 		
 		query: function(qstring) {
-			var iframe = $("iframe[name ="+ this.reportID + "]");
-			if (iframe.length) {
-				iframe.attr("src", "http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=" + qstring);
+			var $iframe = $("iframe[name ="+ this.reportID + "]");
+			var $this = this;
+			$iframe.load(function(param){
+				var deName = $(param.currentTarget).attr("name");
+				$this.eventTrigger("loadFinish", deName);
+			});
+			if ($iframe.length) {
+				this.eventTrigger("loadStart",$iframe.attr("name"));
+				$iframe.attr("src", "http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=" + qstring);
 				//iframe.update();
 			}
 		}
