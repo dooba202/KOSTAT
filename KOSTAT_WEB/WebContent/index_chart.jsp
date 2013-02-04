@@ -42,26 +42,30 @@
 				<div id="accordion">
 				</div>
 			</div>
-		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
+		</div><div id="main"> <!--너비%값-->
 			<div class="l-selector">
-				<div class="c-display-selected">
-					<div class="c-display-selected-1">산업 분류</div>
-					<div class="c-display-selected-2">품목 분류</div>
-					<div class="c-display-selected-3">사업체 분류</div>
-				</div>
-				<div class="c-date-picker">
-					<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
-					<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
-				</div>
-				<div class="c-search">
-					<div class="c-search-button"></div>
+				<div class="l-selector-inner">
+					<div class="c-display-selected">
+						<div class="c-display-selected-1">산업 분류</div>
+						<div class="c-display-selected-2">품목 분류</div>
+						<div class="c-display-selected-3">사업체 분류</div>
+					</div>
+					<div class="c-search">
+						<div class="c-search-button"></div>
+					</div>
+					<div class="c-date-picker">
+						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
+						<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+					</div>
 				</div>
 			</div>
-			<div class="l-category">
-				<div id="c-category-title2"></div>
-			</div>
-			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
+			<div class="l-main-inner">
 				<div class="placeholder"></div>
+				<div class="l-category">
+					<div id="c-category-title2"></div>
+				</div>
+				<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
+				</div>
 			</div>
 			<div id="footer">
 				<div id="c-logo-ibm"></div>

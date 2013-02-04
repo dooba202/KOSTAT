@@ -50,10 +50,7 @@ html, body {
 	display: inline-block;
 	position: relative;
 	width: 75%;
-	/* min-height: 600px; */
 	vertical-align: top;
-	border: 1px solid #ccc;
-	background: #fff;
 }
 .l-header-content {
 	width: 100%;
@@ -264,6 +261,10 @@ html, body {
 	height: 50px;
 	padding: 5px;
 }
+.l-main-inner {
+	border: 1px solid #ccc;
+	background: #fff;
+}
 .l-chart {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -459,7 +460,6 @@ html, body {
 .ui-buttonset {
 	
 }
-
 .ui-buttonset .ui-button {
 	width: 32%;
 	font-size: 1em;

@@ -57,46 +57,48 @@
 				<div id="accordion">
 				</div>
 			</div>
-		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
-			<div class="l-selector">
-				<div class="l-selector-inner">
-					<div class="c-display-selected">
-						<div class="c-display-selected-1">산업 분류</div>
-						<div class="c-display-selected-2">품목 분류</div>
-						<div class="c-display-selected-3">사업체 분류</div>
-					</div>
-					<div class="c-search">
-						<div class="c-search-button"></div>
-					</div>
-					<div class="l-search-box">
-						<input id="c-search-box" type="text" placeholder="추가 검색어를 입력해주세요." />
-						<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
+		</div><div id="main"> <!--너비%값-->
+			<div class="l-main-inner">
+				<div class="l-selector">
+					<div class="l-selector-inner">
+						<div class="c-display-selected">
+							<div class="c-display-selected-1">산업 분류</div>
+							<div class="c-display-selected-2">품목 분류</div>
+							<div class="c-display-selected-3">사업체 분류</div>
+						</div>
+						<div class="c-search">
+							<div class="c-search-button"></div>
+						</div>
+						<div class="l-search-box">
+							<input id="c-search-box" type="text" placeholder="추가 검색어를 입력해주세요." />
+							<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
-			<div class="placeholder"></div>
-				<div class="l-chart-inner">
-					<div class="chart" id="target1">
-						<div class="l-chart-title">
-							<div id="c-chart-title-1">지정사이트</div>
+				<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
+				<div class="placeholder"></div>
+					<div class="l-chart-inner">
+						<div class="chart" id="target1">
+							<div class="l-chart-title">
+								<div id="c-chart-title-1">지정사이트</div>
+							</div>
+							<div class="l-chart-title-bg"></div>
+							<div class="iframe" id="frame1" width='320px'></div>
 						</div>
-						<div class="l-chart-title-bg"></div>
-						<div class="iframe" id="frame1" width='320px'></div>
-					</div>
-					<div class="chart" id="target2">
-						<div class="l-chart-title">
-							<div id="c-chart-title-1">경제뉴스</div>
+						<div class="chart" id="target2">
+							<div class="l-chart-title">
+								<div id="c-chart-title-1">경제뉴스</div>
+							</div>
+							<div class="l-chart-title-bg"></div>
+							<div class="iframe" id="frame2"></div>
 						</div>
-						<div class="l-chart-title-bg"></div>
-						<div class="iframe" id="frame2"></div>
-					</div>
-					<div class="chart" id="target3">
-						<div class="l-chart-title">
-							<div id="c-chart-title-1">포털</div>
+						<div class="chart" id="target3">
+							<div class="l-chart-title">
+								<div id="c-chart-title-1">포털</div>
+							</div>
+							<div class="l-chart-title-bg"></div>
+							<div class="iframe" id="frame3"></div>
 						</div>
-						<div class="l-chart-title-bg"></div>
-						<div class="iframe" id="frame3"></div>
 					</div>
 				</div>
 			</div>

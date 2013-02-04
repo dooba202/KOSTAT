@@ -225,11 +225,15 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 			var resizeWindow = function(){
 				$("#side, #main").css("height", function(){
 					var winHeight = document.documentElement.offsetHeight;
-					return winHeight - 128;
+					return winHeight - 140;
 				});
-				$(".l-chart, .placeholder").css("height", function(){
+				$(".l-chart").css("height", function(){
 					var winHeight = document.documentElement.offsetHeight;
-					return winHeight - 240;
+					return winHeight - 250;
+				});
+				$(".placeholder").css("height", function(){
+					var winHeight = document.documentElement.offsetHeight;
+					return winHeight - 190;
 				});
 			};
 			$(window).bind("resize", resizeWindow);
