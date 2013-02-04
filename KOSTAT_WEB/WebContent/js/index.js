@@ -255,21 +255,24 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					} 
 				},
 				"loadStart": function(name) {
+					$('body').css("overflow", "hidden");
 					if (name == "dataExplorer0"){
-						$('#frame1').showLoading();
+						$('#target1').showLoading();
 					} else if (name == "dataExplorer1"){
-						$('#frame2').showLoading();
+						$('#target2').showLoading();
 					} else if (name == "dataExplorer2"){
-						$('#frame3').showLoading();
+						$('#target3').showLoading();
 					} 
 				},
 				"loadFinish": function(name) {
+					
 					if (name == "dataExplorer0"){
-						$('#frame1').hideLoading();
+						$('#target1').hideLoading();
 					} else if (name == "dataExplorer1"){
-						$('#frame2').hideLoading();
+						$('#target2').hideLoading();
 					} else if (name == "dataExplorer2"){
-						$('#frame3').hideLoading();
+						$('#target3').hideLoading();
+						$('body').css("overflow", "auto");
 					} 
 				}
 		};

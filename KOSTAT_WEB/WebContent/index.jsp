@@ -77,21 +77,21 @@
 			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
 			<div class="placeholder"></div>
 				<div class="l-chart-inner">
-					<div class="chart">
+					<div class="chart" id="target1">
 						<div class="l-chart-title">
 							<div id="c-chart-title-1">지정사이트</div>
 						</div>
 						<div class="l-chart-title-bg"></div>
 						<div class="iframe" id="frame1" width='320px'></div>
 					</div>
-					<div class="chart">
+					<div class="chart" id="target2">
 						<div class="l-chart-title">
 							<div id="c-chart-title-1">경제뉴스</div>
 						</div>
 						<div class="l-chart-title-bg"></div>
 						<div class="iframe" id="frame2"></div>
 					</div>
-					<div class="chart">
+					<div class="chart" id="target3">
 						<div class="l-chart-title">
 							<div id="c-chart-title-1">포털</div>
 						</div>
