@@ -197,6 +197,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		$(".c-date-from").datepicker('setDate', eightYago);
 		$(".c-date-to").datepicker('setDate', today);
 		
+		/*
 		var resultView = new xmlResult;
 		function parseXml(xml) {
 			var resultObj = {"documents": []};
@@ -213,6 +214,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			  return resultObj;
 
 		}
+		*/
 		$(function(){
 			/*
 		    $.ajax({
