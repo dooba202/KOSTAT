@@ -310,9 +310,11 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 					if (className =="sanup") {
 						$(".c-display-selected-1").text(label);
 						selections[0] = id;
+						$("#accordion").accordion("option","active",1);
 					} else if (className == "product") {
 						$(".c-display-selected-2").text(label);
 						selections[1] = id;
+						$("#accordion").accordion("option","active",1);
 					} else if (className == "saup") {
 						$(".c-display-selected-3").text(label);
 						selections[2] = id;

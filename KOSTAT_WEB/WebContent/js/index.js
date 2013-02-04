@@ -69,8 +69,8 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			}
 		});
 	};	
-	var resolved = false;
-	
+	var notFirst = false;
+	var requestingObj = {};
 	var init = function(){
 		logger.log("index.js init");
 		
@@ -146,25 +146,26 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					$(".placeholder").css({display:"none"});
 					//$("#c-chart-title-1").text("사업체별");
 					var queryString = $('#c-search-box').val(); 
-					if (!resolved) {
-						//var frame1 = $("<iframe src='http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=%EC%B2%A0%EA%B0%95' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-						//var frame2 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
-						//var frame3 = $("<iframe src='js/templates/example.html' frameborder='no' align='center' height = '350px' width = '100%'></iframe>");
+					if (!notFirst) {
 						$('#frame1').append(dataExplorerView1.el);
 						$('#frame2').append(dataExplorerView2.el);
 						$('#frame3').append(dataExplorerView3.el);
-						
-						dataExplorerView1.query(queryString);
-						dataExplorerView2.query(queryString);
-						dataExplorerView3.query(queryString);
-						//$('#frame2').append(frame2);
-						//$('#frame3').append(frame3);
-						resolved = true;
-					} else {
-						dataExplorerView1.query(queryString);
-						dataExplorerView2.query(queryString);
-						dataExplorerView3.query(queryString);
-					}
+						notFirst = true;
+					} 
+					dataExplorerView1.query(queryString);
+					dataExplorerView2.query(queryString);
+					dataExplorerView3.query(queryString);
+					
+					requestingObj[dataExplorerView1.reportID] = $.Deferred();
+					requestingObj[dataExplorerView2.reportID] = $.Deferred();
+					requestingObj[dataExplorerView3.reportID] = $.Deferred();
+					$(this).attr('disabled', 'disabled');
+					
+					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
+						$('body').css("overflow", "auto");
+						$(".c-search-button").prop("disabled"); 
+						requestingObj = {};
+					});
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
@@ -216,6 +217,10 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		}
 		*/
 		$(function(){
+		    $("#c-search-box").keypress(function(e){
+		        if(e.keyCode==13)
+		            $('.c-search-button').click();
+		    });
 			/*
 		    $.ajax({
 		        url: "http://211.109.180.11/vivisimo/cgi-bin/velocity.exe",
@@ -246,9 +251,11 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					if (className =="sanup") {
 						$(".c-display-selected-1").text(label);
 						selections[0] = id;
+						$("#accordion").accordion("option","active",1);
 					} else if (className == "product") {
 						$(".c-display-selected-2").text(label);
 						selections[1] = id;
+						$("#accordion").accordion("option","active",2);
 					} else if (className == "saup") {
 						$(".c-display-selected-3").text(label);
 						selections[2] = id;
@@ -272,8 +279,10 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 						$('#target2').hideLoading();
 					} else if (name == "dataExplorer2"){
 						$('#target3').hideLoading();
-						$('body').css("overflow", "auto");
 					} 
+					if (requestingObj[name]) {
+						requestingObj[name].resolve();
+					}
 				}
 		};
 		
