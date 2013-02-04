@@ -162,6 +162,7 @@ function($,Backbone, _, Mustache, template, Logger) {
  			    	buttonTheme: { // styles for the buttons
  			    		fill: 'none',
  			    		stroke: 'none',
+ 			    		width: 50,
  			    		style: {
  			    			color: '#039',
  			    			fontWeight: 'bold',
