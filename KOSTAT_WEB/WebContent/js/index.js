@@ -171,8 +171,8 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			});
 		});
 		$(".c-date-from, .c-date-to").datepicker({
-			dateFormat: 'yy년 m월',
-			currentText: "이번달",
+			dateFormat: 'yy년 m월 d일',
+			currentText: "오늘",
 			closeText: "완료",
 			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 			changeMonth:true,
@@ -184,7 +184,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 	        },
 	        */
 	        onClose: function(dateText, inst) {
-	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth);
+	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
 	        	$(this).datepicker('setDate', selectedDate);
 	        },
 	        onChangeMonthYear: function(year, month) {
