@@ -158,15 +158,15 @@ function($,Backbone, _, Mustache, template, Logger) {
  					],
  					inputDateFormat: '%Y년%m월',
  					inputEditDateFormat: '%Y-%m',
- 					buttonSpacing: 5,
+ 					//buttonSpacing: 5,
  			    	buttonTheme: { // styles for the buttons
- 			    		fill: 'none',
- 			    		stroke: 'none',
+ 			    		//fill: 'none',
+ 			    		//stroke: 'none',
  			    		width: 50,
- 			    		style: {
- 			    			color: '#039',
- 			    			fontWeight: 'bold',
- 			    		}
+ 			    		//style: {
+ 			    		//	color: '#039',
+ 			    		//	fontWeight: 'bold',
+ 			    		//}
  			    	/*
  			    		,states: {
  			    			hover: {
