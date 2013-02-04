@@ -45,7 +45,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 		render : function(data, unit) {
 			Highcharts.setOptions({
 				lang: {
-	 				rangeSelectorZoom: "확대"
+	 				rangeSelectorZoom: ""
 				}
 			});
 			
@@ -157,7 +157,28 @@ function($,Backbone, _, Mustache, template, Logger) {
  						}
  					],
  					inputDateFormat: '%Y년%m월',
- 					inputEditDateFormat: '%Y-%m'
+ 					inputEditDateFormat: '%Y-%m',
+ 					buttonSpacing: 5,
+ 			    	buttonTheme: { // styles for the buttons
+ 			    		fill: 'none',
+ 			    		stroke: 'none',
+ 			    		style: {
+ 			    			color: '#039',
+ 			    			fontWeight: 'bold',
+ 			    		}
+ 			    	/*
+ 			    		,states: {
+ 			    			hover: {
+ 			    				fill: 'white'
+ 			    			},
+ 			    			select: {
+ 			    				style: {
+ 			    					color: 'white'
+ 			    				}
+ 			    			}
+ 			    		}
+ 			    	*/
+ 			    	}
  			    },
  			    /*
  			    plotOptions: {
