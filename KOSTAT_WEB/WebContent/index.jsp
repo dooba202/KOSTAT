@@ -40,14 +40,18 @@
 		<div id="side"> <!--너비%값-->
 			<div class="l-side">
 				<div id="l-side-selector">
-					<div class="c-keyword-set">
-						<input type="radio" id="all" name="keyword" value="전체" checked><label for="all">전체</label>
-						<input type="radio" id="plus" name="keyword" value="증가"><label for="plus">증가</label>
-						<input type="radio" id="minus" name="keyword" value="감소"><label for="minus">감소</label>
-					</div>
-					<div class="c-date-picker">
-						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
-						<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+					<div class="l-side-selector-inner">
+						<div class="c-keyword-set">
+							<input type="radio" id="all" name="keyword" value="전체" checked><label for="all">전체</label>
+							<input type="radio" id="plus" name="keyword" value="증가"><label for="plus">증가</label>
+							<input type="radio" id="minus" name="keyword" value="감소"><label for="minus">감소</label>
+						</div>
+						<div class="c-date-picker">
+							<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
+						</div>
+						<div class="c-date-picker">
+							<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+						</div>
 					</div>
 				</div>
 				<div id="accordion">
@@ -55,38 +59,42 @@
 			</div>
 		</div><div id="main" style="border:1px solid #ccc;"> <!--너비%값-->
 			<div class="l-selector">
-				<div class="c-display-selected">
-					<div class="c-display-selected-1">산업 분류</div>
-					<div class="c-display-selected-2">품목 분류</div>
-					<div class="c-display-selected-3">사업체 분류</div>
-				</div>
-				<div class="l-search-box">
-					<input id="c-search-box" type="text" placeholder="검색어 입력창" />
-					<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
-				</div>
-				<div class="c-search">
-					<div class="c-search-button"></div>
+				<div class="l-selector-inner">
+					<div class="c-display-selected">
+						<div class="c-display-selected-1">산업 분류</div>
+						<div class="c-display-selected-2">품목 분류</div>
+						<div class="c-display-selected-3">사업체 분류</div>
+					</div>
+					<div class="c-search">
+						<div class="c-search-button"></div>
+					</div>
+					<div class="l-search-box">
+						<input id="c-search-box" type="text" placeholder="검색어 입력창" />
+						<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
+					</div>
 				</div>
 			</div>
 			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
-				<div class="placeholder"></div>
-				<div class="chart">
-					<div class="l-chart-title">
-						<div id="c-chart-title-1">지정사이트</div>
+				<div class="l-chart-inner">
+					<div class="placeholder"></div>
+					<div class="chart">
+						<div class="l-chart-title">
+							<div id="c-chart-title-1">지정사이트</div>
+						</div>
+						<div class="iframe" id="frame1" width='320px'></div>
 					</div>
-					<div class="iframe" id="frame1" width='320px'></div>
-				</div>
-				<div class="chart">
-					<div class="l-chart-title">
-						<div id="c-chart-title-1">경제뉴스</div>
+					<div class="chart">
+						<div class="l-chart-title">
+							<div id="c-chart-title-1">경제뉴스</div>
+						</div>
+						<div class="iframe" id="frame2"></div>
 					</div>
-					<div class="iframe" id="frame2"></div>
-				</div>
-				<div class="chart">
-					<div class="l-chart-title">
-						<div id="c-chart-title-1">포털</div>
+					<div class="chart">
+						<div class="l-chart-title">
+							<div id="c-chart-title-1">포털</div>
+						</div>
+						<div class="iframe" id="frame3"></div>
 					</div>
-					<div class="iframe" id="frame3"></div>
 				</div>
 			</div>
 			<div id="footer">

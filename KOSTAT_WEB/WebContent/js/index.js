@@ -91,13 +91,17 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 					var winHeight = document.documentElement.offsetHeight;
 					return winHeight - 128;
 				});
-				$(".l-chart, .placeholder").css("height", function(){
+				$(".l-chart").css("height", function(){
 					var winHeight = document.documentElement.offsetHeight;
 					return winHeight - 190;
 				});
+				$(".l-chart-inner, .placeholder").css("height", function(){
+					var winHeight = document.documentElement.offsetHeight;
+					return winHeight - 200;
+				});
 			};
-			$(window).bind("resize", resizeWindow);
-			resizeWindow();
+			/*$(window).bind("resize", resizeWindow);
+			resizeWindow();*/
 			
 			$("#accordion").accordion({ heightStyle: "content" });
 			$("#accordion").on( "accordionactivate", function( event, ui ) {
@@ -105,7 +109,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			});
 			$(".c-keyword-set").buttonset();
 			
-			$(".l-chart").mCustomScrollbar({
+			/*$(".l-chart").mCustomScrollbar({
 					scrollButtons:{
 						enable:true
 					},
@@ -114,7 +118,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 						updateOnBrowserResize:true, 
 						updateOnContentResize:true
 					}
-			});
+			});*/
 			
 			$("iframe").mCustomScrollbar({
 				scrollButtons:{
