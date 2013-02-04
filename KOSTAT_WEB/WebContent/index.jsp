@@ -69,30 +69,33 @@
 						<div class="c-search-button"></div>
 					</div>
 					<div class="l-search-box">
-						<input id="c-search-box" type="text" placeholder="검색어 입력창" />
+						<input id="c-search-box" type="text" placeholder="추가 검색어를 입력해주세요." />
 						<input id="c-search-check" type="checkbox" /><label>결과내재검색</label>
 					</div>
 				</div>
 			</div>
 			<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
+			<div class="placeholder"></div>
 				<div class="l-chart-inner">
-					<div class="placeholder"></div>
 					<div class="chart">
 						<div class="l-chart-title">
 							<div id="c-chart-title-1">지정사이트</div>
 						</div>
+						<div class="l-chart-title-bg"></div>
 						<div class="iframe" id="frame1" width='320px'></div>
 					</div>
 					<div class="chart">
 						<div class="l-chart-title">
 							<div id="c-chart-title-1">경제뉴스</div>
 						</div>
+						<div class="l-chart-title-bg"></div>
 						<div class="iframe" id="frame2"></div>
 					</div>
 					<div class="chart">
 						<div class="l-chart-title">
 							<div id="c-chart-title-1">포털</div>
 						</div>
+						<div class="l-chart-title-bg"></div>
 						<div class="iframe" id="frame3"></div>
 					</div>
 				</div>

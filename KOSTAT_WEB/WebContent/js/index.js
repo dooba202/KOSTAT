@@ -87,18 +87,18 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		
 		$(function(){
 			var resizeWindow = function(){
-				$("#side, #main").css("height", function(){
-					var winHeight = document.documentElement.offsetHeight;
-					return winHeight - 128;
+				$( ".chart").css("min-height", function(){
+					var winHeight = document.documentElement.scrollHeight;
+					return winHeight - 810;
 				});
 				$(".l-chart").css("height", function(){
 					var winHeight = document.documentElement.offsetHeight;
-					return winHeight - 190;
+					return winHeight - 100;
 				});
-				$(".l-chart-inner, .placeholder").css("height", function(){
-					var winHeight = document.documentElement.offsetHeight;
+				/*$(".placeholder").css("height", function(){
+					var winHeight = document.documentElement.scrollHeight;
 					return winHeight - 200;
-				});
+				});*/
 			};
 			/*$(window).bind("resize", resizeWindow);
 			resizeWindow();*/
