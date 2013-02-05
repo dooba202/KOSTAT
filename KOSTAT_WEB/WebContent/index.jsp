@@ -104,7 +104,6 @@
 			</div>
 			<div id="footer">
 				<div id="c-logo-ibm"></div>
-				<div id="c-logo-kostat"></div>
 			</div>
 		</div>
 	</div>
