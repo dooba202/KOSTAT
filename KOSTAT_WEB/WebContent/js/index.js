@@ -84,10 +84,10 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		var dataExplorerView2 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView3 = new dataExplorer({"width": "100%","height": "320px"});
 		
-		var category_load = function(data) {
-			$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1 }).el);
-			$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
-			$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: temp_list3}).el);
+		var category_load = function(data1,data2,data3) {
+			$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: data1[0] }).el);
+			$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: data2[0] }).el);
+			$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: data3[0] }).el);
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
 			$("#accordion").on( "accordionactivate", function( event, ui ) {
@@ -109,9 +109,39 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		};
 		
 		var sanupCollection = new category({ "url" : "./json/sanup.json" });
+		/*
 		sanupCollection.fetch({
 			success : _.bind(category_load, this),
 			error : load_error
+		});
+		*/
+		
+		var productCollection = new category({ "url" : "./json/product.json" });
+		/*
+		productCollection.fetch({
+			success : _.bind(category_load, this),
+			error : load_error
+		});
+		*/
+		
+		var saupCollection = new category({ "url" : "./json/saup.json" });
+		/*
+		saupCollection.fetch({
+			success : _.bind(category_load, this),
+			error : load_error
+		});
+		*/
+		
+		$.when(
+			sanupCollection.fetch(),
+			productCollection.fetch(),
+			saupCollection.fetch()
+		).then( function(data1,data2,data3) {
+			category_load(data1,data2,data3);
+		}).fail( function(e) {
+			load_error();
+		}).always( function() {
+
 		});
 		
 		$(function(){

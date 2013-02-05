@@ -44,6 +44,11 @@ function($,Backbone, _, Mustache, template, Logger) {
 		},
 		
 		render : function(data) {
+			_.each(data.list, function(i) {
+				if (i.name.length > 19) {
+					i.name = i.name.slice(0,19) + "...";
+				}
+			});
 			this.el = Mustache.to_html(template, data);
 			return this;
 		},
