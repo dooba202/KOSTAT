@@ -14,6 +14,7 @@ function( $, Backbone, _, Logger, category) {
         
 		initialize: function(options) {
 			//catch base URL for REST requesting
+			this.url = options.url;
         }
 	});
 	return app.categoryCollection;
