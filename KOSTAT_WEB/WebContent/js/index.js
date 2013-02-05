@@ -212,8 +212,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 	        }
 		});
 		var today = new Date();
-		var eightYago = new Date(2005, 6);
-		$(".c-date-from").datepicker('setDate', eightYago);
+		var monthAgo = new Date(today.getFullYear(), today.getMonth() - 1);
+		$(".c-date-from").datepicker('setDate', monthAgo);
 		$(".c-date-to").datepicker('setDate', today);
 		
 		/*
