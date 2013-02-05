@@ -297,15 +297,15 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(label);
+						$(".c-display-selected-1").text(label.slice(0,4));
 						selections[0] = id;
 						$("#accordion").accordion("option","active",1);
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(label);
+						$(".c-display-selected-2").text(label.slice(0,6));
 						selections[1] = id;
 						$("#accordion").accordion("option","active",2);
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(label);
+						$(".c-display-selected-3").text(label.slice(0,7));
 						selections[2] = id;
 					} 
 				},
