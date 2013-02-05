@@ -385,11 +385,11 @@ html, body {
 .c-date-from-text { width: 46px; background: url("../images/main-c-date-from.png") no-repeat; }
 .c-date-to-text { width: 26px; background: url("../images/main-c-date-to.png") no-repeat; }
 .c-date-from, .c-date-to {
-	height: 34px;
+	height: 28px;
 	font-family: NGE, "NanumGothic", 나눔고딕;
-	font-size: 0.7em;
+	font-size: 0.88em;
 	color: #fff;
-	line-height: 30px;
+	line-height: 26px;
 	text-align: center;
 }
 .c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
@@ -422,6 +422,15 @@ html, body {
 	margin-left: -28px;
 	display: inline-block;
 	background: url("../images/main-c-display-selected-2.png") no-repeat;
+}
+.c-date-picker-text {
+	float: left;
+    font-family: NanumGothic;
+    font-size: 0.8em;
+    font-weight: bold;
+    height: 40px;
+    line-height: 44px;
+    margin-left: 6px;
 }
 .c-date-picker {
 	width: 100%;
