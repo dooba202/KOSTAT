@@ -6,7 +6,6 @@ define ([
 		 'underscore',
 		 'utils/local_logger',
 		 'views/listMenu',
-		 'views/xmlResult',
 		 'views/dataExplorer',
          'jquery.ui',
          'jquery.mCustomScrollbar',
@@ -14,7 +13,7 @@ define ([
          'jquery.showLoading'
 		 ], 
 
-function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
+function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 		
@@ -70,6 +69,7 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 		});
 	};	
 	var notFirst = false;
+	var doNothing = false;
 	var requestingObj = {};
 	var init = function(){
 		logger.log("index.js init");
@@ -142,6 +142,9 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 			});
 			
 			$(".c-search-button").click(function(){
+				if (doNothing) {
+					return
+				}
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
 					//$("#c-chart-title-1").text("사업체별");
@@ -152,18 +155,18 @@ function( module, $, Backbone, _, Logger, listMenu, xmlResult, dataExplorer){
 						$('#frame3').append(dataExplorerView3.el);
 						notFirst = true;
 					} 
-					dataExplorerView1.query(queryString);
-					dataExplorerView2.query(queryString);
-					dataExplorerView3.query(queryString);
+					dataExplorerView1.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-C24-PROJ&query=", queryString);
+					dataExplorerView2.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-ECO-PROJ&query=", queryString);
+					dataExplorerView3.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-PTL-PROJ&query=", queryString);
 					
 					requestingObj[dataExplorerView1.reportID] = $.Deferred();
 					requestingObj[dataExplorerView2.reportID] = $.Deferred();
 					requestingObj[dataExplorerView3.reportID] = $.Deferred();
-					$(this).attr('disabled', 'disabled');
+					doNothing = true;
 					
 					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
 						$('body').css("overflow", "auto");
-						$(".c-search-button").prop("disabled"); 
+						doNothing = false; 
 						requestingObj = {};
 					});
 				} else {
