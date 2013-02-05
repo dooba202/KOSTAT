@@ -59,6 +59,17 @@ function($,Backbone, _, Mustache, template, Logger) {
  			    	marginRight: 80,
  			        renderTo: this.chartId
  			    },
+ 			    colors: [
+ 			        '#058dc7', 
+ 			       	'#54b637', 
+ 			       	'#ee5f26', 
+ 			       	'#f5ae04', 
+ 			       	'#24cbe5', 
+ 			       	'#bb72bc', 
+ 			       	'#92A8CD', 
+ 			       	'#A47D7C', 
+ 			       	'#B5CA92'
+ 			    ],
  			    /*
  			    title: {
  		       		text: title || '제목없음'
