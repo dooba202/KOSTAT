@@ -5,6 +5,7 @@ define ([
 		 'backbone', 
 		 'underscore',
 		 'utils/local_logger',
+		 'collections/category',
 		 'views/listMenu',
 		 'views/chart',
          'jquery.ui',
@@ -13,7 +14,7 @@ define ([
          'jquery.showLoading'
 		 ], 
 
-function( module, $, Backbone, _, Logger, listMenu, chart){
+function( module, $, Backbone, _, Logger, category, listMenu, chart){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 	
@@ -212,10 +213,65 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 		var chartView2 = new chart({id: 'chartB', title:"전월비", width: '100%', height: '350px'});
 		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100%', height: '350px'});
 		
-		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
-		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
-		$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: temp_list3}).el);
-		mCustomScrollSelectable(".l-list li");
+		var category_load = function(data1,data2,data3) {
+			$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: data1[0] }).el);
+			$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: data2[0] }).el);
+			$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: data3[0] }).el);
+			mCustomScrollSelectable(".l-list li");
+			$("#accordion").accordion({ heightStyle: "content" });
+			$("#accordion").on( "accordionactivate", function( event, ui ) {
+				
+			});
+			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+				scrollButtons:{
+					enable:true
+				},
+				advanced:{
+					updateOnBrowserResize:true, 
+					updateOnContentResize:true
+				}
+			});
+		};
+		
+		var load_error = function() {
+			console.log("네트워크 장애입니다.");
+		};
+		
+		var sanupCollection = new category({ "url" : "./json/sanup.json" });
+		/*
+		sanupCollection.fetch({
+			success : _.bind(category_load, this),
+			error : load_error
+		});
+		*/
+		
+		var productCollection = new category({ "url" : "./json/product.json" });
+		/*
+		productCollection.fetch({
+			success : _.bind(category_load, this),
+			error : load_error
+		});
+		*/
+		
+		var saupCollection = new category({ "url" : "./json/saup.json" });
+		/*
+		saupCollection.fetch({
+			success : _.bind(category_load, this),
+			error : load_error
+		});
+		*/
+		
+		$.when(
+			sanupCollection.fetch(),
+			productCollection.fetch(),
+			saupCollection.fetch()
+		).then( function(data1,data2,data3) {
+			category_load(data1,data2,data3);
+		}).fail( function(e) {
+			load_error();
+		}).always( function() {
+
+		});
 		
 		$('#chartContainer').append(chartView1.el);
 		$('#chartContainer').append(chartView2.el);
@@ -239,7 +295,6 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 			$(window).bind("resize", resizeWindow);
 			resizeWindow();
 			
-			$("#accordion").accordion({ heightStyle: "content" });
 			$(".c-keyword-set").buttonset();
 			
 			$(".l-chart").mCustomScrollbar({
@@ -247,16 +302,6 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 						enable:true
 					},
 					
-					advanced:{
-						updateOnBrowserResize:true, 
-						updateOnContentResize:true
-					}
-			});
-			
-			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
-					scrollButtons:{
-						enable:true
-					},
 					advanced:{
 						updateOnBrowserResize:true, 
 						updateOnContentResize:true
@@ -309,15 +354,15 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 				"selectClick": function(className, id, label) {
 					//$('.c-display-selected-1').showLoading();
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(label);
+						$(".c-display-selected-1").text(label.slice(0,4));
 						selections[0] = id;
 						$("#accordion").accordion("option","active",1);
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(label);
+						$(".c-display-selected-2").text(label.slice(0,6));
 						selections[1] = id;
 						$("#accordion").accordion("option","active",2);
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(label);
+						$(".c-display-selected-3").text(label.slice(0,7));
 						selections[2] = id;
 					} 
 					//setTimeout(function(){$('.c-display-selected-1').hideLoading();},1500);
