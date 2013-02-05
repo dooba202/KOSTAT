@@ -314,7 +314,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 					} else if (className == "product") {
 						$(".c-display-selected-2").text(label);
 						selections[1] = id;
-						$("#accordion").accordion("option","active",1);
+						$("#accordion").accordion("option","active",2);
 					} else if (className == "saup") {
 						$(".c-display-selected-3").text(label);
 						selections[2] = id;
