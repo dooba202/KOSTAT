@@ -47,10 +47,7 @@
 							<input type="radio" id="minus" name="keyword" value="감소"><label for="minus">감소</label>
 						</div>
 						<div class="c-date-picker">
-							<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
-						</div>
-						<div class="c-date-picker">
-							<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+							<input class="c-date-from" name="value" /> ~ <input class="c-date-to" name="value" />
 						</div>
 					</div>
 				</div>

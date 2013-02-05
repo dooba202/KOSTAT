@@ -46,10 +46,7 @@
 							<input type="radio" id="index" name="keyword" value="지수"><label for="index">지수</label>
 						</div>
 						<div class="c-date-picker">
-							<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
-						</div>
-						<div class="c-date-picker">
-							<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+							<input class="c-date-from" name="value" /> ~ <input class="c-date-to" name="value" />
 						</div>
 					</div>
 				</div>

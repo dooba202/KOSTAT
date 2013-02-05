@@ -353,7 +353,6 @@ html, body {
 .c-date-from-text { width: 46px; margin-right: 10px; background: url("../images/main-c-date-from.png") no-repeat; }
 .c-date-to-text { width: 26px; margin-right: 10px; background: url("../images/main-c-date-to.png") no-repeat; }
 .c-date-from, .c-date-to {
-	width: 180px;
 	height: 30px;
 	font-family: NGE, "NanumGothic", 나눔고딕;
 	font-size: 0.7em;
@@ -421,6 +420,7 @@ html, body {
 	padding: 4px 0;
 	margin: 4px auto 0 auto;
 	text-align: right;
+	font-size: 0.8em;
 }
 .c-search {
 	width: 170px;
