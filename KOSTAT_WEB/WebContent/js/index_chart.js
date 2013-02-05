@@ -240,6 +240,7 @@ function( module, $, Backbone, _, Logger, listMenu, chart){
 			resizeWindow();
 			
 			$("#accordion").accordion({ heightStyle: "content" });
+			$(".c-keyword-set").buttonset();
 			
 			$(".l-chart").mCustomScrollbar({
 					scrollButtons:{

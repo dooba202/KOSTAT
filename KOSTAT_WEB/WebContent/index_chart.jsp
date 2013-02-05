@@ -39,6 +39,20 @@
 		</div>
 		<div id="side"> <!--너비%값-->
 			<div class="l-side">
+				<div id="l-side-selector">
+					<div class="l-side-selector-inner">
+						<div class="c-keyword-set">
+							<input type="radio" id="quantity" name="keyword" value="물량"><label for="quantity">물량</label>
+							<input type="radio" id="index" name="keyword" value="지수"><label for="index">지수</label>
+						</div>
+						<div class="c-date-picker">
+							<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
+						</div>
+						<div class="c-date-picker">
+							<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
+						</div>
+					</div>
+				</div>
 				<div id="accordion">
 				</div>
 			</div>
@@ -53,10 +67,10 @@
 					<div class="c-search">
 						<div class="c-search-button"></div>
 					</div>
-					<div class="c-date-picker">
+					<!-- <div class="c-date-picker">
 						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
 						<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="l-main-inner">
@@ -69,7 +83,6 @@
 			</div>
 			<div id="footer">
 				<div id="c-logo-ibm"></div>
-				<div id="c-logo-kostat"></div>
 			</div>
 		</div>
 	</div>
