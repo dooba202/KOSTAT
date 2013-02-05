@@ -67,10 +67,10 @@
 					<div class="c-search">
 						<div class="c-search-button"></div>
 					</div>
-					<div class="c-date-picker">
+					<!-- <div class="c-date-picker">
 						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
 						<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="l-main-inner">
