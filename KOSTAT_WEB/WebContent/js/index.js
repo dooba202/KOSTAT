@@ -5,6 +5,7 @@ define ([
 		 'backbone', 
 		 'underscore',
 		 'utils/local_logger',
+		 'collections/category',
 		 'views/listMenu',
 		 'views/dataExplorer',
          'jquery.ui',
@@ -13,7 +14,7 @@ define ([
          'jquery.showLoading'
 		 ], 
 
-function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
+function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 	var logger = new Logger("index.js");
 		logger.setLevel("ALL");
 		
@@ -42,6 +43,7 @@ function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
 	                  {"id": "prod0012","name": "열연대강"}
 	                  ];
 	var temp_list3 = [
+	                  {"id": "saup000","name": "전체"},
 	                  {"id": "saup001","name": "아이티씨(주)"},
 	                  {"id": "saup002","name": "라니(주)"},
 	                  {"id": "saup003","name": "홍우선재(주)"},
@@ -77,13 +79,40 @@ function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
 		var listMenuView3 = new listMenu;
+		
 		var dataExplorerView1 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView2 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView3 = new dataExplorer({"width": "100%","height": "320px"});
-		$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1}).el);
-		$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
-		$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: temp_list3}).el);
-		mCustomScrollSelectable(".l-list li");
+		
+		var category_load = function(data) {
+			$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: temp_list1 }).el);
+			$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: temp_list2}).el);
+			$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: temp_list3}).el);
+			mCustomScrollSelectable(".l-list li");
+			$("#accordion").accordion({ heightStyle: "content" });
+			$("#accordion").on( "accordionactivate", function( event, ui ) {
+				
+			});
+			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+				scrollButtons:{
+					enable:true
+				},
+				advanced:{
+					updateOnBrowserResize:true, 
+					updateOnContentResize:true
+				}
+			});
+		};
+		
+		var load_error = function() {
+			console.log("네트워크 장애입니다.");
+		};
+		
+		var sanupCollection = new category({ "url" : "./json/sanup.json" });
+		sanupCollection.fetch({
+			success : _.bind(category_load, this),
+			error : load_error
+		});
 		
 		$(function(){
 			var resizeWindow = function(){
@@ -103,10 +132,6 @@ function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
 			/*$(window).bind("resize", resizeWindow);
 			resizeWindow();*/
 			
-			$("#accordion").accordion({ heightStyle: "content" });
-			$("#accordion").on( "accordionactivate", function( event, ui ) {
-				
-			});
 			$(".c-keyword-set").buttonset();
 			
 			/*$(".l-chart").mCustomScrollbar({
@@ -129,16 +154,6 @@ function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
 					updateOnBrowserResize:true, 
 					updateOnContentResize:true
 				}
-			});
-			
-			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
-					scrollButtons:{
-						enable:true
-					},
-					advanced:{
-						updateOnBrowserResize:true, 
-						updateOnContentResize:true
-					}
 			});
 			
 			$(".c-search-button").click(function(){
