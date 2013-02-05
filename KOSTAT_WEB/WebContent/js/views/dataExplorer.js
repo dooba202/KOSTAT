@@ -57,7 +57,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 			return this;
 		},
 		
-		query: function(qstring) {
+		query: function(url, qstring) {
 			var $iframe = $("iframe[name ="+ this.reportID + "]");
 			var $this = this;
 			$iframe.load(function(param){
@@ -66,7 +66,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 			});
 			if ($iframe.length) {
 				this.eventTrigger("loadStart",$iframe.attr("name"));
-				$iframe.attr("src", "http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=Poc_Test&query=" + qstring);
+				$iframe.attr("src", url + "동일산업 합금철 "+ qstring);
 				//iframe.update();
 			}
 		}

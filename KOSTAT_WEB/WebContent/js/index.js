@@ -155,9 +155,9 @@ function( module, $, Backbone, _, Logger, listMenu, dataExplorer){
 						$('#frame3').append(dataExplorerView3.el);
 						notFirst = true;
 					} 
-					dataExplorerView1.query(queryString);
-					dataExplorerView2.query(queryString);
-					dataExplorerView3.query(queryString);
+					dataExplorerView1.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-C24-PROJ&query=", queryString);
+					dataExplorerView2.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-ECO-PROJ&query=", queryString);
+					dataExplorerView3.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-PTL-PROJ&query=", queryString);
 					
 					requestingObj[dataExplorerView1.reportID] = $.Deferred();
 					requestingObj[dataExplorerView2.reportID] = $.Deferred();
