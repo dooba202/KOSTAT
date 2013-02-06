@@ -234,7 +234,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		};
 		
 		var load_error = function() {
-			//console.log("네트워크 장애입니다.");
+			logger.log("네트워크 장애입니다.");
 		};
 		
 		var sanupCollection = new category({ "url" : "./json/sanup.json" });
@@ -312,8 +312,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
 					$(".l-category div").css({display:"block"});
-					//console.log($(".c-date-from").datepicker("getDate"));
-					//console.log($(".c-date-to").datepicker("getDate"));
+					$('.c-date-from-selected').text($(".c-date-from").val());
+					$('.c-date-to-selected').text($(".c-date-to").val());
 					chartView1.render(temp_data1, "");
 					chartView2.render(temp_data2, "%");
 					chartView3.render(temp_data3, "%");

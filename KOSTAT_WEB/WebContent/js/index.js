@@ -105,7 +105,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		};
 		
 		var load_error = function() {
-			console.log("네트워크 장애입니다.");
+			logger.log("네트워크 장애입니다.");
 		};
 		
 		var sanupCollection = new category({ "url" : "./json/sanup.json" });
