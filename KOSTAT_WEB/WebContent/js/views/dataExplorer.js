@@ -43,6 +43,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 			logger.log("dataExplorerView init");
 			_.defaults(this.options, this.defaults);
 		    this.reportID = "dataExplorer" + app.dataExplorerView.REPORTID;
+		    this.defWords = "";
 		    width = options.width;
 		    height = options.height;
 		    this.el = Mustache.to_html(template, {"target": this.reportID, "wrapId": this.reportID + "FormDiv", "width": width,"height": height });
@@ -57,7 +58,15 @@ function($,Backbone, _, Mustache, template, Logger) {
 			return this;
 		},
 		
-		query: function(url, qstring) {
+		setSource: function(url) {
+			this.sourceURL = url;
+		},
+		
+		setDefWords: function(words) {
+			this.defWords = words;
+		},
+		
+		query: function(qstring) {
 			var $iframe = $("iframe[name ="+ this.reportID + "]");
 			var $this = this;
 			$iframe.load(function(param){
@@ -66,7 +75,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 			});
 			if ($iframe.length) {
 				this.eventTrigger("loadStart",$iframe.attr("name"));
-				$iframe.attr("src", url + "동일산업 합금철 "+ qstring);
+				$iframe.attr("src", this.sourceURL + this.defWords + " " + qstring);
 				//iframe.update();
 			}
 		}

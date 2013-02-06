@@ -83,6 +83,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		var dataExplorerView1 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView2 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView3 = new dataExplorer({"width": "100%","height": "320px"});
+		dataExplorerView1.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-C24-PROJ&query=");
+		dataExplorerView2.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-ECO-PROJ&query=");
+		dataExplorerView3.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-PTL-PROJ&query=");
 		
 		var category_load = function(data1,data2,data3) {
 			$("#accordion").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: data1[0] }).el);
@@ -192,7 +195,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 				}
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
-					//$("#c-chart-title-1").text("사업체별");
+					
 					var queryString = $('#c-search-box').val(); 
 					if (!notFirst) {
 						$('#frame1').append(dataExplorerView1.el);
@@ -200,9 +203,28 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						$('#frame3').append(dataExplorerView3.el);
 						notFirst = true;
 					} 
-					dataExplorerView1.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-C24-PROJ&query=", queryString);
-					dataExplorerView2.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-ECO-PROJ&query=", queryString);
-					dataExplorerView3.query("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-PTL-PROJ&query=", queryString);
+					
+					/*
+					 * ServerSide job emulate
+					 */
+					var selectedBtn = $(".c-keyword-set :radio:checked").val();
+					if (selectedBtn == "전체") {
+						dataExplorerView1.setDefWords("동일산업 합금철");
+						dataExplorerView2.setDefWords("동일산업 합금철");
+						dataExplorerView3.setDefWords("동일산업 합금철");
+					} else if(selectedBtn == "증가") {
+						dataExplorerView1.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
+						dataExplorerView2.setDefWords("동일산업 합금철");
+						dataExplorerView3.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
+					} else if(selectedBtn == "감소") {
+						dataExplorerView1.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
+						dataExplorerView2.setDefWords("동일산업 합금철");
+						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
+					};
+					
+					dataExplorerView1.query(queryString);
+					dataExplorerView2.query(queryString);
+					dataExplorerView3.query(queryString);
 					
 					requestingObj[dataExplorerView1.reportID] = $.Deferred();
 					requestingObj[dataExplorerView2.reportID] = $.Deferred();
