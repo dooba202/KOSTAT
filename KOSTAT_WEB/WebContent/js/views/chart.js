@@ -63,9 +63,9 @@ function($,Backbone, _, Mustache, template, Logger) {
  			        '#058dc7', 
  			       	'#54b637', 
  			       	'#ee5f26', 
- 			       	'#f5ae04', 
+ 			        '#bb72bc',
  			       	'#24cbe5', 
- 			       	'#bb72bc', 
+ 			        '#f5ae04', 
  			       	'#92A8CD', 
  			       	'#A47D7C', 
  			       	'#B5CA92'
@@ -200,7 +200,7 @@ function($,Backbone, _, Mustache, template, Logger) {
  			    },
  				*/			    
  			    tooltip: {
- 			    	//backgroundColor: '#FCFFC5',
+ 			    	backgroundColor: '#FFFFFF',
  			    	xDateFormat: '%Y년%m월',
  			    	headerFormat: '<span style="font-size: 10pt">{point.key}</span><br/>',
  			    	pointFormat: '<span style="color:{series.color};font-weight: bold; font-size:11pt;">{series.name}</span>: <b>{point.y}' + unit +'</b><br/>', //({point.change}%)
