@@ -200,9 +200,10 @@ function($,Backbone, _, Mustache, template, Logger) {
  			    },
  				*/			    
  			    tooltip: {
+ 			    	//backgroundColor: '#FCFFC5',
  			    	xDateFormat: '%Y년%m월',
- 			    	headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
- 			    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}' + unit +'</b><br/>', //({point.change}%)
+ 			    	headerFormat: '<span style="font-size: 10pt">{point.key}</span><br/>',
+ 			    	pointFormat: '<span style="color:{series.color};font-weight: bold; font-size:11pt;">{series.name}</span>: <b>{point.y}' + unit +'</b><br/>', //({point.change}%)
  			    	//valueDecimals: 2
  			    },
  			    
