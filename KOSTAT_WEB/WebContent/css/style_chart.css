@@ -369,11 +369,11 @@ html, body {
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    border: 1px solid #555;
+    border: 1px solid #ccc;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-	background: url("../images/main-datepicker-bg.png") center center  repeat-x;
+	background: url("../images/main-datepicker-bg.png") center center no-repeat;
 }
 .c-date-from-text, .c-date-to-text {
 	height: 15px;
@@ -383,12 +383,14 @@ html, body {
 .c-date-from-text { width: 46px; background: url("../images/main-c-date-from.png") no-repeat; }
 .c-date-to-text { width: 26px; background: url("../images/main-c-date-to.png") no-repeat; }
 .c-date-from, .c-date-to {
+	width: 110px;
 	height: 28px;
 	font-family: NGE, "NanumGothic", 나눔고딕;
 	font-size: 0.88em;
-	color: #fff;
+	color: #555;
 	line-height: 26px;
-	text-align: center;
+	padding-left: 18px;
+	cursor: pointer;
 }
 .c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
 	background: red !important;
