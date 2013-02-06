@@ -235,11 +235,12 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 	        onClose: function(dateText, inst) {
 	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
 	        	$(this).datepicker('setDate', selectedDate);
-	        },
+	        }
+			/*,
 	        onChangeMonthYear: function(year, month) {
 	        	var selectedDate = new Date(year, month -1);
 	        	$(this).datepicker('setDate', selectedDate);
-	        }
+	        }*/
 		});
 		var today = new Date();
 		var monthAgo = new Date(today.getFullYear(), today.getMonth() - 1);
