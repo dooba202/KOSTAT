@@ -214,9 +214,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		var chartView3 = new chart({id: 'chartC', title:"전년동월비", width: '100%', height: '350px'});
 		
 		var category_load = function(data1,data2,data3) {
-			$("#accordion").append(listMenuView1.render({listNumber:1, className: "sanup", list: data1[0] }).el);
-			$("#accordion").append(listMenuView2.render({listNumber:3, className: "product", list: data2[0] }).el);
-			$("#accordion").append(listMenuView3.render({listNumber:2, className: "saup", list: data3[0] }).el);
+			$("#accordion").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: data1[0] }).el);
+			$("#accordion").append(listMenuView2.render({'listNumber':3,'line-height': 5, className: "product", list: data2[0] }).el);
+			$("#accordion").append(listMenuView3.render({'listNumber':2,'line-height': 10, className: "saup", list: data3[0] }).el);
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
 			$("#accordion").on( "accordionactivate", function( event, ui ) {
