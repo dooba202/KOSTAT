@@ -75,8 +75,21 @@ function($,Backbone, _, Mustache, template, Logger) {
 			});
 			if ($iframe.length) {
 				this.eventTrigger("loadStart",$iframe.attr("name"));
-				$iframe.attr("src", this.sourceURL + this.defWords + " " + qstring);
-				//iframe.update();
+				/*
+				//polyfill for cross-browser issue
+				var myframe = $iframe[0];
+				if(myframe !== null){
+					if(myframe.src){
+						myframe.src = this.sourceURL + this.defWords + " " + qstring; }
+					else if(myframe.contentWindow !== null && myframe.contentWindow.location !== null){
+						myframe.contentWindow.location = this.sourceURL + this.defWords + " " + qstring; }
+					else{ 
+						myframe.setAttribute('src', this.sourceURL + this.defWords + " " + qstring); 
+					}
+				}
+				*/
+				var encodedQuery = encodeURIComponent(this.defWords + " " + qstring);
+				$iframe.attr("src", this.sourceURL + encodedQuery);
 			}
 		}
 	});
