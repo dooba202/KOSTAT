@@ -76,7 +76,7 @@
 			<div class="l-main-inner">
 				<div class="placeholder"></div>
 				<div class="l-category">
-					<div id="c-category-title2"></div>
+					<div id="c-category-title3"></div>
 				</div>
 				<div class="l-chart" id="chartContainer"><!-- 스크롤러 적용부분 -->
 				</div>
