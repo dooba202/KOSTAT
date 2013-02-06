@@ -271,9 +271,7 @@ html, body {
 	width: 100%;
 	height: 45px;
 	margin-bottom: 5px;
-	background: -webkit-gradient(linear,left top,left bottom,from(#ffb001),to(#ff8400));
-	background: -moz-linear-gradient(top,#ffb001,#ff8400);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffb001', endColorstr='#ff8400');
+	background: #aaa;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -395,6 +393,25 @@ html, body {
 .c-date-from .ui-spinner-button, .c-date-to .ui-spinner-button {
 	background: red !important;
 }
+.c-date-picker-selected {
+	color: #aaa;
+	float: right;
+	font-family: NanumGothic;
+	font-size: 0.8em;
+	line-height: 30px;
+	margin-right: 30px;
+	padding: 3px;
+}
+.c-date-from-selected, .c-date-to-selected {
+	display: inline-block;
+	width: 120px;
+	height: 30px;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	vertical-align: middle;
+}
 .c-display-selected {
 	width: auto;
 	min-width: 100px;
@@ -440,8 +457,6 @@ html, body {
 	font-size: 0.8em;
 }
 .c-search {
-	width: 170px;
-	height: 60px;
 	float: right;
 	text-align: right;
 }

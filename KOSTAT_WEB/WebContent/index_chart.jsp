@@ -64,6 +64,9 @@
 					<div class="c-search">
 						<div class="c-search-button"></div>
 					</div>
+					<div class="c-date-picker-selected">
+						<span class="c-date-from-selected">시작기간</span> ~ <span class="c-date-to-selected">종료기간</span>
+					</div>
 					<!-- <div class="c-date-picker">
 						<span class="c-date-from-text"></span><input class="c-date-from" name="value" />
 						<span class="c-date-to-text"></span><input class="c-date-to" name="value" />
