@@ -284,21 +284,21 @@ html, body {
 .l-category div {
 	display: none;
 }
-#c-category-title1 {
+.c-category-title1 {
 	width: 212px;
 	height: 36px;
 	top: 6px;
 	position: relative;
 	background: url("../images/main-c-category-title.png") 0 0 no-repeat;
 }
-#c-category-title2 {
+.c-category-title2 {
 	width: 212px;
 	height: 36px;
 	top: 6px;
 	position: relative;
 	background: url("../images/main-c-category-title.png") 0 -36px no-repeat;
 }
-#c-category-title3 {
+.c-category-title3 {
 	width: 212px;
 	height: 36px;
 	top: 6px;
@@ -512,6 +512,7 @@ html, body {
 #ui-datepicker-div {
 	width: 174px;
 	border: 1px solid #ccc;
+	
 	border-radius: 0;
 	padding: 2px;
 	background: #fff;
