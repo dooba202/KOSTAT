@@ -319,7 +319,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 					chartView3.render(temp_data3, "%");
 					//$("#c-chart-title-1").text("사업체별");
 					/* temp code */
-					if ($(".c-display-selected-3").text().trim() == "전체") {
+					if ($.trim($(".c-display-selected-3").text()) == "전체") {
 						$("#c-category-title").addClass("c-category-title2");
 						$("#c-category-title").removeClass("c-category-title3");
 					} else {
