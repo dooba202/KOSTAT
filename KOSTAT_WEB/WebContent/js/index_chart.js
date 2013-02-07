@@ -318,6 +318,15 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 					chartView2.render(temp_data2, "%");
 					chartView3.render(temp_data3, "%");
 					//$("#c-chart-title-1").text("사업체별");
+					/* temp code */
+					if ($(".c-display-selected-3").text().trim() == "전체") {
+						$("#c-category-title").addClass("c-category-title2");
+						$("#c-category-title").removeClass("c-category-title3");
+					} else {
+						$("#c-category-title").addClass("c-category-title3");
+						$("#c-category-title").removeClass("c-category-title2");
+					}
+					/* temp code end */
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
