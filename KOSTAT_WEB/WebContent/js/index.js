@@ -72,6 +72,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 	};	
 	var notFirst = false;
 	var doNothing = false;
+	var lastWord = "";
 	var requestingObj = {};
 	var init = function(){
 		logger.log("index.js init");
@@ -221,10 +222,22 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						dataExplorerView2.setDefWords("동일산업 합금철");
 						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
 					};
+					// 선택을 바꾸면 defWords도 바꾸고 lastWord도 날리고 추가 입력어로 쿼리 요청도 받고
 					
-					dataExplorerView1.query(queryString);
-					dataExplorerView2.query(queryString);
-					dataExplorerView3.query(queryString);
+					if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
+						dataExplorerView1.query(lastWord + queryString);
+						dataExplorerView2.query(lastWord + queryString);
+						dataExplorerView3.query(lastWord + queryString);
+					} else {
+						dataExplorerView1.query(queryString);
+						dataExplorerView2.query(queryString);
+						dataExplorerView3.query(queryString);
+					}
+					if ($("#c-search-check").is(':checked')) {
+						lastWord += " " + queryString + " ";
+					} else { 
+						lastWord = queryString + " ";
+					}
 					
 					requestingObj[dataExplorerView1.reportID] = $.Deferred();
 					requestingObj[dataExplorerView2.reportID] = $.Deferred();
@@ -330,6 +343,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					} else if (className == "saup") {
 						$(".c-display-selected-3").text(label.slice(0,7));
 						selections[2] = id;
+						lastWord = "";
+						$("#c-search-check").prop("checked", false);
+						$('#c-search-box').val("");
 					} 
 				},
 				"loadStart": function(name) {
