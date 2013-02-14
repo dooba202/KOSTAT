@@ -8,6 +8,9 @@
 	src: url(NGE.eot);
 	src: local(※),url(NGE.woff) format('woff')
 }
+html {
+	overflow-y: hidden; 
+}
 html, body {
 	height: 100%;
 	margin: 0;
@@ -43,7 +46,7 @@ html, body {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	float: left;
-	width: 300px;
+	width: 320px;
 	min-height: 600px;
 	vertical-align: top;
 	background: transparent;
@@ -56,7 +59,7 @@ html, body {
 	position: relative;
 	/* width: 75%; */
 	/* min-height: 600px; */
-	margin-left: 300px;
+	margin-left: 320px;
 	margin-right: 10px;
 	vertical-align: top;
 	border: 1px solid #ccc;
@@ -393,7 +396,7 @@ html, body {
 .c-date-from-text { width: 46px; background: url("../images/main-c-date-from.png") no-repeat; }
 .c-date-to-text { width: 26px; background: url("../images/main-c-date-to.png") no-repeat; }
 .c-date-from, .c-date-to {
-	width: 110px;
+	width: 120px;
 	height: 28px;
 	font-family: "NanumGothic", 나눔고딕, NG, NGE;
 	font-size: 0.88em;
