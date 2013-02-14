@@ -245,7 +245,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					doNothing = true;
 					
 					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
-						$('body').css("overflow", "auto");
+						//$('body').css("overflow", "auto");
 						doNothing = false; 
 						requestingObj = {};
 					});
@@ -349,7 +349,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					} 
 				},
 				"loadStart": function(name) {
-					$('body').css("overflow", "hidden");
+					//$('body').css("overflow", "hidden");
 					if (name == "dataExplorer0"){
 						$('#target1').showLoading();
 					} else if (name == "dataExplorer1"){
