@@ -9,7 +9,7 @@
 	src: local(※),url(NGE.woff) format('woff')
 }
 html {
-	overflow-y: hidden; 
+	overflow-y: hidden;
 }
 html, body {
 	height: 100%;
