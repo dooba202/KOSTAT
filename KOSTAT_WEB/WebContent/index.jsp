@@ -99,10 +99,11 @@
 					</div>
 				</div>
 			</div>
-			<div id="footer">
+			
+		</div>
+		<div id="footer">
 				<div id="c-logo-ibm"></div>
 			</div>
-		</div>
 	</div>
 	<!-- <div id="results"></div> -->
 </body>
