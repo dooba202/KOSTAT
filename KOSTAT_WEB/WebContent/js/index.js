@@ -191,6 +191,11 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 			});
 			
 			$(".c-search-button").click(function(){
+				/* 선택된 Filter 정보 읽어오기 */
+				// 1. 전체 / 증가 / 감소 ==> var selectedBtn = $(".c-keyword-set :radio:checked").val();
+				// 2. 시작기간 / 끝기간
+				// 3. 산업분류 / 품목 / 사업체 ==> 결과 코드
+				
 				if (doNothing) {
 					return
 				}
@@ -209,15 +214,15 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					 * ServerSide job emulate
 					 */
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
-					if (selectedBtn == "전체") {
+					if (selectedBtn == "all") {
 						dataExplorerView1.setDefWords("동일산업 합금철");
 						dataExplorerView2.setDefWords("동일산업 합금철");
 						dataExplorerView3.setDefWords("동일산업 합금철");
-					} else if(selectedBtn == "증가") {
+					} else if(selectedBtn == "increase") {
 						dataExplorerView1.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
 						dataExplorerView2.setDefWords("동일산업 합금철");
 						dataExplorerView3.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-					} else if(selectedBtn == "감소") {
+					} else if(selectedBtn == "decrease") {
 						dataExplorerView1.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
 						dataExplorerView2.setDefWords("동일산업 합금철");
 						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
