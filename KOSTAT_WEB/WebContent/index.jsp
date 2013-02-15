@@ -42,9 +42,9 @@
 				<div id="l-side-selector">
 					<div class="l-side-selector-inner">
 						<div class="c-keyword-set">
-							<input type="radio" id="all" name="keyword" value="전체" checked><label for="all">전체</label>
-							<input type="radio" id="plus" name="keyword" value="증가"><label for="plus">증가</label>
-							<input type="radio" id="minus" name="keyword" value="감소"><label for="minus">감소</label>
+							<input type="radio" id="all" name="keyword" value="all" checked><label for="all">전체</label>
+							<input type="radio" id="plus" name="keyword" value="increase"><label for="plus">증가</label>
+							<input type="radio" id="minus" name="keyword" value="decrease"><label for="minus">감소</label>
 						</div>
 						<div class="c-date-picker">
 							<input class="c-date-from" name="value" /> ~ <input class="c-date-to" name="value" />
