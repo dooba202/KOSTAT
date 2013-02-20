@@ -219,7 +219,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					 */
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
 					var selectedDepthCode = "";
-					var selectedBtnId = "";
 					var selectedBtnResult = "";
 					var selectedKeywordSet = "";
 					if ( selections[1] == "" ) {
@@ -242,28 +241,52 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					}
 					//날짜 순서가 바뀌었을때 앞뒤 선택 변환
 					
-					$.when(
-						$.ajax({
-							'url' : 'json/filter.json',
-							'dataType' : 'json',
-							'success' : function(data){
-								selectedBtnId = data[selectedBtn].id; //all, increase, decrease
-								selectedBtnResult = data[selectedBtn].name; //키워드 조합
-							},
-							error: function (xhr, ajaxOptions, thrownError) {
-
+					$.ajax({
+						'url' : 'json/filter.json',
+						'dataType' : 'json',
+						'success' : function(data){
+							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
+							//frameName이 first인 것에 string을 각각 꺼내서 
+							//selectedBtnResult를 읽어서 define 
+							selectedBtnResult = data[selectedBtn].queryString;
+							//selectedKeywordSet = selectedKeywordSet + ' ' + selectedBtnResult + ' ';
+							console.log(selectedBtnResult);
+							dataExplorerView1.setDefWords(selectedBtnResult);
+							dataExplorerView2.setDefWords(selectedBtnResult);
+							dataExplorerView3.setDefWords(selectedBtnResult);
+							
+							if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
+								dataExplorerView1.query(lastWord + queryString);
+								dataExplorerView2.query(lastWord + queryString);
+								dataExplorerView3.query(lastWord + queryString);
+								alert("재검색: " + lastWord + ' ' + queryString);
+							} else {
+								dataExplorerView1.query(selectedBtnResult + ' ' + queryString);
+								dataExplorerView2.query(selectedBtnResult + ' ' + queryString);
+								dataExplorerView3.query(selectedBtnResult + ' ' + queryString);
+								alert(selectedBtnResult + ' ' + queryString);
 							}
-				        }),
-						$.ajax({
-							'url' : 'json/saup.json',
-							'dataType' : 'json',
-							'success' : function(data){
-								selectedKeywordSet = 'sample'; //키워드 조합
-							},
-							error: function (xhr, ajaxOptions, thrownError) {
-
+							if ($("#c-search-check").is(':checked')) {
+								lastWord += " " + queryString + " ";
+							} else { 
+								lastWord = queryString + " ";
 							}
-				        })
+							
+							requestingObj[dataExplorerView1.reportID] = $.Deferred();
+							requestingObj[dataExplorerView2.reportID] = $.Deferred();
+							requestingObj[dataExplorerView3.reportID] = $.Deferred();
+							doNothing = true;
+							
+							$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
+								//$('body').css("overflow", "auto");
+								doNothing = false; 
+								requestingObj = {};
+							});
+						},
+						error: function (xhr, ajaxOptions, thrownError) {
+
+						}
+			        });
 				        
 				        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
 				        /*$.ajax({
@@ -273,39 +296,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								selectedKeywordSet = data.name; //키워드 조합
 							}
 			        	})	*/
-					).then(function(data){
-						selectedKeywordSet = selectedKeywordSet + ' ' + selectedBtnResult;
-						console.log(selectedKeywordSet);
-						dataExplorerView1.setDefWords(selectedKeywordSet);
-						dataExplorerView2.setDefWords(selectedKeywordSet);
-						dataExplorerView3.setDefWords(selectedKeywordSet);
-					});
+
 					
-					if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-						dataExplorerView1.query(lastWord + queryString);
-						dataExplorerView2.query(lastWord + queryString);
-						dataExplorerView3.query(lastWord + queryString);
-					} else {
-						dataExplorerView1.query(queryString);
-						dataExplorerView2.query(queryString);
-						dataExplorerView3.query(queryString);
-					}
-					if ($("#c-search-check").is(':checked')) {
-						lastWord += " " + queryString + " ";
-					} else { 
-						lastWord = queryString + " ";
-					}
-					
-					requestingObj[dataExplorerView1.reportID] = $.Deferred();
-					requestingObj[dataExplorerView2.reportID] = $.Deferred();
-					requestingObj[dataExplorerView3.reportID] = $.Deferred();
-					doNothing = true;
-					
-					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
-						//$('body').css("overflow", "auto");
-						doNothing = false; 
-						requestingObj = {};
-					});
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}

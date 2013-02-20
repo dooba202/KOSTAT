@@ -1,12 +1,13 @@
 [{
-	"id": "all",
-	"name": [""]
+	"frameName": "first",
+	"queryString": "증가 OR 증대 OR 반등 OR 상승 OR 확대 OR 포스코"
 },
 {
-	"id": "increase",
-	"name": ["증가 OR 증대 OR 반등 OR 상승 OR 확대"]
+	"frameName": "second",
+	"queryString": "증가 OR 증대 OR 반등 OR 상승 OR 확대 OR 합금"
 },
 {
-	"id": "decrease",
-	"name": ["감소 OR 하락 OR 축소"]
-}]
+	"frameName": "third",
+	"queryString": "증가 OR 증대 OR 반등 OR 상승 OR 확대 OR 철강"
+}
+]
