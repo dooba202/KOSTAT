@@ -44,6 +44,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 			_.defaults(this.options, this.defaults);
 		    this.reportID = "dataExplorer" + app.dataExplorerView.REPORTID;
 		    this.defWords = "";
+		    this.$iframe = null;
 		    width = options.width;
 		    height = options.height;
 		    this.el = Mustache.to_html(template, {"target": this.reportID, "wrapId": this.reportID + "FormDiv", "width": width,"height": height });
@@ -67,14 +68,17 @@ function($,Backbone, _, Mustache, template, Logger) {
 		},
 		
 		query: function(qstring) {
-			var $iframe = $("iframe[name ="+ this.reportID + "]");
 			var $this = this;
-			$iframe.load(function(param){
-				var deName = $(param.currentTarget).attr("name");
-				$this.eventTrigger("loadFinish", deName);
-			});
-			if ($iframe.length) {
-				this.eventTrigger("loadStart",$iframe.attr("name"));
+			if (!this.$iframe) {
+				this.$iframe = $("iframe[name ="+ this.reportID + "]");
+				this.$iframe.load(function(param){
+					var deName = $(param.currentTarget).attr("name");
+					$this.eventTrigger("loadFinish", deName);
+				});
+			}
+
+			if (this.$iframe.length) {
+				this.eventTrigger("loadStart",this.$iframe.attr("name"));
 				/*
 				//polyfill for cross-browser issue
 				var myframe = $iframe[0];
@@ -89,7 +93,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 				}
 				*/
 				var encodedQuery = encodeURIComponent(this.defWords + " " + qstring);
-				$iframe.attr("src", this.sourceURL + encodedQuery);
+				this.$iframe.attr("src", this.sourceURL + encodedQuery);
 			}
 		}
 	});
