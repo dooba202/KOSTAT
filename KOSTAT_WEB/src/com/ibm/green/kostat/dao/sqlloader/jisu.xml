@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="KOSTAT" category="jisu">
+
+	<select id="getJisuListWithIndustryCode" >
+		select  
+			sanid
+		  , pumid
+		  , j.jisu_gu
+		     , (select description 
+		  		from code_mst
+				where code_grp = 'JISU_GU'
+			    and code = j.jisu_gu
+		       ) AS "JISU_GU_NM"
+		  , josa_ym
+		  , to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
+		  , sum(jisu) / count(*) "JISU"
+		  from mi_jisu j
+		where 1=1
+		   and jisu_gu in ('P1','S1','D1','E1','H1')
+		   and jisuid = 'ON1'
+		   and sanid =  ? 
+		   and pumid =  ? 
+		   and josa_ym between ? and ? 
+		 group by 
+		    josa_ym
+		  , jisu_gu
+		  , jisuid
+		  , sanid
+		  , pumid
+		 order by 
+		    jisu_gu
+		  , josa_ym
+		  , sanid
+	</select>
+
+</dbQuery>
+
+

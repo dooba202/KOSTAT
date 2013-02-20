@@ -3,6 +3,7 @@ package com.ibm.green.kostat.daofactory;
 import com.ibm.green.exception.ErrorCode;
 import com.ibm.green.exception.GreenRuntimeException;
 import com.ibm.green.kostat.dao.CredentialDAO;
+import com.ibm.green.kostat.dao.JisuDAO;
 import com.ibm.green.kostat.dao.SysInfoDAO;
 import com.ibm.green.kostat.dao.UserDAO;
 
@@ -72,5 +73,12 @@ public abstract class DAOFactory {
 	 * @return DAO object which implements <code>UserDAO</code> interface
 	 */	
 	public abstract UserDAO getUserDAO();
+	
+	/**
+	 * Return <code>JisuDAO</code> object
+	 *
+	 * @return DAO object which implements <code>JisuDAO</code> interface
+	 */		
+	public abstract JisuDAO getJisuDAO();
 
 }
