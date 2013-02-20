@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	
+	<select id="select1">
+		<param name="name" method="name" type="string"/>
+		
+		select * from company
+		
+		<rule>
+			<isNotNull property="name">where id=$name$</isNotNull>
+		</rule>
+	</select>
+	
+	
+</dbQuery>

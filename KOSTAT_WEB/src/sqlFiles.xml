@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlLoader>
+	<transactionManager type="JDBC" commitRequired="false">
+	</transactionManager>
+	 
+	<dataSources>
+		<dataSource type="JNDI" name="KOSTAT">
+			<property name="DataSource" value="jdbc/KOSTAT_DB"></property>
+		</dataSource>
+	</dataSources>  
+	 
+	<sqlList>
+		<sql resource="com/ibm/green/kostat/dao/sqlloader/credential.xml" />
+		<sql resource="com/ibm/green/kostat/dao/sqlloader/user.xml" />
+		<sql resource="com/ibm/green/kostat/dao/sqlloader/sysinfo.xml" />		
+	</sqlList>
+</sqlLoader>
+
+  

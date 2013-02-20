@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	
+	<select id="select3">
+		
+		select * from bbb
+		where 1==1
+		<rule>
+			<isNotNull property="getId">and id=? </isNotNull>
+			<isNotNull property="getName">and name=? </isNotNull>
+		</rule>
+		
+		
+	</select>
+	
+</dbQuery>

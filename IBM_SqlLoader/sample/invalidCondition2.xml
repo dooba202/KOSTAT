@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select1">
+		
+		select * from ccc
+		
+		<rule>
+			<isNotNull property="getName">
+				<isSame property="getName1">
+					<isNotNull property="getName">and name=$test$</isNotNull>
+				</isSame>
+			</isNotNull>
+		</rule>
+		
+	</select>
+	
+</dbQuery>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Property of IBM Korea, Copyright(C). IBM Korea 2012 All Rights Reserved. -->
+
+<sqlLoader>
+	<transactionManager type="JDBC" commitRequired="false">
+	    
+	</transactionManager>
+	
+	<dataSources>
+	    <dataSource type="JNDI" name="bss">
+	         <property name="DataSource" value="java:comp/env/jdbc/BSS"/>
+		</dataSource>
+	</dataSources>
+	
+	<global>
+		<replaceQeury from="bss" to="bss2"/>
+	</global>
+	
+	<sqlList>
+		<sql resource="com/ibm/ccms/bss/dao/sql/adapter.xml" />
+	</sqlList>
+</sqlLoader>
+
+  

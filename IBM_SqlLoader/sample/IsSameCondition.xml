@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select1">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from ccc
+		where 1==1
+		<rule>
+			<isSame property="getName" value="test" sensitive="N">and name=$name$ </isSame>
+		</rule>
+		
+	</select>
+	
+</dbQuery>
