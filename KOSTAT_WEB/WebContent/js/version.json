@@ -1,8 +1,13 @@
 {
 	"requireJS": "2.1.2",
 	"backbone": "0.9.9",
+	"mustache": "",
+	"underscore": "",
 	"jquery": "1.8.3",
 	"jquery.ui": "1.9.2",
+	"jquery.mCustomScrollbar": "",
+	"jquery.mousewheel": "",
+	"jquery.toastmessage": "",
 	"highcharts": "2.3.5"
 }
 	

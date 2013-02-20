@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="KOSTAT" category="sysinfo">
+
+	<select id="select" >
+		SELECT * 
+		FROM SYSTEM.KOSTAT_SYSINFO S1
+		WHERE S1.INFO_KEY = ? 
+	</select>
+
+	<select id="selectAll" >
+		SELECT * 
+		FROM SYSTEM.KOSTAT_SYSINFO S1
+	</select>
+
+
+</dbQuery>
+
+

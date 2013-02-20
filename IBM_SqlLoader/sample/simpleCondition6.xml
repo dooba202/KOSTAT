@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select6">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from ccc
+		where 1==1
+		<rule>
+			<isNotNull property="getName">
+					and name=$name$
+			</isNotNull>
+		</rule>
+		
+		<rule>
+			<isNotNull property="getName">
+					and name=$name$
+			</isNotNull>
+		</rule>
+		
+	</select>
+	
+</dbQuery>

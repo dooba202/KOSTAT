@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="SqlLoader" default="GenerateJar">
+
+	<!-- set properties from external file -->
+	<property file="build.properties" />
+
+	<!-- project profile -->
+	<property name="sql.dir" value="${workspace.dir}/CCMS_SqlLoader" />
+	<property name="web.dir" value="${workspace.dir}/${application.name}WEB" />
+	<property name="common.dir" value="${workspace.dir}/CCMS_CommonJAR" />
+
+	<!-- directories for build output -->
+	<property name="sql.output.dir" value="${target.dir}/CCMS_SqlLoader" />
+	<property name="archives.output.dir" value="${target.dir}/JAR" />
+	<property name="javadoc.output.dir" value="${target.dir}/JAR/javadoc/CCMS_SqlLoader" />
+
+	<!-- target tasks -->
+
+	<target name="prepare">
+
+		<mkdir dir="${sql.output.dir}" />
+		<mkdir dir="${archives.output.dir}" />
+	</target>
+
+	<target name="build" depends="prepare">
+		<copy toDir="${sql.output.dir}">
+			<fileset dir="${sql.dir}/src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<javac srcdir="${sql.dir}/src" destdir="${sql.output.dir}" verbose="yes" encoding="utf-8">
+			<classpath>
+				<fileset dir="${common.dir}">
+					<include name="*.jar" />
+				</fileset>
+
+			</classpath>
+			<include name="**/*.java" />
+		</javac>
+	</target>
+
+	<target name="GenerateJar" depends="build"> 
+		<jar destfile="${archives.output.dir}/CCMS_SqlLoader.jar" basedir="${sql.output.dir}" includes="**/*" />
+	</target>
+
+	<target name="GenerateJar_Clean" depends="build">
+		<jar destfile="${archives.output.dir}/CCMS_SqlLoader.jar" basedir="${sql.output.dir}" includes="**/*" />
+		<antcall target="javadocs">
+		</antcall>
+		<antcall target="clean">
+		</antcall>
+	</target>
+
+	<target name="javadocs">
+		<mkdir dir="${javadoc.output.dir}" />
+
+		<javadoc sourcepath="${sql.dir}/src" destdir="${javadoc.output.dir}" docencoding="UTF-8" additionalparam="-encoding UTF-8 ">
+			<classpath>
+				<fileset dir="${common.dir}">
+					<include name="*.jar" />
+				</fileset>
+
+			</classpath>
+
+		</javadoc>
+
+	</target>
+	<target name="clean">
+		<delete dir="${sql.output.dir}" />
+	</target>
+
+
+</project>

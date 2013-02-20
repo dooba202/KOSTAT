@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select1">
+		
+		select * from aaa
+		where 
+			1=1
+		<rule>
+			<for property="getDepts">
+				<isNotNull property="getName">and a=1</isNotNull>
+			</for>
+			
+		</rule>
+		
+		
+	</select>
+	
+	<select id="select2">
+		select * from aaa
+		where 
+			1=1
+		<rule>
+			<for property="getDepts">
+				<for property="getUsers">
+					<isNotNull property="getName">and a=1</isNotNull>
+				</for>
+			</for>
+			
+		</rule>
+	</select>
+	
+	<select id="select3">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from aaa
+		where 
+			1=1
+		<rule>
+			<for property="getDepts">
+				<isNotNull property="getName">and a=$name$</isNotNull>
+			</for>
+		</rule>
+	</select>
+	
+	<select id="select4">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from aaa
+		where 
+			1=1
+		<rule>
+			<for property="getDepts">
+				<isNotNull property="getName">and a=$name$</isNotNull>
+				<isNotNull property="getName">
+					<isNotNull property="getName">and b=$name$</isNotNull>
+				</isNotNull>
+			</for>
+		</rule>
+	</select>
+	
+</dbQuery>

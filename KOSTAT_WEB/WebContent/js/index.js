@@ -19,7 +19,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		logger.setLevel("ALL");
 		
 	var selections = []; //to store category selections
-	/* sample data */
+	/* sample data 
 	var temp_list1 = [
 	                  {"id": "san001","name": "의약품"},
 	                  {"id": "san002","name": "1차금속"},
@@ -50,7 +50,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 	                  {"id": "saup004","name": "대양전기공업(주)"},
 	                  {"id": "saup005","name": "금화전선(주)"}
 	                  ];
-
+	 */
+	
 	/* utility function to make menu selectable */
 	var mCustomScrollSelectable = function(className) {
 		$(className).on("click", function(e) {

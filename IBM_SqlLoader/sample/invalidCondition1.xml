@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select1">
+		
+		select * from ccc
+		
+		<rule>
+			<isNotNull property="getName1">
+				<isNotNull property="getName">
+					<isNotNull property="getName">and name=$test$</isNotNull>
+				</isNotNull>
+			</isNotNull>
+		</rule>
+		
+	</select>
+	
+	<select id="select2">
+		
+		select * from ccc
+		
+		<rule>
+			<isNotNull property="getName">
+				<isNotNull property="getName2">
+					<isNotNull property="getName">and name=$test$</isNotNull>
+				</isNotNull>
+			</isNotNull>
+		</rule>
+		
+	</select>
+	
+	<select id="select3">
+		
+		select * from ccc
+		
+		<rule>
+			<isNotNull property="getName">
+				<isNotNull property="getName">
+					<isNotNull property="getName3">and name=$test$</isNotNull>
+				</isNotNull>
+			</isNotNull>
+		</rule>
+		
+	</select>
+	
+</dbQuery>

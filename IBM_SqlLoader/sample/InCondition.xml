@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+
+	<select id="select1">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from ccc
+		where 1==1
+		<rule>
+			<in property="getRoles" type="string" name="roles">and name in ($roles$) </in>
+		</rule>
+		
+	</select>
+	
+	<select id="select2">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from ccc
+		where 1==1
+		<rule>
+			<in property="getRoles2" type="string" field="getName" name="roles">and name in ($roles$) </in>
+		</rule>
+		
+	</select>
+	
+	<select id="select3">
+		
+		select * from ccc
+		where 1==1
+		<rule>
+			<in property="getRoles2" type="int" field="getId" name="roles">and id in ($roles$) </in>
+		</rule>
+		
+	</select>
+	
+</dbQuery>

@@ -1,9 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="KOSTAT_EAR">
         <wb-resource deploy-path="/" source-path="/" tag="defaultRootSource"/>
         <dependent-module archiveName="KOSTAT_WEB.war" deploy-path="/" handle="module:/resource/KOSTAT_WEB/KOSTAT_WEB">
             <dependent-object>Module_1358155110951</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-1.1.1.jar" deploy-path="/lib" handle="module:/classpath/lib/KOSTAT_CommonLib/lib/commons-logging-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IBM_SqlLoader.jar" deploy-path="/lib" handle="module:/resource/IBM_SqlLoader/IBM_SqlLoader">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec-1.6.jar" deploy-path="/lib" handle="module:/classpath/lib/KOSTAT_CommonLib/lib/commons-codec-1.6.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

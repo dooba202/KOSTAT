@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select1">
+		
+		select * from aaa
+		
+		<ref id="sub1"/>
+	</select>
+	
+	<select id="select2">
+		
+		select * from aaa
+		
+		<ref id="sub1"/>
+		<ref id="sub1"/>
+	</select>
+	
+	<select id="select3">
+		
+		select * from aaa
+		
+		<rule>
+			<isNotNull property="getName"><ref id="sub1"/></isNotNull>
+		</rule>
+	</select>
+	
+	<select id="select4">
+		
+		select * from aaa
+		
+		<rule>
+			<for property="getDepts">
+				<isNotNull property="getName"><ref id="sub1"/></isNotNull>
+			</for>
+			
+		</rule>
+	</select>
+	
+	<sub id="sub1">
+		where a=1
+	</sub>
+	
+</dbQuery>

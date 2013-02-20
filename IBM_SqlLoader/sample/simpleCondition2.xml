@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	
+	<select id="select2">
+		<param name="name" method="getName" type="string"/>
+		
+		select * from bbb
+		
+		<rule>
+			<isNotNull property="getName">and a=$name$</isNotNull>
+		</rule>
+		
+	</select>
+	
+	
+</dbQuery>

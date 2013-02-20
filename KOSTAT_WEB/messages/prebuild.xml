@@ -1,0 +1,13 @@
+<!DOCTYPE project>
+<project name="prebuild" default="prebuild">
+	<target name="native2ascii">
+		<native2ascii encoding="UTF-8" src="." 
+		    dest="${basedir}/../src/com/ibm/green/exception"
+		    includes="**/*.properties" ext=".properties" />
+	</target>
+	
+	<target name="prebuild" depends="native2ascii">
+	</target>
+
+</project>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	
+	<select id="select1">
+		<param name="id" method="getId" type="Integer" />
+		<param name="name" method="getName" type="String"/>
+		
+		select * from ccc
+		where 1==1
+			<rule>
+				<isNotEmpty property="getId">
+					<isNotSame property="getName" value="test1">
+						<isSame property="getName" value="test">
+							AND a = $name$
+						</isSame>
+						<isSame property="getName" value="test">
+							AND b = $name$
+						</isSame>
+					</isNotSame>
+				</isNotEmpty>
+			</rule>
+	</select>
+	
+	<select id="select2">
+		<param name="id" method="getId" type="Integer" />
+		<param name="name" method="getName" type="String"/>
+		
+		select * from ccc
+		where 1==1
+			<rule>
+				<isNotEmpty property="getId">
+					<isNotSame property="getName" value="test1">
+						<isSame property="getName" value="test">
+							AND a = $name$
+						</isSame>
+						<isSame property="getName" value="test">
+							AND b = $name$
+						</isSame>
+					</isNotSame>
+					
+					<isNotSame property="getName" value="test1">
+						<isSame property="getName" value="test">
+							AND c = $name$
+						</isSame>
+						<isSame property="getName" value="test">
+							AND d = $name$
+						</isSame>
+					</isNotSame>
+				</isNotEmpty>
+			</rule>
+	</select>
+</dbQuery>

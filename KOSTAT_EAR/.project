@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>KOSTAT_WEB</project>
+		<project>IBM_SqlLoader</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

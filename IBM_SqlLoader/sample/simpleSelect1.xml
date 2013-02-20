@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	<select id="select1">
+		
+		select * from users
+	</select>
+	
+	<select id="select2">
+		
+		select * from company where name = ?
+	</select>
+	
+	<select id="select3">
+		
+		select * from $TS$.company where name = ?
+	</select>
+	
+</dbQuery>
+
+

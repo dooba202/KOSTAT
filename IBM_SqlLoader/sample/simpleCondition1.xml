@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	
+	<select id="select1">
+		
+		select * from company
+		
+		<rule>
+			<isNotNull property="getName">where id=1</isNotNull>
+		</rule>
+		
+		
+	</select>
+	
+	<select id="select2">
+		
+		select * from company
+		
+		<rule>
+			<isNotEmpty property="getName">where id=1</isNotEmpty>
+		</rule>
+		
+		
+	</select>
+	
+	<select id="select3">
+		
+		select * from company
+		
+		<rule>
+			<isEmpty property="getName">where id=1</isEmpty>
+		</rule>
+		
+		
+	</select>
+	
+	<select id="select4">
+		
+		select * from company
+		
+		<rule>
+			<isSame property="getName" value="test1" sensitive="n">where id=1</isSame>
+			<isSame property="getName" value="Test2" sensitive="y">where id=2</isSame>
+		</rule>
+		
+		
+	</select>
+	
+	<select id="select5">
+		
+		select * from company
+		
+		<rule>
+			<isNotSame property="getName" value="Test2" sensitive="y">where id=2</isNotSame>
+		</rule>
+		
+		
+	</select>
+	
+	<select id="select6">
+		
+		select * from company
+		
+		<rule>
+			<isTrue>where id=2</isTrue>
+		</rule>
+		
+	</select>
+	
+</dbQuery>

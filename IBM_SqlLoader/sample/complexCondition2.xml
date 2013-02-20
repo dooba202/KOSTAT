@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="sample">
+	
+	<select id="select1">
+		<param name="id" method="getId" type="Integer" />
+		<param name="name" method="getName" type="String"/>
+		
+		select * from ccc
+		where 1==1
+			<rule>
+				<isNotEmpty property="getId">
+					<isNotSame property="getName" value="test1">
+						<isSame property="getName" value="test">
+							AND B.CUSTOMERID = $name$
+						</isSame>
+					</isNotSame>
+				</isNotEmpty>
+			</rule>
+	</select>
+	
+	<select id="select2">
+		<param name="id" method="getId" type="Integer" />
+		<param name="name" method="getName" type="String"/>
+		
+		select * from ccc
+		where 1==1
+			<rule>
+				<isNotEmpty property="getId">
+					<isNotSame property="getName" value="test">
+						<isSame property="getName" value="test1">
+							AND B.CUSTOMERID = $name$
+						</isSame>
+					</isNotSame>
+				</isNotEmpty>
+			</rule>
+	</select>
+</dbQuery>
