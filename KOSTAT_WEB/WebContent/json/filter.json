@@ -1,0 +1,12 @@
+[{
+	"id": "all",
+	"name": [""]
+},
+{
+	"id": "increase",
+	"name": ["증가 OR 증대 OR 반등 OR 상승 OR 확대"]
+},
+{
+	"id": "decrease",
+	"name": ["감소 OR 하락 OR 축소"]
+}]

@@ -195,39 +195,90 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 				// 1. 전체 / 증가 / 감소 ==> var selectedBtn = $(".c-keyword-set :radio:checked").val();
 				// 2. 시작기간 / 끝기간
 				// 3. 산업분류 / 품목 / 사업체 ==> 결과 코드
+				// var a1 = $(".c-keyword-set :radio:checked").attr('id');
+				// var a1 = $(".c-keyword-set :radio:checked + label").text();
 				
-				if (doNothing) {
+				if ( doNothing ) {
 					return
 				}
+				
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
 					
-					var queryString = $('#c-search-box').val(); 
+					var queryString = $('#c-search-box').val();
 					if (!notFirst) {
 						$('#frame1').append(dataExplorerView1.el);
 						$('#frame2').append(dataExplorerView2.el);
 						$('#frame3').append(dataExplorerView3.el);
 						notFirst = true;
-					} 
+					}
 					
 					/*
 					 * ServerSide job emulate
 					 */
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
-					if (selectedBtn == "all") {
-						dataExplorerView1.setDefWords("동일산업 합금철");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철");
-					} else if(selectedBtn == "increase") {
-						dataExplorerView1.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-					} else if(selectedBtn == "decrease") {
-						dataExplorerView1.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
-					};
-					// 선택을 바꾸면 defWords도 바꾸고 lastWord도 날리고 추가 입력어로 쿼리 요청도 받고
+					var selectedDepthCode = "";
+					var selectedBtnId = "";
+					var selectedBtnResult = "";
+					var selectedKeywordSet = "";
+					if ( selections[1] == "" ) {
+						selectedDepthCode = selections[0];
+					} else if ( selections[2] == "" ) {
+						selectedDepthCode = selections[1]; 
+					} else {
+						selectedDepthCode = selections[2];
+					}
+					//사업체 전체 선택할 경우 selectedDepthCode는 품목 번호
+					
+					var timeFrom = $(".c-date-from").datepicker("getDate");
+					var timeTo = $(".c-date-to").datepicker("getDate");
+					if ( timeFrom > timeTo ) {
+						var timeTemp = timeFrom;
+						timeFrom = timeTo;
+						$(".c-date-from").datepicker( 'setDate', timeTo );
+						timeTo = timeTemp;
+						$(".c-date-to").datepicker( 'setDate', timeTemp );
+					}
+					//날짜 순서가 바뀌었을때 앞뒤 선택 변환
+					
+					$.when(
+						$.ajax({
+							'url' : 'json/filter.json',
+							'dataType' : 'json',
+							'success' : function(data){
+								selectedBtnId = data[selectedBtn].id; //all, increase, decrease
+								selectedBtnResult = data[selectedBtn].name; //키워드 조합
+							},
+							error: function (xhr, ajaxOptions, thrownError) {
+
+							}
+				        }),
+						$.ajax({
+							'url' : 'json/saup.json',
+							'dataType' : 'json',
+							'success' : function(data){
+								selectedKeywordSet = 'sample'; //키워드 조합
+							},
+							error: function (xhr, ajaxOptions, thrownError) {
+
+							}
+				        })
+				        
+				        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
+				        /*$.ajax({
+							'url' : 'kostat/rest/keywords/' + selectedBtnId + '/' + selectedDepthCode + '/' + timeFrom + '/' + timeTo,
+							'dataType' : 'json',
+							'success' : function(data){
+								selectedKeywordSet = data.name; //키워드 조합
+							}
+			        	})	*/
+					).then(function(data){
+						selectedKeywordSet = selectedKeywordSet + ' ' + selectedBtnResult;
+						console.log(selectedKeywordSet);
+						dataExplorerView1.setDefWords(selectedKeywordSet);
+						dataExplorerView2.setDefWords(selectedKeywordSet);
+						dataExplorerView3.setDefWords(selectedKeywordSet);
+					});
 					
 					if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
 						dataExplorerView1.query(lastWord + queryString);
@@ -257,6 +308,65 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
+				
+				/*if (selections.length > 2) {
+					$(".placeholder").css({display:"none"});
+					
+					var queryString = $('#c-search-box').val(); 
+					if (!notFirst) {
+						$('#frame1').append(dataExplorerView1.el);
+						$('#frame2').append(dataExplorerView2.el);
+						$('#frame3').append(dataExplorerView3.el);
+						notFirst = true;
+					}*/
+					
+					/*
+					 * ServerSide job emulate
+					 */
+					/*var selectedBtn = $(".c-keyword-set :radio:checked").val();
+					if (selectedBtn == "all") {
+						dataExplorerView1.setDefWords("동일산업 합금철");
+						dataExplorerView2.setDefWords("동일산업 합금철");
+						dataExplorerView3.setDefWords("동일산업 합금철");
+					} else if(selectedBtn == "increase") {
+						dataExplorerView1.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
+						dataExplorerView2.setDefWords("동일산업 합금철");
+						dataExplorerView3.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
+					} else if(selectedBtn == "decrease") {
+						dataExplorerView1.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
+						dataExplorerView2.setDefWords("동일산업 합금철");
+						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
+					};*/
+					// 선택을 바꾸면 defWords도 바꾸고 lastWord도 날리고 추가 입력어로 쿼리 요청도 받고
+					
+					/*if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
+						dataExplorerView1.query(lastWord + queryString);
+						dataExplorerView2.query(lastWord + queryString);
+						dataExplorerView3.query(lastWord + queryString);
+					} else {
+						dataExplorerView1.query(queryString);
+						dataExplorerView2.query(queryString);
+						dataExplorerView3.query(queryString);
+					}
+					if ($("#c-search-check").is(':checked')) {
+						lastWord += " " + queryString + " ";
+					} else { 
+						lastWord = queryString + " ";
+					}*/
+					
+					/*requestingObj[dataExplorerView1.reportID] = $.Deferred();
+					requestingObj[dataExplorerView2.reportID] = $.Deferred();
+					requestingObj[dataExplorerView3.reportID] = $.Deferred();
+					doNothing = true;
+					
+					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
+						//$('body').css("overflow", "auto");
+						doNothing = false; 
+						requestingObj = {};
+					});*/
+				/*} else {
+					alert("모든 분류가 선택되지 않았습니다.");
+				}*/
 			});
 		});
 		$(".c-date-from, .c-date-to").datepicker({
