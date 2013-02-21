@@ -11,7 +11,8 @@ define ([
          'jquery.ui',
          'jquery.mCustomScrollbar',
          'jquery.mousewheel',
-         'jquery.showLoading'
+         'jquery.showLoading',
+         'jquery.toastmessage'
 		 ], 
 
 function( module, $, Backbone, _, Logger, category, listMenu, chart){
@@ -21,6 +22,36 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 	var selections = []; //to store category selections
 	
 	var restURL = "http://localhost:9081/kostat/rest/";
+	
+	var growl = function(type, msgObj) {
+		var showType = 'showErrorToast'; //default showing type is error
+		if (type == 'error') {
+			showType = 'showErrorToast';
+		} else if (type =='success'){
+			showType = 'showSuccessToast';
+		} // showNoticeToast //showWarningToast //showStickyWarningToast
+		
+		var responsed = $.parseJSON(msgObj.responseText);
+		if (typeof(msgObj) == 'string') {
+			$().toastmessage(showType,msgObj);
+		} else {
+			if (responsed.redirect) {
+				$().toastmessage('showToast', {
+				    text     : responsed.userMessage + "<br/> 로그인 페이지로 이동합니다. <br/> 바로 이동하시려면 이 창을 닫거나, <br/>5초 뒤에 로그인 페이지로 이동 합니다.",
+				    sticky   : true,
+				    position : 'top-right',
+				    type     : 'error',
+				    closeText: '',
+				    close    : function () {
+				    	window.location = responsed.redirect;
+				    }
+				});
+				setTimeout(function(){ window.location = responsed.redirect;}, 5000);
+			} else {
+				$().toastmessage(showType,responsed.userMessage);
+			}
+		}
+	};
 	/* sample data */
 	var temp_list1 = [
 	                  {"id": "san001","name": "의약품"},
@@ -339,6 +370,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 							chartView3.render(data, "%");
 						},
 						error: function(e) {
+							$(".placeholder").css({display:"block"});
+							growl("showErrorToast", e);
 							//alert(e.userMessage);
 						}
 			        });
