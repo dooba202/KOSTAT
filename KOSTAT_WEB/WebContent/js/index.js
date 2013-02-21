@@ -251,11 +251,19 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							var queryResult = "";
 							_.each(data, function(val){
 								if (selectedBtn == val.frameName) {
-									queryResult = val.queryString;
-									return queryResult;
+									queryResult = val.queryString.split(",");
+									var query = "";
+									_.each(queryResult, function(v){
+										if ( query == "" ) {
+											query = v;
+										} else {
+											query = query + " OR " + v;
+										}
+										return query;
+									});
+									selectedBtnResult = query;
 								}
 							});
-							selectedBtnResult = queryResult;
 							console.log("검색어: " + selectedBtnResult);
 							dataExplorerView1.setDefWords(selectedBtnResult);
 							dataExplorerView2.setDefWords(selectedBtnResult);
