@@ -260,9 +260,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								});
 								selectedBtnResult[i] = query;
 							});
-							console.log("검색어1: " + selectedBtnResult[0]);
-							console.log("검색어2: " + selectedBtnResult[1]);
-							console.log("검색어3: " + selectedBtnResult[2]);
 							dataExplorerView1.setDefWords(selectedBtnResult[0]);
 							dataExplorerView2.setDefWords(selectedBtnResult[1]);
 							dataExplorerView3.setDefWords(selectedBtnResult[2]);
