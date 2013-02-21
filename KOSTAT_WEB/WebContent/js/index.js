@@ -284,7 +284,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							});
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
-
+							
 						}
 			        });
 				        
