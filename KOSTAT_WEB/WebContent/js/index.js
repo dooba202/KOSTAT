@@ -206,6 +206,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 				if (selections.length > 2) {
 					$(".placeholder").css({display:"none"});
 					
+					var errorCount = true;
 					var queryString = $('#c-search-box').val();
 					if (!notFirst) {
 						$('#frame1').append(dataExplorerView1.el);
@@ -268,9 +269,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								dataExplorerView1.query(selectedBtnResult[0] + lastWord + queryString);
 								dataExplorerView2.query(selectedBtnResult[1] + lastWord + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + lastWord + queryString);
-								console.log("결과내재검색1: " + selectedBtnResult[0] + ' ' + lastWord + ' ' + queryString);
-								console.log("결과내재검색2: " + selectedBtnResult[1] + ' ' + lastWord + ' ' + queryString);
-								console.log("결과내재검색3: " + selectedBtnResult[2] + ' ' + lastWord + ' ' + queryString);
+								console.log("결과내재검색1: " + selectedBtnResult[0] + lastWord + queryString );
+								console.log("결과내재검색2: " + selectedBtnResult[1] + lastWord + queryString );
+								console.log("결과내재검색3: " + selectedBtnResult[2] + lastWord + queryString );
 							} else {
 								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
 								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
@@ -280,7 +281,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								console.log("추가검색3: " + selectedBtnResult[2] + ' ' + queryString);
 							}
 							if ($("#c-search-check").is(':checked')) {
-								lastWord += " " + queryString + " ";
+								lastWord += queryString + " ";
 							} else { 
 								lastWord = queryString + " ";
 							}
@@ -296,10 +297,31 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								requestingObj = {};
 							});
 						},
-						'error' : function (jqXHR, textStatus, error) {
-							console.log(error);
+						'error' : function(xhr, textStatus, errorThrown){
+							if (errorCount) {
+								console.log("Retry...");
+								$.ajax(this);
+								errorCount = false;
+								return;
+							}
+							return;
 						}
 			        });
+					/*
+					$.ajax({
+						'url' : 'json/filter2.json',
+						'dataType' : 'json',
+						'error' : function(xhr, textStatus, errorThrown){
+							if (errorCount) {
+								console.log("Retry...");
+								$.ajax(this);
+								errorCount = false;
+								return;
+							}
+							return;
+						}
+					});
+					*/
 			        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
 			        /*$.ajax({
 						'url' : 'kostat/rest/keywords/' + selectedBtnId + '/' + selectedDepthCode + '/' + timeFrom + '/' + timeTo,
