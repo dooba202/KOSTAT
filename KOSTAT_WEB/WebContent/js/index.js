@@ -219,7 +219,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					 */
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
 					var selectedDepthCode = "";
-					var selectedBtnResult = "";
+					var selectedBtnResult = [];
 					if ( selections[1] == "" ) {
 						selectedDepthCode = selections[0];
 					} else if ( selections[2] == "" ) {
@@ -247,37 +247,40 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
 							//frameName이 first인 것에 string을 각각 꺼내서 
 							//selectedBtnResult를 읽어서 define 
-							var queryResult = "";
-							_.each(data, function(val){
-								if (selectedBtn == val.frameName) {
-									queryResult = val.queryString.split(",");
-									var query = "";
-									_.each(queryResult, function(v){
-										if ( query == "" ) {
-											query = v;
-										} else {
-											query = query + " OR " + v;
-										}
-										return query;
-									});
-									selectedBtnResult = query;
-								}
+							_.each(data, function(val, i){
+								var queryResult = val.queryString.split(",");
+								var query = "";
+								_.each(queryResult, function(v){
+									if ( query == "" ) {
+										query = v;
+									} else {
+										query = query + " OR " + v;
+									}
+									return query;
+								});
+								selectedBtnResult[i] = query;
 							});
-							console.log("검색어: " + selectedBtnResult);
-							dataExplorerView1.setDefWords(selectedBtnResult);
-							dataExplorerView2.setDefWords(selectedBtnResult);
-							dataExplorerView3.setDefWords(selectedBtnResult);
+							console.log("검색어1: " + selectedBtnResult[0]);
+							console.log("검색어2: " + selectedBtnResult[1]);
+							console.log("검색어3: " + selectedBtnResult[2]);
+							dataExplorerView1.setDefWords(selectedBtnResult[0]);
+							dataExplorerView2.setDefWords(selectedBtnResult[1]);
+							dataExplorerView3.setDefWords(selectedBtnResult[2]);
 							
 							if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-								dataExplorerView1.query(selectedBtnResult + lastWord + queryString);
-								dataExplorerView2.query(selectedBtnResult + lastWord + queryString);
-								dataExplorerView3.query(selectedBtnResult + lastWord + queryString);
-								console.log("결과내재검색: " + selectedBtnResult + ' ' + lastWord + ' ' + queryString);
+								dataExplorerView1.query(selectedBtnResult[0] + lastWord + queryString);
+								dataExplorerView2.query(selectedBtnResult[1] + lastWord + queryString);
+								dataExplorerView3.query(selectedBtnResult[2] + lastWord + queryString);
+								console.log("결과내재검색1: " + selectedBtnResult[0] + ' ' + lastWord + ' ' + queryString);
+								console.log("결과내재검색2: " + selectedBtnResult[1] + ' ' + lastWord + ' ' + queryString);
+								console.log("결과내재검색3: " + selectedBtnResult[2] + ' ' + lastWord + ' ' + queryString);
 							} else {
-								dataExplorerView1.query(selectedBtnResult + ' ' + queryString);
-								dataExplorerView2.query(selectedBtnResult + ' ' + queryString);
-								dataExplorerView3.query(selectedBtnResult + ' ' + queryString);
-								console.log("추가검색: " + selectedBtnResult + ' ' + queryString);
+								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
+								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
+								dataExplorerView3.query(selectedBtnResult[2] + ' ' + queryString);
+								console.log("추가검색1: " + selectedBtnResult[0] + ' ' + queryString);
+								console.log("추가검색2: " + selectedBtnResult[1] + ' ' + queryString);
+								console.log("추가검색3: " + selectedBtnResult[2] + ' ' + queryString);
 							}
 							if ($("#c-search-check").is(':checked')) {
 								lastWord += " " + queryString + " ";
@@ -296,8 +299,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								requestingObj = {};
 							});
 						},
-						error: function (xhr, ajaxOptions, thrownError) {
-							
+						'error' : function (jqXHR, textStatus, error) {
+							console.log(error);
 						}
 			        });
 			        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
