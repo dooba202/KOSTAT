@@ -366,7 +366,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 			changeYear:true,
 			showButtonPanel: true,
 	        onClose: function(dateText, inst) {
-	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
+
+	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth, 1);
 	        	$(this).datepicker('setDate', selectedDate);
 	        }
 		});
