@@ -345,7 +345,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 			
 			$(".c-search-button").click(function(){
 				if (selections.length > 2) {
-					$(".placeholder").css({display:"none"});
+					//$(".placeholder").css({display:"none"});
 					$(".l-category div").css({display:"block"});
 					$('.c-date-from-selected').text($(".c-date-from").val());
 					$('.c-date-to-selected').text($(".c-date-to").val());
@@ -367,6 +367,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						'url' : restURL + "chart/jisu/" + selections[0] + "/" + selections[1] + "?from=" + fromDateStr + "&to=" + toDateStr,
 						'dataType' : 'json',
 						'success' : function(data){
+							$(".placeholder").css({display:"none"});
 							chartView1.render(data, "");
 							chartView2.render(data, "%");
 							chartView3.render(data, "%");
