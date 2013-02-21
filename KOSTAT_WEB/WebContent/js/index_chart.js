@@ -19,6 +19,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		logger.setLevel("ALL");
 	
 	var selections = []; //to store category selections
+	
+	var restURL = "http://localhost:9081/kostat/rest/";
 	/* sample data */
 	var temp_list1 = [
 	                  {"id": "san001","name": "의약품"},
@@ -314,10 +316,33 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 					$(".l-category div").css({display:"block"});
 					$('.c-date-from-selected').text($(".c-date-from").val());
 					$('.c-date-to-selected').text($(".c-date-to").val());
-					chartView1.render(temp_data1, "");
-					chartView2.render(temp_data2, "%");
-					chartView3.render(temp_data3, "%");
-					//$("#c-chart-title-1").text("사업체별");
+					
+					var fromDate = $('.c-date-from').datepicker("getDate");
+					var toDate = $('.c-date-to').datepicker("getDate");
+					
+					function zeroAdder(monthStr) {
+						if (monthStr < 10) {
+							return monthStr = "0" + monthStr;
+						} else {
+							return ""+ monthStr;
+						}
+					} 
+					var fromDateStr = fromDate.getFullYear() + zeroAdder(fromDate.getMonth() + 1);
+					var toDateStr = toDate.getFullYear() + zeroAdder(toDate.getMonth() + 1);
+					
+					$.ajax({
+						'url' : restURL + "chart/jisu/" + selections[0] + "/" + selections[1] + "?from=" + fromDateStr + "&to=" + toDateStr,
+						'dataType' : 'json',
+						'success' : function(data){
+							chartView1.render(data, "");
+							chartView2.render(data, "%");
+							chartView3.render(data, "%");
+						},
+						error: function(e) {
+							//alert(e.userMessage);
+						}
+			        });
+					
 					/* temp code */
 					if ($.trim($(".c-display-selected-3").text()) == "전체") {
 						$("#c-category-title").addClass("c-category-title2");
@@ -332,32 +357,38 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 				}
 			});
 		});		
-		$(".c-date-from, .c-date-to").datepicker({
-			dateFormat: 'yy년 m월',
-			currentText: "이번달",
+		$(".c-date-from").datepicker({
+			dateFormat: 'yy년 m월 dd일',
+			currentText: "오늘",
 			closeText: "완료",
 			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 			changeMonth:true,
 			changeYear:true,
 			showButtonPanel: true,
-			/*
-	        beforeShow: function(input, instance) { 
-	        	$(input).datepicker('setDate', new Date());
-	        },
-	        */
 	        onClose: function(dateText, inst) {
+
 	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth, 1);
 	        	$(this).datepicker('setDate', selectedDate);
-	        },
-	        onChangeMonthYear: function(year, month) {
-	        	var selectedDate = new Date(year, month -1);
+	        }
+		});
+		$(".c-date-to").datepicker({
+			dateFormat: 'yy년 m월 dd일',
+			currentText: "오늘",
+			closeText: "완료",
+			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			changeMonth:true,
+			changeYear:true,
+			showButtonPanel: true,
+	        onClose: function(dateText, inst) {
+	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth + 1, 0);
 	        	$(this).datepicker('setDate', selectedDate);
 	        }
 		});
 		var today = new Date();
+		var toDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 		var eightYago = new Date(2005, 6);
 		$(".c-date-from").datepicker('setDate', eightYago);
-		$(".c-date-to").datepicker('setDate', today);
+		$(".c-date-to").datepicker('setDate', toDate);
 		//$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
 		//this.router = new router();
 		
