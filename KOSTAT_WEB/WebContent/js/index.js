@@ -220,7 +220,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
 					var selectedDepthCode = "";
 					var selectedBtnResult = "";
-					var selectedKeywordSet = "";
 					if ( selections[1] == "" ) {
 						selectedDepthCode = selections[0];
 					} else if ( selections[2] == "" ) {
