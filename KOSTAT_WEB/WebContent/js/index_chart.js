@@ -236,7 +236,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 	};	
 	
 	var init = function(){
-		logger.log("index.js init");
+		logger.log("index.js init"); 
 		
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
@@ -267,7 +267,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		};
 		
 		var load_error = function() {
-			logger.log("네트워크 장애입니다.");
+			growl("showErrorToast", "네트워크 장애입니다.");
 		};
 		
 		var sanupCollection = new category({ "url" : "./json/sanup.json" });
