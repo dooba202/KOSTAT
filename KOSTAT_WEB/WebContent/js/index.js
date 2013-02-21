@@ -266,12 +266,12 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							dataExplorerView3.setDefWords(selectedBtnResult[2]);
 							
 							if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-								dataExplorerView1.query(selectedBtnResult[0] + lastWord + queryString);
-								dataExplorerView2.query(selectedBtnResult[1] + lastWord + queryString);
-								dataExplorerView3.query(selectedBtnResult[2] + lastWord + queryString);
-								console.log("결과내재검색1: " + selectedBtnResult[0] + lastWord + queryString );
-								console.log("결과내재검색2: " + selectedBtnResult[1] + lastWord + queryString );
-								console.log("결과내재검색3: " + selectedBtnResult[2] + lastWord + queryString );
+								dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString);
+								dataExplorerView2.query(selectedBtnResult[1] + lastWord + ' ' + queryString);
+								dataExplorerView3.query(selectedBtnResult[2] + lastWord + ' ' + queryString);
+								console.log("결과내재검색1: " + selectedBtnResult[0] + lastWord + ' ' + queryString );
+								console.log("결과내재검색2: " + selectedBtnResult[1] + lastWord + ' ' + queryString );
+								console.log("결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
 							} else {
 								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
 								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
@@ -281,9 +281,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								console.log("추가검색3: " + selectedBtnResult[2] + ' ' + queryString);
 							}
 							if ($("#c-search-check").is(':checked')) {
-								lastWord += queryString + " ";
+								lastWord += " " + queryString;
 							} else { 
-								lastWord = queryString + " ";
+								lastWord = " " + queryString;
 							}
 							
 							requestingObj[dataExplorerView1.reportID] = $.Deferred();
