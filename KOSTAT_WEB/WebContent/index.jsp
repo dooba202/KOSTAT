@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/showLoading.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery.toastmessage.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 <script>
 	var require = {
