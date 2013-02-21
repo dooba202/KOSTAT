@@ -251,7 +251,13 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							var queryResult = "";
 							_.each(data, function(val){
 								if (selectedBtn == val.frameName) {
-									queryResult = val.queryString;
+									queryResult = val.queryString.split(",");
+									var query = "";
+									_.each(queryResult, function(v){
+										query = v + " OR " + query;
+										return query;
+									});
+									alert(query);
 									return queryResult;
 								}
 							});
