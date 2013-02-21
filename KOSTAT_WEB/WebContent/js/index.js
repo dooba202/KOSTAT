@@ -248,23 +248,29 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
 							//frameName이 first인 것에 string을 각각 꺼내서 
 							//selectedBtnResult를 읽어서 define 
-							selectedBtnResult = data[selectedBtn].queryString;
-							//selectedKeywordSet = selectedKeywordSet + ' ' + selectedBtnResult + ' ';
-							console.log(selectedBtnResult);
+							var queryResult = "";
+							_.each(data, function(val){
+								if (selectedBtn == val.frameName) {
+									queryResult = val.queryString;
+									return queryResult;
+								}
+							});
+							selectedBtnResult = queryResult;
+							console.log("검색어: " + selectedBtnResult);
 							dataExplorerView1.setDefWords(selectedBtnResult);
 							dataExplorerView2.setDefWords(selectedBtnResult);
 							dataExplorerView3.setDefWords(selectedBtnResult);
 							
 							if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-								dataExplorerView1.query(lastWord + queryString);
-								dataExplorerView2.query(lastWord + queryString);
-								dataExplorerView3.query(lastWord + queryString);
-								alert("재검색: " + lastWord + ' ' + queryString);
+								dataExplorerView1.query(selectedBtnResult + lastWord + queryString);
+								dataExplorerView2.query(selectedBtnResult + lastWord + queryString);
+								dataExplorerView3.query(selectedBtnResult + lastWord + queryString);
+								console.log("결과내재검색: " + selectedBtnResult + ' ' + lastWord + ' ' + queryString);
 							} else {
 								dataExplorerView1.query(selectedBtnResult + ' ' + queryString);
 								dataExplorerView2.query(selectedBtnResult + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult + ' ' + queryString);
-								alert(selectedBtnResult + ' ' + queryString);
+								console.log("추가검색: " + selectedBtnResult + ' ' + queryString);
 							}
 							if ($("#c-search-check").is(':checked')) {
 								lastWord += " " + queryString + " ";
@@ -284,19 +290,17 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							});
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
-
+							
 						}
 			        });
-				        
-				        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
-				        /*$.ajax({
-							'url' : 'kostat/rest/keywords/' + selectedBtnId + '/' + selectedDepthCode + '/' + timeFrom + '/' + timeTo,
-							'dataType' : 'json',
-							'success' : function(data){
-								selectedKeywordSet = data.name; //키워드 조합
-							}
-			        	})	*/
-
+			        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
+			        /*$.ajax({
+						'url' : 'kostat/rest/keywords/' + selectedBtnId + '/' + selectedDepthCode + '/' + timeFrom + '/' + timeTo,
+						'dataType' : 'json',
+						'success' : function(data){
+							selectedKeywordSet = data.name; //키워드 조합
+						}
+		        	})	*/
 					
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
