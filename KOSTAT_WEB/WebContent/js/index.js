@@ -52,40 +52,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
                   }
            }
     };
-
-	
-	/* sample data 
-	var temp_list1 = [
-	                  {"id": "san001","name": "의약품"},
-	                  {"id": "san002","name": "1차금속"},
-	                  {"id": "san003","name": "반도체및부품"},
-	                  {"id": "san004","name": "영상음향통신"},
-	                  {"id": "san005","name": "컴퓨터"},
-	                  {"id": "san006","name": "전기장비"}
-	                 ];	
-	var temp_list2 = [
-	                  {"id": "prod001","name": "의약품"},
-	                  {"id": "prod002","name": "선철"},
-	                  {"id": "prod003","name": "슬랩"},
-	                  {"id": "prod004","name": "블룸"},
-	                  {"id": "prod005","name": "빌렛"},
-	                  {"id": "prod006","name": "합금철"},
-	                  {"id": "prod007","name": "봉강"},
-	                  {"id": "prod008","name": "철근"},
-	                  {"id": "prod009","name": "선재"},
-	                  {"id": "prod0010","name": "형강"},
-	                  {"id": "prod0011","name": "중후판"},
-	                  {"id": "prod0012","name": "열연대강"}
-	                  ];
-	var temp_list3 = [
-	                  {"id": "saup000","name": "전체"},
-	                  {"id": "saup001","name": "아이티씨(주)"},
-	                  {"id": "saup002","name": "라니(주)"},
-	                  {"id": "saup003","name": "홍우선재(주)"},
-	                  {"id": "saup004","name": "대양전기공업(주)"},
-	                  {"id": "saup005","name": "금화전선(주)"}
-	                  ];
-	 */
 	
 	/* utility function to make menu selectable */
 	var mCustomScrollSelectable = function(className) {
@@ -124,15 +90,21 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		dataExplorerView2.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-ECO-PROJ&query=");
 		dataExplorerView3.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-PTL-PROJ&query=");
 		
-		var category_load = function(data1,data2,data3) {
-			$("#accordion").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: data1[0] }).el);
-			$("#accordion").append(listMenuView2.render({'listNumber':3,'line-height': 5, className: "product", list: data2[0] }).el);
-			$("#accordion").append(listMenuView3.render({'listNumber':2,'line-height': 10, className: "saup", list: data3[0] }).el);
+		var moduleData = module.config();
+		var sanupCollection = new category(moduleData.sanup);
+		var pumCollection = new category(moduleData.pum);
+		var saupCollection = new category(moduleData.saup);
+
+		var emptyCollection = new category();
+		
+		var category_init = function() {
+			$("#accordion").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: sanupCollection.toJSON() }).el);
+			$("#accordion").append(listMenuView2.render({'listNumber':3,'line-height': 0, className: "product", list: emptyCollection.toJSON() }).el);
+			$("#accordion").append(listMenuView3.render({'listNumber':2,'line-height': 0, className: "saup", list: emptyCollection.toJSON() }).el);
+			
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
-			$("#accordion").on( "accordionactivate", function( event, ui ) {
-				
-			});
+			//$("#accordion").on( "accordionactivate", function( event, ui ) {});
 			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 				scrollButtons:{
 					enable:true
@@ -142,47 +114,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					updateOnContentResize:true
 				}
 			});
-		};
-		
-		var load_error = function() {
-			logger.log("네트워크 장애입니다.");
-		};
-		
-		var sanupCollection = new category({ "url" : "./json/sanup.json" });
-		/*
-		sanupCollection.fetch({
-			success : _.bind(category_load, this),
-			error : load_error
-		});
-		*/
-		
-		var productCollection = new category({ "url" : "./json/product.json" });
-		/*
-		productCollection.fetch({
-			success : _.bind(category_load, this),
-			error : load_error
-		});
-		*/
-		
-		var saupCollection = new category({ "url" : "./json/saup.json" });
-		/*
-		saupCollection.fetch({
-			success : _.bind(category_load, this),
-			error : load_error
-		});
-		*/
-		
-		$.when(
-			sanupCollection.fetch(),
-			productCollection.fetch(),
-			saupCollection.fetch()
-		).then( function(data1,data2,data3) {
-			category_load(data1,data2,data3);
-		}).fail( function(e) {
-			load_error();
-		}).always( function() {
-
-		});
+		}();
 		
 		$(function(){
 			var resizeWindow = function(){
@@ -203,17 +135,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 			resizeWindow();*/
 			
 			$(".c-keyword-set").buttonset();
-			
-			/*$(".l-chart").mCustomScrollbar({
-					scrollButtons:{
-						enable:true
-					},
-					
-					advanced:{
-						updateOnBrowserResize:true, 
-						updateOnContentResize:true
-					}
-			});*/
 			
 			$("iframe").mCustomScrollbar({
 				scrollButtons:{
@@ -490,15 +411,44 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(label.slice(0,4));
+						$(".c-display-selected-1").text(id);
 						selections[0] = id;
-						$("#accordion").accordion("option","active",1);
+						var filteredCollection = new category( pumCollection.where({parent: id}) );
+						var minHeight = Math.min(filteredCollection.length ,10); 
+						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection.toJSON()});
+						
+						$("listMenuView2.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+							scrollButtons:{
+								enable:true
+							},
+							advanced:{
+								updateOnBrowserResize:true, 
+								updateOnContentResize:true
+							}
+						});
+						
+						mCustomScrollSelectable(".l-list li");
+						
+						//$("#accordion").accordion("option","active",1);
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(label.slice(0,6));
+						$(".c-display-selected-2").text(id);
 						selections[1] = id;
+						var filteredCollection = new category( saupCollection.where({parent: id}) );
+						var minHeight = Math.min(filteredCollection.length ,10); 
+						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection.toJSON()});
+						$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+							scrollButtons:{
+								enable:true
+							},
+							advanced:{
+								updateOnBrowserResize:true, 
+								updateOnContentResize:true
+							}
+						});
+						mCustomScrollSelectable(".l-list li");
 						$("#accordion").accordion("option","active",2);
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(label.slice(0,7));
+						$(".c-display-selected-3").text(id);
 						selections[2] = id;
 						lastWord = "";
 						$("#c-search-check").prop("checked", false);
@@ -536,6 +486,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 		/* event binding start */
 		eventListenerRegister("selectClick", listMenuView1);
+		eventListenerRegister("selectClick", listMenuView2);
+		eventListenerRegister("selectClick", listMenuView3);
 		eventListenerRegister("loadStart", dataExplorerView1);
 		eventListenerRegister("loadStart", dataExplorerView2);
 		eventListenerRegister("loadStart", dataExplorerView3);

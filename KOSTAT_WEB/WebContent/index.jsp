@@ -18,15 +18,12 @@
 	var require = {
 		config : {
 			'index' : {
-				//key value for shared config
+				sanup :  <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>,
+				pum: <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>,
+				saup: <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SaupId)%>
 			}
 		}
 	};
-	
-	var test1 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>
-	var test2 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>
-	var test3 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SaupId)%>
-	
 </script>
 <script data-main="js/main" src="js/require.js"></script>
 </head>
