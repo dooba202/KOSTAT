@@ -99,8 +99,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 		var category_init = function() {
 			$("#category1").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: sanupCollection.toJSON() }).el);
-			$("#category2").append(listMenuView2.render({'listNumber':3,'line-height': 5, className: "product", list: pumCollection.toJSON() }).el);
-			$("#category3").append(listMenuView3.render({'listNumber':2,'line-height': 5, className: "saup", list: saupCollection.toJSON() }).el);
+			$("#category2").append(listMenuView2.render({'listNumber':3,'line-height': 0, className: "product", list: emptyCollection.toJSON() }).el);
+			$("#category3").append(listMenuView3.render({'listNumber':2,'line-height': 0, className: "saup", list: emptyCollection.toJSON() }).el);
 			
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
@@ -281,12 +281,11 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						$(".c-display-selected-2").text("품목 분류");
 						$(".c-display-selected-3").text("사업체 분류");
 						selections[0] = id;
-						selections[1] = null;
-						selections[2] = null;
+						selections = selections.slice(0,1);
 						
-						var filteredCollection = new category( pumCollection.where({parent: id}) );
+						var filteredCollection = new category( pumCollection.where({parent: id}) ).toJSON();
 						var minHeight = Math.min(filteredCollection.length ,10); 
-						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection.toJSON()});
+						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection});
 						
 						$("listMenuView2.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 							scrollButtons:{
@@ -307,10 +306,10 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						$(".c-display-selected-2").text(id).effect( "bounce", "slow" );
 						$(".c-display-selected-3").text("사업체 분류");
 						selections[1] = id;
-						selections[2] = null;
-						var filteredCollection = new category( saupCollection.where({parent: id}) );
+						selections = selections.slice(0,2);
+						var filteredCollection = new category( saupCollection.where({parent: id}) ).toJSON();
 						var minHeight = Math.min(filteredCollection.length ,10); 
-						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection.toJSON()});
+						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 						$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 							scrollButtons:{
 								enable:true

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="com.ibm.green.kostat.rest.services.util.*,com.ibm.green.kostat.enums.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,10 @@
 <script>
 	var require = {
 		config : {
-			'index' : {
-				//key value for shared config
+			'index_chart' : {
+				sanup :  <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SanId)%>,
+				pum: <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.PumId)%>,
+				saup: <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SaupId)%>
 			}
 		}
 	};
@@ -42,7 +44,7 @@
 				<div id="l-side-selector">
 					<div class="l-side-selector-inner">
 						<div class="c-keyword-set">
-							<input type="radio" id="quantity" name="keyword" value="물량" checked><label for="quantity">물량</label>
+							<input type="radio" id="quantity" name="keyword" value="mul" checked><label for="quantity">물량</label>
 							<input type="radio" id="index" name="keyword" value="jisu"><label for="index">지수</label>
 						</div>
 						<div class="c-date-picker">
@@ -51,6 +53,27 @@
 					</div>
 				</div>
 				<div id="accordion">
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title1"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category1" class="l-list"></div>
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title2"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category2" class="l-list"></div>
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title3"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category3" class="l-list"></div>		
 				</div>
 			</div>
 		</div><div id="main"> <!--너비%값-->
