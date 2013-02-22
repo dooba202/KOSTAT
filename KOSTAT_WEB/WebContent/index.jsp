@@ -18,10 +18,13 @@
 	var require = {
 		config : {
 			'index' : {
-				//key value for shared config
+				sanup :  <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>,
+				pum: <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>,
+				saup: <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SaupId)%>
 			}
 		}
 	};
+
 	
 	var test1 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>
 	var test2 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>
@@ -31,8 +34,6 @@
 	var test5 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.PumId)%>
 	var test6 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SaupId)%>
 
-
-	
 </script>
 <script data-main="js/main" src="js/require.js"></script>
 </head>
@@ -54,9 +55,9 @@
 				<div id="l-side-selector">
 					<div class="l-side-selector-inner">
 						<div class="c-keyword-set">
-							<input type="radio" id="all" name="keyword" value="first" checked><label for="all">전체</label>
-							<input type="radio" id="plus" name="keyword" value="second"><label for="plus">증가</label>
-							<input type="radio" id="minus" name="keyword" value="third"><label for="minus">감소</label>
+							<input type="radio" id="all" name="keyword" value="all" checked><label for="all">전체</label>
+							<input type="radio" id="plus" name="keyword" value="up"><label for="plus">증가</label>
+							<input type="radio" id="minus" name="keyword" value="down"><label for="minus">감소</label>
 						</div>
 						<div class="c-date-picker">
 							<input class="c-date-from" name="value" /> ~ <input class="c-date-to" name="value" />

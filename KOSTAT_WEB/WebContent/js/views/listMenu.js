@@ -33,7 +33,7 @@ function($,Backbone, _, Mustache, template, Logger) {
 		},
 		/* common event handling --> */
 		
-		el: $('#accordion'),
+		//el: "div",//$('#accordion'),
 		
 		initialize : function(options) {
 			logger.log("listMenuView init");
@@ -49,7 +49,8 @@ function($,Backbone, _, Mustache, template, Logger) {
 					i.name = i.name.slice(0,19) + "...";
 				}
 			});
-			this.el = Mustache.to_html(template, data);
+			this.template = Mustache.to_html(template, data);
+			$(this.el).html(this.template);
 			return this;
 		},
 		

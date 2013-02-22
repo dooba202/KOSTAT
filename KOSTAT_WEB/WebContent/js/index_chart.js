@@ -350,6 +350,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 					$('.c-date-from-selected').text($(".c-date-from").val());
 					$('.c-date-to-selected').text($(".c-date-to").val());
 					
+					var gubun = $(".c-keyword-set :radio:checked").val();
 					var fromDate = $('.c-date-from').datepicker("getDate");
 					var toDate = $('.c-date-to').datepicker("getDate");
 					
@@ -364,7 +365,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 					var toDateStr = toDate.getFullYear() + zeroAdder(toDate.getMonth() + 1);
 					
 					$.ajax({
-						'url' : restURL + "chart/jisu/" + selections[0] + "/" + selections[1] + "?from=" + fromDateStr + "&to=" + toDateStr,
+						'url' : restURL + "chart/" + gubun + "/" + selections[0] + "/" + selections[1] + "?from=" + fromDateStr + "&to=" + toDateStr,
 						'dataType' : 'json',
 						'success' : function(data){
 							$(".placeholder").css({display:"none"});

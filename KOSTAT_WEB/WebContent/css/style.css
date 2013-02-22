@@ -181,14 +181,14 @@ html, body {
 	height: 18px;
 	margin-top: 10px;
 	margin-left: 6px;
-	background: url(../images/side-l-list-title.png) 0 -36px no-repeat;
+	background: url(../images/side-l-list-title.png) 0 -18px no-repeat;
 }
 .l-list-top .l-list-title3 {
 	width: 69px;
 	height: 18px;
 	margin-top: 10px;
 	margin-left: 6px;
-	background: url(../images/side-l-list-title.png) 0 -18px no-repeat;
+	background: url(../images/side-l-list-title.png) 0 -36px no-repeat;
 }
 .l-list-top-bg {
 	-webkit-box-sizing: border-box;
