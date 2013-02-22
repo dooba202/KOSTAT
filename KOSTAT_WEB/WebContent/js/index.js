@@ -21,7 +21,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 	var selections = []; //to store category selections
 	
-	 var restURL = "http://localhost:9081/kostat/rest/" ;
+	 var restURL = "http://localhost:9080/kostat/rest/";
      
      var growl = function (type, msgObj) {
             var showType = 'showErrorToast' ; //default showing type is error
@@ -253,14 +253,14 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					 * ServerSide job emulate
 					 */
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
-					var selectedDepthCode = "";
 					var selectedBtnResult = [];
-					if ( selections[1] == "" ) {
-						selectedDepthCode = selections[0];
-					} else if ( selections[2] == "" ) {
-						selectedDepthCode = selections[1]; 
+					var sanId = selections[0];
+					var pumId = selections[1];
+					var saupId = '';
+					if ( selections[2]=="" ){
+						saupId = '0';
 					} else {
-						selectedDepthCode = selections[2];
+						saupId = selections[2];
 					}
 					//사업체 전체 선택할 경우 selectedDepthCode는 품목 번호
 					
@@ -276,23 +276,23 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					//날짜 순서가 바뀌었을때 앞뒤 선택 변환
 					
 					$.ajax({
-						'url' : 'json/filter.json' ,
+						'url' : restURL + 'keywords/'+ selectedBtn +'/'+ sanId +'/'+ pumId + '/' + saupId ,
 						'dataType' : 'json' ,
 						'success' : function (data){
 							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
 							//frameName이 first인 것에 string을 각각 꺼내서
 							//selectedBtnResult를 읽어서 define
 							_.each(data, function (val, i){
-								var queryResult = val.queryString.split("," );
-								var query = "" ;
-								_.each(queryResult, function (v){
+								var query = val.query;
+								//var query = "" ;
+								/*_.each(queryResult, function (v){
 									if ( query == "" ) {
 										query = v;
 									} else {
 										query = query + " " + "OR" + " " + v;
 									}
 									return query;
-								});
+								});*/
 								selectedBtnResult[i] = query;
 							});
 							dataExplorerView1.setDefWords(selectedBtnResult[0]);
