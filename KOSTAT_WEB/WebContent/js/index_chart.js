@@ -248,9 +248,15 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 				        })
 					).then( function(data1, data2, data3) {
 						$(".placeholder").css({display:"none"});
-						$("#c-chart-title-0").text("지수");
-						$("#c-chart-title-1").text("전월비");
-						$("#c-chart-title-2").text("전년동월비");
+						if (gubun == "jisu") { 
+							$("#c-chart-title-0").text("지수");
+							$("#c-chart-title-1").text("전월비");
+							$("#c-chart-title-2").text("전년동월비");
+						} else {
+							$("#c-chart-title-0").text("물량");
+							$("#c-chart-title-1").text("전월비");
+							$("#c-chart-title-2").text("전년동월비");
+						}
 						chartView1.render(data1[0], "");
 						chartView2.render(data2[0], "%");
 						chartView3.render(data3[0], "%");
