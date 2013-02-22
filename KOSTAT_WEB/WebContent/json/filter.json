@@ -1,13 +1,13 @@
 [{
 	"frameName": "first",
-	"queryString": "증가 OR 증대 OR 반등 OR 상승 OR 확대 OR 포스코"
+	"queryString": "증가,증대,반등,상승,확대,포스코"
 },
 {
 	"frameName": "second",
-	"queryString": "증가 OR 증대 OR 반등 OR 상승 OR 확대 OR 합금"
+	"queryString": "증가,증대,반등,상승,확대,합금"
 },
 {
 	"frameName": "third",
-	"queryString": "증가 OR 증대 OR 반등 OR 상승 OR 확대 OR 철강"
+	"queryString": "증가,증대,반등,상승,확대,철강"
 }
 ]

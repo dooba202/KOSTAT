@@ -11,7 +11,8 @@ define ([
          'jquery.ui',
          'jquery.mCustomScrollbar',
          'jquery.mousewheel',
-         'jquery.showLoading'
+         'jquery.showLoading',
+         'jquery.toastmessage'
 		 ], 
 
 function( module, $, Backbone, _, Logger, category, listMenu, chart){
@@ -19,6 +20,38 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		logger.setLevel("ALL");
 	
 	var selections = []; //to store category selections
+	
+	var restURL = "http://localhost:9081/kostat/rest/";
+	
+	var growl = function(type, msgObj) {
+		var showType = 'showErrorToast'; //default showing type is error
+		if (type == 'error') {
+			showType = 'showErrorToast';
+		} else if (type =='success'){
+			showType = 'showSuccessToast';
+		} // showNoticeToast //showWarningToast //showStickyWarningToast
+		
+		var responsed = $.parseJSON(msgObj.responseText);
+		if (typeof(msgObj) == 'string') {
+			$().toastmessage(showType,msgObj);
+		} else {
+			if (responsed.redirect) {
+				$().toastmessage('showToast', {
+				    text     : responsed.userMessage + "<br/> 로그인 페이지로 이동합니다. <br/> 바로 이동하시려면 이 창을 닫거나, <br/>5초 뒤에 로그인 페이지로 이동 합니다.",
+				    sticky   : true,
+				    position : 'top-right',
+				    type     : 'error',
+				    closeText: '',
+				    close    : function () {
+				    	window.location = responsed.redirect;
+				    }
+				});
+				setTimeout(function(){ window.location = responsed.redirect;}, 5000);
+			} else {
+				$().toastmessage(showType,responsed.userMessage);
+			}
+		}
+	};
 	/* sample data */
 	var temp_list1 = [
 	                  {"id": "san001","name": "의약품"},
@@ -52,6 +85,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 	                  {"id": "saup005","name": "금화전선(주)"}
 	                  ];
 	
+	/*
 	var temp_data1 = [
 		{
 			name: "내수",				
@@ -181,6 +215,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 			data: [[1136073600000,22.4],[1138752000000,33.2],[1141171200000,22.1],[1143849600000,24.8],[1146441600000,26.7],[1149120000000,22.7],[1151712000000,20.3],[1154390400000,27],[1157068800000,22.8],[1159660800000,16],[1162339200000,12.8],[1164931200000,2.3],[1167609600000,5.1],[1170288000000,3.1],[1172707200000,4.5],[1175385600000,7.9],[1177977600000,6.5],[1180656000000,14.5],[1183248000000,22.5],[1185926400000,15.2],[1188604800000,12.7],[1191196800000,21.6],[1193875200000,17.1],[1196467200000,30.3],[1199145600000,25.1],[1201824000000,23.4],[1204329600000,30.4],[1207008000000,26.3],[1209600000000,25.9],[1212278400000,16.2],[1214870400000,14.3],[1217548800000,9.4],[1220227200000,10],[1222819200000,-5.2],[1225497600000,-21.5],[1228089600000,-34.4],[1230768000000,-29.1],[1233446400000,-11.9],[1235865600000,-12],[1238544000000,-5.3],[1241136000000,0.1],[1243814400000,6.3],[1246406400000,5.6],[1249084800000,4.8],[1251763200000,5.2],[1254355200000,10.2],[1257033600000,38.5],[1259625600000,65.9],[1262304000000,54.8],[1264982400000,28.1],[1267401600000,28],[1270080000000,23.4],[1272672000000,21.9],[1275350400000,18.6],[1277942400000,18.2],[1280620800000,21.2],[1283299200000,15.9],[1285891200000,14.6],[1288569600000,13.5],[1291161600000,22.7],[1293840000000,17.8],[1296518400000,14.5],[1298937600000,13.2],[1301616000000,12.1],[1304208000000,9.3],[1306886400000,4.2],[1309478400000,-4],[1312156800000,-2.4],[1314835200000,8.2],[1317427200000,9.8],[1320105600000,3.9],[1322697600000,0.7],[1325376000000,0.3],[1328054400000,9.2],[1330560000000,1.9],[1333238400000,-1.9],[1335830400000,2.3],[1338508800000,4.6],[1341100800000,2],[1343779200000,7.9],[1346457600000,0.7],[1349049600000,1.4],[1351728000000,11.5]]		
 		}
 	];
+	*/
 	
 	/* utility function to make menu selectable */
 	var mCustomScrollSelectable = function(className) {
@@ -203,7 +238,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 	};	
 	
 	var init = function(){
-		logger.log("index.js init");
+		logger.log("index.js init"); 
 		
 		var listMenuView1 = new listMenu;
 		var listMenuView2 = new listMenu;
@@ -234,7 +269,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		};
 		
 		var load_error = function() {
-			logger.log("네트워크 장애입니다.");
+			growl("showErrorToast", "네트워크 장애입니다.");
 		};
 		
 		var sanupCollection = new category({ "url" : "./json/sanup.json" });
@@ -310,14 +345,40 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 			
 			$(".c-search-button").click(function(){
 				if (selections.length > 2) {
-					$(".placeholder").css({display:"none"});
+					//$(".placeholder").css({display:"none"});
 					$(".l-category div").css({display:"block"});
 					$('.c-date-from-selected').text($(".c-date-from").val());
 					$('.c-date-to-selected').text($(".c-date-to").val());
-					chartView1.render(temp_data1, "");
-					chartView2.render(temp_data2, "%");
-					chartView3.render(temp_data3, "%");
-					//$("#c-chart-title-1").text("사업체별");
+					
+					var fromDate = $('.c-date-from').datepicker("getDate");
+					var toDate = $('.c-date-to').datepicker("getDate");
+					
+					function zeroAdder(monthStr) {
+						if (monthStr < 10) {
+							return monthStr = "0" + monthStr;
+						} else {
+							return ""+ monthStr;
+						}
+					} 
+					var fromDateStr = fromDate.getFullYear() + zeroAdder(fromDate.getMonth() + 1);
+					var toDateStr = toDate.getFullYear() + zeroAdder(toDate.getMonth() + 1);
+					
+					$.ajax({
+						'url' : restURL + "chart/jisu/" + selections[0] + "/" + selections[1] + "?from=" + fromDateStr + "&to=" + toDateStr,
+						'dataType' : 'json',
+						'success' : function(data){
+							$(".placeholder").css({display:"none"});
+							chartView1.render(data, "");
+							chartView2.render(data, "%");
+							chartView3.render(data, "%");
+						},
+						error: function(e) {
+							$(".placeholder").css({display:"block"});
+							growl("showErrorToast", e);
+							//alert(e.userMessage);
+						}
+			        });
+					
 					/* temp code */
 					if ($.trim($(".c-display-selected-3").text()) == "전체") {
 						$("#c-category-title").addClass("c-category-title2");
@@ -332,32 +393,38 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 				}
 			});
 		});		
-		$(".c-date-from, .c-date-to").datepicker({
-			dateFormat: 'yy년 m월',
-			currentText: "이번달",
+		$(".c-date-from").datepicker({
+			dateFormat: 'yy년 m월 dd일',
+			currentText: "오늘",
 			closeText: "완료",
 			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 			changeMonth:true,
 			changeYear:true,
 			showButtonPanel: true,
-			/*
-	        beforeShow: function(input, instance) { 
-	        	$(input).datepicker('setDate', new Date());
-	        },
-	        */
 	        onClose: function(dateText, inst) {
-	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth);
+
+	        	var selectedDate = new Date(inst.drawYear, inst.drawMonth, 1);
 	        	$(this).datepicker('setDate', selectedDate);
-	        },
-	        onChangeMonthYear: function(year, month) {
-	        	var selectedDate = new Date(year, month -1);
+	        }
+		});
+		$(".c-date-to").datepicker({
+			dateFormat: 'yy년 m월 dd일',
+			currentText: "오늘",
+			closeText: "완료",
+			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			changeMonth:true,
+			changeYear:true,
+			showButtonPanel: true,
+	        onClose: function(dateText, inst) {
+	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth + 1, 0);
 	        	$(this).datepicker('setDate', selectedDate);
 	        }
 		});
 		var today = new Date();
+		var toDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 		var eightYago = new Date(2005, 6);
 		$(".c-date-from").datepicker('setDate', eightYago);
-		$(".c-date-to").datepicker('setDate', today);
+		$(".c-date-to").datepicker('setDate', toDate);
 		//$(".c-date-from, .c-date-to").datepicker( "option", "dateFormat","yy-mm");
 		//this.router = new router();
 		
