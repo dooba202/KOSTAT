@@ -43,7 +43,7 @@
 					<div class="l-side-selector-inner">
 						<div class="c-keyword-set">
 							<input type="radio" id="quantity" name="keyword" value="물량" checked><label for="quantity">물량</label>
-							<input type="radio" id="index" name="keyword" value="지수"><label for="index">지수</label>
+							<input type="radio" id="index" name="keyword" value="jisu"><label for="index">지수</label>
 						</div>
 						<div class="c-date-picker">
 							<input class="c-date-from" name="value" /> ~ <input class="c-date-to" name="value" />
