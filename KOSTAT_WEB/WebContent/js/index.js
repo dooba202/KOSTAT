@@ -200,20 +200,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						'url' : restURL + 'keywords/'+ selectedBtn +'/'+ sanId +'/'+ pumId + '/' + saupId ,
 						'dataType' : 'json' ,
 						'success' : function (data){
-							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
-							//frameName이 first인 것에 string을 각각 꺼내서
-							//selectedBtnResult를 읽어서 define
 							_.each(data, function (val, i){
 								var query = val.query;
-								//var query = "" ;
-								/*_.each(queryResult, function (v){
-									if ( query == "" ) {
-										query = v;
-									} else {
-										query = query + " " + "OR" + " " + v;
-									}
-									return query;
-								});*/
 								selectedBtnResult[i] = query;
 							});
 							dataExplorerView1.setDefWords(selectedBtnResult[0]);
@@ -221,14 +209,14 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							dataExplorerView3.setDefWords(selectedBtnResult[2]);
 							
 							if (lastWord.length > 0 && $("#c-search-check" ).is(':checked' )) {
-								dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString);
+								dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString); //TODO: time from to add
 								dataExplorerView2.query(selectedBtnResult[1] + lastWord + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + lastWord + ' ' + queryString);
 								logger.log( "결과내재검색1: " + selectedBtnResult[0] + lastWord + ' ' + queryString );
 								logger.log( "결과내재검색2: " + selectedBtnResult[1] + lastWord + ' ' + queryString );
 								logger.log( "결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
 							} else {
-								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
+								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString); //TODO: time from to add
 								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + ' ' + queryString);
 								logger.log( "추가검색1: " + selectedBtnResult[0] + ' ' + queryString);
@@ -247,7 +235,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							doNothing = true ;
                               
 							$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then( function(){
-								//$('body').css ("overflow", "auto");
 								doNothing = false ;
 								requestingObj = {};
 							});
@@ -257,79 +244,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							growl( "showErrorToast" , e);
 						}
 					});
-				        
-				        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
-				        /*$.ajax({
-							'url' : 'kostat/rest/keywords/' + selectedBtnId + '/' + selectedDepthCode + '/' + timeFrom + '/' + timeTo,
-							'dataType' : 'json',
-							'success' : function(data){
-								selectedKeywordSet = data.name; //키워드 조합
-							}
-			        	})	*/
-
-					
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
-				
-				/*if (selections.length > 2) {
-					$(".placeholder").css({display:"none"});
-					
-					var queryString = $('#c-search-box').val(); 
-					if (!notFirst) {
-						$('#frame1').append(dataExplorerView1.el);
-						$('#frame2').append(dataExplorerView2.el);
-						$('#frame3').append(dataExplorerView3.el);
-						notFirst = true;
-					}*/
-					
-					/*
-					 * ServerSide job emulate
-					 */
-					/*var selectedBtn = $(".c-keyword-set :radio:checked").val();
-					if (selectedBtn == "all") {
-						dataExplorerView1.setDefWords("동일산업 합금철");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철");
-					} else if(selectedBtn == "increase") {
-						dataExplorerView1.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-					} else if(selectedBtn == "decrease") {
-						dataExplorerView1.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
-					};*/
-					// 선택을 바꾸면 defWords도 바꾸고 lastWord도 날리고 추가 입력어로 쿼리 요청도 받고
-					
-					/*if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-						dataExplorerView1.query(lastWord + queryString);
-						dataExplorerView2.query(lastWord + queryString);
-						dataExplorerView3.query(lastWord + queryString);
-					} else {
-						dataExplorerView1.query(queryString);
-						dataExplorerView2.query(queryString);
-						dataExplorerView3.query(queryString);
-					}
-					if ($("#c-search-check").is(':checked')) {
-						lastWord += " " + queryString + " ";
-					} else { 
-						lastWord = queryString + " ";
-					}*/
-					
-					/*requestingObj[dataExplorerView1.reportID] = $.Deferred();
-					requestingObj[dataExplorerView2.reportID] = $.Deferred();
-					requestingObj[dataExplorerView3.reportID] = $.Deferred();
-					doNothing = true;
-					
-					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
-						//$('body').css("overflow", "auto");
-						doNothing = false; 
-						requestingObj = {};
-					});*/
-				/*} else {
-					alert("모든 분류가 선택되지 않았습니다.");
-				}*/
 			});
 		});
 		$(".c-date-from, .c-date-to").datepicker({
@@ -340,73 +257,22 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 			changeMonth:true,
 			changeYear:true,
 			showButtonPanel: true,
-			/*
-	        beforeShow: function(input, instance) { 
-	        	$(input).datepicker('setDate', new Date());
-	        },
-	        */
 	        onClose: function(dateText, inst) {
 	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
 	        	$(this).datepicker('setDate', selectedDate);
 	        }
-			/*,
-	        onChangeMonthYear: function(year, month) {
-	        	var selectedDate = new Date(year, month -1);
-	        	$(this).datepicker('setDate', selectedDate);
-	        }*/
 		});
 		var today = new Date();
 		var monthAgo = new Date(today.getFullYear(), today.getMonth() - 1);
 		$(".c-date-from").datepicker('setDate', monthAgo);
 		$(".c-date-to").datepicker('setDate', today);
 		
-		/*
-		var resultView = new xmlResult;
-		function parseXml(xml) {
-			var resultObj = {"documents": []};
-			var item = $(xml).find("document");
-
-			  $(item).each(function() {
-				  var document = {};
-				  $(this).find('content').each(function() {
-					  document[$(this).attr('name')] = $(this).text();
-				  });
-				  resultObj["documents"].push(document);
-				  //$("#results").append($(this).text()+ "<br />");
-			  });
-			  return resultObj;
-
-		}
-		*/
 		$(function(){
 		    $("#c-search-box").keypress(function(e){
 		        if(e.keyCode==13)
 		            $('.c-search-button').click();
 		    });
-			/*
-		    $.ajax({
-		        url: "http://211.109.180.11/vivisimo/cgi-bin/velocity.exe",
-		        //url: 'xml/test.xml',
-		    	type: 'GET',
-		        dataType: "xml",
-		        data: {
-		        	'query': "철강",
-		        	'sources': "KS-KMJ-SC",
-		        	'v.app': "api-rest",
-		        	'v.function': "query-search",
-		        	'v.indent':	"true",
-		        	'v.password': "passw0rd",
-		        	'v.username': "admin"
-		        },
-		        success: function(data) {
-		        	$("#results").append(
-		        			resultView.render(parseXml(data)).el
-		        	);
-		        }
-		    });
-		    */
 		});		
-		//this.router = new router();
 		
 		eventHandler = {
 				"selectClick": function(className, id, label) {
@@ -467,7 +333,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					} 
 				},
 				"loadStart": function(name) {
-					//$('body').css("overflow", "hidden");
 					if (name == "dataExplorer0"){
 						$('#target1').showLoading();
 					} else if (name == "dataExplorer1"){
