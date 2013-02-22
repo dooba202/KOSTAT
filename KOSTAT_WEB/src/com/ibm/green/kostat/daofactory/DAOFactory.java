@@ -5,9 +5,9 @@ import com.ibm.green.exception.GreenRuntimeException;
 import com.ibm.green.kostat.dao.CredentialDAO;
 import com.ibm.green.kostat.dao.IndustryCodeDAO;
 import com.ibm.green.kostat.dao.JisuDAO;
+import com.ibm.green.kostat.dao.MulyangDAO;
 import com.ibm.green.kostat.dao.SysInfoDAO;
 import com.ibm.green.kostat.dao.UserDAO;
-import com.ibm.green.kostat.enums.IndustryCodeType;
 
 /**
  * abstract DAO factory class.<br>
@@ -89,5 +89,12 @@ public abstract class DAOFactory {
 	 * @return DAO object which implements <code>IndustryCodeDAO</code> interface
 	 */		
 	public abstract IndustryCodeDAO getIndustryCodeDAO();
+	
+	/**
+	 * Return <code>MulyangDAO</code> object
+	 *
+	 * @return DAO object which implements <code>MulyangDAO</code> interface
+	 */		
+	public abstract MulyangDAO getMulyangDAO();
 
 }

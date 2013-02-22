@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="KOSTAT" category="mulyang">
+
+	<select id="getMulyangListWithPumId" >
+	-- 품목별 물량
+	select m.SANID,
+	    m.pumid,
+	    0 as SAUPID,
+		m.JOSA_YM,
+	    (select description 
+	          from code_mst
+	         where code_grp = 'JISU_GU'
+	           and code = m.jisu_gu
+	       ) AS JISU_GU_NM,
+	     josa_ym,       
+	      to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
+	     , m.mul as MULYANG
+	  from mi_mul m
+	 where ent_gu = '0'
+	   and sidoid = '00'
+	   and jisu_gu in ('P1','S1','D1','E1','H1')
+	   and pumid = ? -- 품목코드
+	   and josa_ym between ? and ? -- 조회 기간
+	 order by 
+	       m.jisu_gu
+	     , m.josa_ym
+	</select>
+	
+	<select id="getMulyangListWithSaupId" >
+	-- 품목/사업체별 물량 조회용 	
+	with copy
+	as (select 1 num from dual union all
+	    select 2 num from dual union all
+	    select 3 num from dual union all
+	    select 4 num from dual union all
+	    select 5 num from dual
+	   )
+	select pumid,
+		    saupid,
+		 (select description 
+	          from code_mst
+	         where code_grp = 'JISU_GU'
+	           and code = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
+	       ) AS JISU_GU_NM,	    
+		    josa_ym,
+	     to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec,
+	     decode(c.num,
+	      1, (nvl(jspro_s,0) + nvl(sspro_s,0)), -- 생산
+	      2, (nvl(do_s,0) + nvl(exp_s,0)), -- 출하 
+	      3, nvl(do_s,0), -- 내수
+	      4, nvl(exp_s,0), -- 수출
+	      5, nvl(inv_s,0) -- 재고
+	       ) as MULYANG
+	  from mi_dong1 m
+	     , copy c
+	 where 1=1
+	   and pumid = ? -- 품목코드
+	   and saupid = ? -- 사업체코드
+	   and josa_ym between ? and ? -- 조회 기간
+	   
+	 order by 
+	       c.num
+	     , m.josa_ym
+	</select>
+	
+	<select id="getMulyangLMList">
+	-- 품목 물량 전월비, 품목/사업체별 물량 전월비 공용으로 사용가능
+	with copy
+	as (select 1 num from dual union all
+	    select 2 num from dual union all
+	    select 3 num from dual union all
+	    select 4 num from dual union all
+	    select 5 num from dual
+	   )
+	select pumid, saupid, josa_ym
+	     , to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
+	  , (select description 
+	          from code_mst
+	         where code_grp = 'JISU_GU'
+	           and code = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
+	       ) AS JISU_GU_NM
+	     , nvl(decode(c.num, 1,P1,2,S1,3,D1,4,E1,5,H1),0) as MULYANG
+	-- , m.*
+	  from mi_dong1_analysis m
+	     , copy c
+	 where 1=1
+	   and data_gu = 'LM' -- 전월비
+	   and pumid = ? -- Param1 : 품목코드
+	   and saupid = ? -- Param2 : 사업체코드
+	   and sidoid = decode(? -- Param3 : 사업체코드'0' 을 사업체코드 값으로 치환
+	          ,'0','00' -- 사업체코드가 0일때는 전체('00')로 조회
+	          ,sidoid) -- 특정사업체코드가 들어올 경우 sidoid 조건을 무효화 
+	   and josa_ym between ? and ? -- 조회 기간
+	 order by 
+	       c.num
+	     , m.josa_ym
+	
+	</select>	
+	
+	<select id="getMulyangSMList">
+	-- 품목 물량 전년동월비, 품목/사업체별 물량 전년동월비 공용으로 사용가능
+	with copy
+	as (select 1 num from dual union all
+	    select 2 num from dual union all
+	    select 3 num from dual union all
+	    select 4 num from dual union all
+	    select 5 num from dual
+	   )
+	select  pumid, saupid, josa_ym
+	     , to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
+	  , (select description 
+	          from code_mst
+	         where code_grp = 'JISU_GU'
+	           and code = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
+	       ) AS JISU_GU_NM
+	     , nvl(decode(c.num, 1,P1,2,S1,3,D1,4,E1,5,H1),0) as MULYANG
+	-- , m.*
+	  from mi_dong1_analysis m
+	     , copy c
+	 where 1=1
+	   and data_gu = 'SM' -- 전월비
+	   and pumid = ?  -- Param1 : 품목코드
+	   and saupid = ? -- Param2 :사업체코드
+	   and sidoid = decode(? -- Param2 :사업체코드 '0' 을 사업체코드 값으로 치환
+	          ,'0','00' -- 사업체코드가 0일때는 전체('00')로 조회
+	          ,sidoid) -- 특정사업체코드가 들어올 경우 sidoid 조건을 무효화 
+	   and josa_ym between ? and ? -- 조회 기간
+	 order by 
+	       c.num
+	     , m.josa_ym
+	</select>
+	
+</dbQuery>
+
+

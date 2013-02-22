@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import com.ibm.green.kostat.dao.CredentialDAO;
 import com.ibm.green.kostat.dao.IndustryCodeDAO;
 import com.ibm.green.kostat.dao.JisuDAO;
+import com.ibm.green.kostat.dao.MulyangDAO;
 import com.ibm.green.kostat.dao.SysInfoDAO;
 import com.ibm.green.kostat.dao.UserDAO;
 
@@ -64,6 +65,12 @@ public class FakeDAOFactory extends DAOFactory {
 
 	@Override
 	public IndustryCodeDAO getIndustryCodeDAO() {
+
+		return null;
+	}
+
+	@Override
+	public MulyangDAO getMulyangDAO() {
 
 		return null;
 	}
