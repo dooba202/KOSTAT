@@ -11,7 +11,8 @@ define ([
          'jquery.ui',
          'jquery.mCustomScrollbar',
          'jquery.mousewheel',
-         'jquery.showLoading'
+         'jquery.showLoading',
+         'jquery.toastmessage'
 		 ], 
 
 function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
@@ -19,6 +20,38 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		logger.setLevel("ALL");
 		
 	var selections = []; //to store category selections
+	
+	 var restURL = "http://localhost:9081/kostat/rest/" ;
+     
+     var growl = function (type, msgObj) {
+            var showType = 'showErrorToast' ; //default showing type is error
+            if (type == 'error' ) {
+                  showType = 'showErrorToast' ;
+           } else if (type == 'success'){
+                  showType = 'showSuccessToast' ;
+           } // showNoticeToast //showWarningToast //showStickyWarningToast
+           
+            var responsed = $.parseJSON(msgObj.responseText);
+            if (typeof (msgObj) == 'string') {
+                  $().toastmessage(showType,msgObj);
+           } else {
+                   if (responsed.redirect) {
+                        $().toastmessage( 'showToast' , {
+                            text     : responsed.userMessage + "<br/> 로그인 페이지로 이동합니다. <br/> 바로 이동하시려면 이 창을 닫거나, <br/>5초 뒤에 로그인 페이지로 이동 합니다.",
+                            sticky   : true ,
+                            position : 'top-right' ,
+                            type     : 'error',
+                            closeText: '',
+                            close    : function () {
+                               window.location = responsed.redirect;
+                            }
+                        });
+                        setTimeout( function (){ window.location = responsed.redirect;}, 5000);
+                  } else {
+                        $().toastmessage(showType,responsed.userMessage);
+                  }
+           }
+    };
 	
 	/* utility function to make menu selectable */
 	var mCustomScrollSelectable = function(className) {
@@ -142,8 +175,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					 */
 					var selectedBtn = $(".c-keyword-set :radio:checked").val();
 					var selectedDepthCode = "";
-					var selectedBtnResult = "";
-					var selectedKeywordSet = "";
+					var selectedBtnResult = [];
 					if ( selections[1] == "" ) {
 						selectedDepthCode = selections[0];
 					} else if ( selections[2] == "" ) {
@@ -165,51 +197,66 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					//날짜 순서가 바뀌었을때 앞뒤 선택 변환
 					
 					$.ajax({
-						'url' : 'json/filter.json',
-						'dataType' : 'json',
-						'success' : function(data){
+						'url' : 'json/filter.json' ,
+						'dataType' : 'json' ,
+						'success' : function (data){
 							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
-							//frameName이 first인 것에 string을 각각 꺼내서 
-							//selectedBtnResult를 읽어서 define 
-							selectedBtnResult = data[selectedBtn].queryString;
-							//selectedKeywordSet = selectedKeywordSet + ' ' + selectedBtnResult + ' ';
-							console.log(selectedBtnResult);
-							dataExplorerView1.setDefWords(selectedBtnResult);
-							dataExplorerView2.setDefWords(selectedBtnResult);
-							dataExplorerView3.setDefWords(selectedBtnResult);
+							//frameName이 first인 것에 string을 각각 꺼내서
+							//selectedBtnResult를 읽어서 define
+							_.each(data, function (val, i){
+								var queryResult = val.queryString.split("," );
+								var query = "" ;
+								_.each(queryResult, function (v){
+									if ( query == "" ) {
+										query = v;
+									} else {
+										query = query + " " + "OR" + " " + v;
+									}
+									return query;
+								});
+								selectedBtnResult[i] = query;
+							});
+							dataExplorerView1.setDefWords(selectedBtnResult[0]);
+							dataExplorerView2.setDefWords(selectedBtnResult[1]);
+							dataExplorerView3.setDefWords(selectedBtnResult[2]);
 							
-							if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-								dataExplorerView1.query(lastWord + queryString);
-								dataExplorerView2.query(lastWord + queryString);
-								dataExplorerView3.query(lastWord + queryString);
-								alert("재검색: " + lastWord + ' ' + queryString);
+							if (lastWord.length > 0 && $("#c-search-check" ).is(':checked' )) {
+								dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString);
+								dataExplorerView2.query(selectedBtnResult[1] + lastWord + ' ' + queryString);
+								dataExplorerView3.query(selectedBtnResult[2] + lastWord + ' ' + queryString);
+								console.log( "결과내재검색1: " + selectedBtnResult[0] + lastWord + ' ' + queryString );
+								console.log( "결과내재검색2: " + selectedBtnResult[1] + lastWord + ' ' + queryString );
+								console.log( "결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
 							} else {
-								dataExplorerView1.query(selectedBtnResult + ' ' + queryString);
-								dataExplorerView2.query(selectedBtnResult + ' ' + queryString);
-								dataExplorerView3.query(selectedBtnResult + ' ' + queryString);
-								alert(selectedBtnResult + ' ' + queryString);
+								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
+								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
+								dataExplorerView3.query(selectedBtnResult[2] + ' ' + queryString);
+								console.log( "추가검색1: " + selectedBtnResult[0] + ' ' + queryString);
+								console.log( "추가검색2: " + selectedBtnResult[1] + ' ' + queryString);
+								console.log( "추가검색3: " + selectedBtnResult[2] + ' ' + queryString);
 							}
-							if ($("#c-search-check").is(':checked')) {
-								lastWord += " " + queryString + " ";
-							} else { 
-								lastWord = queryString + " ";
+							if ($("#c-search-check" ).is(':checked' )) {
+								lastWord += " " + queryString;
+							} else {
+								lastWord = " " + queryString;
 							}
 							
 							requestingObj[dataExplorerView1.reportID] = $.Deferred();
 							requestingObj[dataExplorerView2.reportID] = $.Deferred();
 							requestingObj[dataExplorerView3.reportID] = $.Deferred();
-							doNothing = true;
-							
-							$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
-								//$('body').css("overflow", "auto");
-								doNothing = false; 
+							doNothing = true ;
+                              
+							$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then( function(){
+								//$('body').css ("overflow", "auto");
+								doNothing = false ;
 								requestingObj = {};
 							});
 						},
-						error: function (xhr, ajaxOptions, thrownError) {
-
+						'error' : function (xhr, textStatus, error){
+							$( ".placeholder" ).css({display:"block" });
+							growl( "showErrorToast" , error);
 						}
-			        });
+					});
 				        
 				        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
 				        /*$.ajax({
