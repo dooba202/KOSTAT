@@ -10,6 +10,8 @@ public interface IndustryCodeDAO {
 	
 	List<IndustryCodeDTO> getCodeList(IndustryCodeType codeType);
 	
+	List<IndustryCodeDTO> getInternalCodeList(IndustryCodeType codeType);
+	
 	List<QueryStringDTO> getQueryString(String sanId, String pumId, String saupId, String upDown);
 
 }
