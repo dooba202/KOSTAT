@@ -64,6 +64,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div id="accordion">
 					<div class="l-list-top-title">
 						<div class="l-list-top">
