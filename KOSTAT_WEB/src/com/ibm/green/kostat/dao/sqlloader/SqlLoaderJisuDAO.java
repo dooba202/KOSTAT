@@ -13,6 +13,7 @@ import com.ibm.green.exception.ErrorCode;
 import com.ibm.green.exception.GreenRuntimeException;
 import com.ibm.green.kostat.dao.JisuDAO;
 import com.ibm.green.kostat.dto.JisuDTO;
+import com.ibm.green.kostat.enums.JisuType;
 import com.ibm.query.execute.Jdbc;
 import com.ibm.query.mapper.IParamMapper;
 import com.ibm.query.mapper.IRowMapper;
@@ -50,7 +51,7 @@ public class SqlLoaderJisuDAO implements JisuDAO {
 	};
 	
 	@Override
-	public List<JisuDTO> getJisuListWithIndustryCode(String sanId, String pumId, String fromYYYYMM, String toYYYYMM) {
+	public List<JisuDTO> getJisuListWithIndustryCode(JisuType jisuType, String sanId, String pumId, String fromYYYYMM, String toYYYYMM) {
 		logger.debug("" + this.getClass() + ",s getJisuListWithIndustryCode(String sanId, String pumId, String fromYYYYMM, String toYYYYMM) was called.");
 		
 		IParamMapper<Object[]> pMapper = new IParamMapper<Object[]>() {
@@ -71,7 +72,20 @@ public class SqlLoaderJisuDAO implements JisuDAO {
 			params[2] = fromYYYYMM;
 			params[3] = toYYYYMM;
 			
-			List<JisuDTO> list = jdbc.selectList(sqlIdPrefix + ".getJisuListWithIndustryCode", pMapper, jisuRowMapper, params);
+			String queryName = "";
+			switch (jisuType) {
+			case jisu:
+				queryName = "getJisuListWithIndustryCode";
+				break;
+			case jisuLM: // 전월비
+				queryName = "getJisuLMListWithIndustryCode";
+				break;
+			case jisuSM: // 전년동월비
+				queryName = "getJisuSMListWithIndustryCode";
+				break;
+			}
+			
+			List<JisuDTO> list = jdbc.selectList(sqlIdPrefix + "." + queryName, pMapper, jisuRowMapper, params);
 	
 			return list;
 			

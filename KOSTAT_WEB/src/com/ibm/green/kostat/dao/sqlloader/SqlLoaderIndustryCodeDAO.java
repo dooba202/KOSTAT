@@ -31,53 +31,40 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 	String sqlIdPrefix = "industrycode";
 	
 	IRowMapper<IndustryCodeDTO> sanIdRowMapper = new IRowMapper<IndustryCodeDTO>() {
-
 		@Override
 		public IndustryCodeDTO mapRow(ResultSet resultSet, int row)
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
 
 			IndustryCodeDTO dto = new IndustryCodeDTO();
-			
 			dto.setId(resultSet.getString("SANID"));
 			dto.setName(resultSet.getString("SANNAME"));
-			
 			return dto;
 		}
-		
 	};
 	
 	IRowMapper<IndustryCodeDTO> pumIdRowMapper = new IRowMapper<IndustryCodeDTO>() {
-
 		@Override
 		public IndustryCodeDTO mapRow(ResultSet resultSet, int row)
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
 
 			IndustryCodeDTO dto = new IndustryCodeDTO();
-	
 			dto.setId(resultSet.getString("PUMID"));
 			dto.setName(resultSet.getString("PUMNAME"));
 			dto.setParent(resultSet.getString("SANID_TOP"));
-						
 			return dto;
 		}
-		
 	};
 	
 	IRowMapper<IndustryCodeDTO> saupIdRowMapper = new IRowMapper<IndustryCodeDTO>() {
-
 		@Override
 		public IndustryCodeDTO mapRow(ResultSet resultSet, int row)
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
-
 			IndustryCodeDTO dto = new IndustryCodeDTO();
-			
 			dto.setId(resultSet.getString("SAUPID"));
 			dto.setName(resultSet.getString("SAUPNAME"));
 			dto.setParent(resultSet.getString("PUMID"));			
-			
 			return dto;
 		}
-		
 	};
 	
 	IRowMapper<QueryStringDTO> queryStrRowMapper = new IRowMapper<QueryStringDTO>() {
@@ -85,17 +72,13 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 		@Override
 		public QueryStringDTO mapRow(ResultSet resultSet, int row)
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
-
 			QueryStringDTO dto = new QueryStringDTO();
-			
-			
 			dto.setSanId(resultSet.getString("SANID"));
 			dto.setPumId(resultSet.getString("PUMID"));
 			dto.setSaupId(resultSet.getString("SAUPID"));
 			dto.setSection(resultSet.getString("SECTION"));
 			dto.setQuery(resultSet.getString("QUERY_STR"));
 			dto.setSource(resultSet.getString("SOURCE"));
-			
 			return dto;
 		}
 	};
@@ -131,11 +114,46 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 			return list;
 			
 		} catch (Exception ex) {
-			logger.error("Exception occurred in getJisuListWithIndustryCode(String sanId, String pumId, String fromYYYYMM, String toYYYYMM)  of " + this.getClass() , ex);
+			logger.error("Exception occurred in getCodeList(IndustryCodeType codeType)  of " + this.getClass() , ex);
+			throw new GreenRuntimeException(ErrorCode.DBIO_UNKNOWN, ex);
+		}
+	}
+
+
+	@Override
+	public List<IndustryCodeDTO> getInternalCodeList(IndustryCodeType codeType) {
+
+		logger.debug("" + this.getClass() + ",s getInternalCodeList(IndustryCodeType codeType) was called.");
+		
+		String queryName = "";
+		IRowMapper<IndustryCodeDTO> rowMapper = null;
+	
+		try {
+			switch (codeType){
+			case SanId:
+				rowMapper = sanIdRowMapper;
+				queryName = "getInternalCodeListForSanId";
+				break;
+			case PumId:
+				rowMapper = pumIdRowMapper;
+				queryName = "getInternalCodeListForPumId";
+				break;
+			case SaupId:
+				rowMapper = saupIdRowMapper;
+				queryName = "getInternalCodeListForSaupId";
+				break;
+			}
+			
+			List<IndustryCodeDTO> list = jdbc.selectList(sqlIdPrefix + "." + queryName, rowMapper, null);
+	
+			return list;
+			
+		} catch (Exception ex) {
+			logger.error("Exception occurred in getInternalCodeList(String sanId, String pumId, String fromYYYYMM, String toYYYYMM)  of " + this.getClass() , ex);
 			throw new GreenRuntimeException(ErrorCode.DBIO_UNKNOWN, ex);
 		}
 
-	}
+	}	
 
 	@Override
 	public List<QueryStringDTO> getQueryString(String sanId, String pumId, String saupId, String upDown) {
@@ -161,10 +179,11 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 			return list;
 			
 		} catch (Exception ex) {
-			logger.error("Exception occurred in getQueryString(String sanId, String pumId, String saupId, String upDown)  of " + this.getClass() , ex);
+			logger.error("Exception occurred in getInternalCodeList(IndustryCodeType codeType)  of " + this.getClass() , ex);
 			throw new GreenRuntimeException(ErrorCode.DBIO_UNKNOWN, ex);
 		}
 
 	}
+
 
 }

@@ -24,6 +24,16 @@
 			}
 		}
 	};
+
+	
+	var test1 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>
+	var test2 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>
+	var test3 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SaupId)%>
+
+	var test4 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SanId)%>
+	var test5 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.PumId)%>
+	var test6 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SaupId)%>
+
 </script>
 <script data-main="js/main" src="js/require.js"></script>
 </head>
@@ -54,7 +64,30 @@
 						</div>
 					</div>
 				</div>
-				<div id="accordion"></div>
+
+				<div id="accordion">
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title1"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category1" class="l-list"></div>
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title3"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category2" class="l-list"></div>
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title2"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category3" class="l-list"></div>				
+				</div>
 			</div>
 		</div><div id="main"> <!--너비%값-->
 			<div class="l-main-inner">
@@ -62,8 +95,8 @@
 					<div class="l-selector-inner">
 						<div class="c-display-selected">
 							<div class="c-display-selected-1">산업 분류</div>
-							<div class="c-display-selected-2">품목 분류</div>
-							<div class="c-display-selected-3">사업체 분류</div>
+							<div class="c-display-selected-2">사업체 분류</div>
+							<div class="c-display-selected-3">품목 분류</div>
 						</div>
 						<div class="c-search">
 							<div class="c-search-button"></div>
