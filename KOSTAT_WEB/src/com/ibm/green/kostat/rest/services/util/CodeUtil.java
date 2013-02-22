@@ -36,6 +36,16 @@ public class CodeUtil {
 	
 	
 	public static String getIndustryCodeList(IndustryCodeType codeType) {
+
+		return getCodeList(true, codeType);
+	}
+	
+	public static String getInternalIndustryCodeList(IndustryCodeType codeType) {
+		
+		return getCodeList(false, codeType);
+	}	
+	
+	static String getCodeList(boolean bExternal, IndustryCodeType codeType) {
 		
 		DAOFactory daoFactory = null;
 		
@@ -45,7 +55,12 @@ public class CodeUtil {
 			
 			IndustryCodeDAO codeDAO = daoFactory.getIndustryCodeDAO();
 			
-			List<IndustryCodeDTO> codes = codeDAO.getCodeList(codeType);
+			List<IndustryCodeDTO> codes;
+			
+			if (bExternal)
+				codes = codeDAO.getCodeList(codeType);
+			else 
+				codes = codeDAO.getInternalCodeList(codeType);
 		
 			if ((codes == null) || (codes.size() == 0)) {
 				logger.debug("Failed to find  code information : " + codeType); 
@@ -75,5 +90,5 @@ public class CodeUtil {
 			if (daoFactory != null) daoFactory.endTransaction();			
 		}
 				
-	}
+	}	
 }

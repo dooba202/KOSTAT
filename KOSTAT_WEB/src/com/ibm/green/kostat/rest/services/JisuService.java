@@ -17,6 +17,7 @@ import com.ibm.green.exception.ErrorCode;
 import com.ibm.green.kostat.dao.JisuDAO;
 import com.ibm.green.kostat.daofactory.DAOFactory;
 import com.ibm.green.kostat.dto.JisuDTO;
+import com.ibm.green.kostat.enums.JisuType;
 import com.ibm.green.kostat.rest.AbstractRESTResource;
 import com.ibm.green.kostat.rest.ErrorMessage;
 import com.ibm.green.kostat.rest.json.SelectionFilterEnum;
@@ -30,8 +31,9 @@ public class JisuService extends AbstractRESTResource {
 	
 	/**
 	 * <pre>
-	 * GET /chart/jisu/{sanId}/{pumId}?from=yyyymm&to=yyyymm
+	 * GET /chart/{jisuType}/{sanId}/{pumId}?from=yyyymm&to=yyyymm
 	 * </pre>
+	 * jisuType : jisu/jisuLM, jisuSM
 	 * 
 	 * @param sanId
 	 * @param pumId
@@ -40,10 +42,11 @@ public class JisuService extends AbstractRESTResource {
 	 * @return
 	 */
 	@GET
-	@Path("jisu/{sanId}/{pumId}")
+	@Path("{jisu}/{sanId}/{pumId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getJisuListWithIndustryCode(@PathParam("sanId") String sanId, @PathParam("pumId") String pumId, 
-									@QueryParam("from") String fromYYYYMM, @QueryParam("to") String toYYYYMM ) {	
+	public Response getJisuListWithIndustryCode(@PathParam("jisu") String jisuStr, 
+												@PathParam("sanId") String sanId, @PathParam("pumId") String pumId, 
+												@QueryParam("from") String fromYYYYMM, @QueryParam("to") String toYYYYMM ) {	
 		
 		final String CUR_METHOD = "JisuService#getJisuListWithIndustryCode(.....)";
 
@@ -58,16 +61,16 @@ public class JisuService extends AbstractRESTResource {
 			
 			JisuDAO jisuDAO = daoFactory.getJisuDAO();
 			
-			List<JisuDTO> list = jisuDAO.getJisuListWithIndustryCode(sanId, pumId, fromYYYYMM, toYYYYMM);
+			JisuType jisuType = JisuType.valueOf(jisuStr);
+			
+			List<JisuDTO> list = jisuDAO.getJisuListWithIndustryCode(jisuType, sanId, pumId, fromYYYYMM, toYYYYMM);
 			
 			if ((list == null) || (list.size() == 0)) {
 				logger.error("Failed to find any jisu information");
 				return Response.status(Status.NOT_FOUND).entity(generateErrorMessage(ErrorCode.DBIO_DATA_NOTFOUND)).build();
 			}
 			
-			
 			HashMap<String, List<List<Number>>> map = mergeListByJisuName(list);
-			
 			
 			List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
 			
@@ -104,6 +107,7 @@ public class JisuService extends AbstractRESTResource {
 		}
 
 	}
+	
 	
 	HashMap<String, List<List<Number>>> mergeListByJisuName(List<JisuDTO> jisuList) {
 		

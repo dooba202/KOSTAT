@@ -26,6 +26,12 @@
 	var test1 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>
 	var test2 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>
 	var test3 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SaupId)%>
+
+	var test4 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SanId)%>
+	var test5 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.PumId)%>
+	var test6 = <%=CodeUtil.getInternalIndustryCodeList(IndustryCodeType.SaupId)%>
+
+
 	
 </script>
 <script data-main="js/main" src="js/require.js"></script>
