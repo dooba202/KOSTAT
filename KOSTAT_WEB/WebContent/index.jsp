@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="com.ibm.green.kostat.rest.services.util.*,com.ibm.green.kostat.enums.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,11 @@
 			}
 		}
 	};
+	
+	var test1 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SanId)%>
+	var test2 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.PumId)%>
+	var test3 = <%=CodeUtil.getIndustryCodeList(IndustryCodeType.SaupId)%>
+	
 </script>
 <script data-main="js/main" src="js/require.js"></script>
 </head>

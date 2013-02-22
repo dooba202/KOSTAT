@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery jdbc="KOSTAT" category="industrycode">
+
+	<select id="getCodeListForSanId" >
+	SELECT sanid
+	, sanname
+	, id_level
+	 FROM KS_CODE_SAN
+	 ORDER BY ID_ORDER
+	</select>
+	<select id="getCodeListForPumId" >
+	SELECT sanid_top
+	  , pumid
+	  , pumname
+	 FROM KS_CODE_PUM
+	 ORDER BY 
+	    SANID
+	  , PUMID
+	</select>
+	<select id="getCodeListForSaupId" >
+	SELECT * 
+	FROM KS_CODE_SAUP
+	ORDER BY 
+	    SANID
+	  , PUMID
+	  , SAUPID
+	</select>
+
+</dbQuery>
+
+

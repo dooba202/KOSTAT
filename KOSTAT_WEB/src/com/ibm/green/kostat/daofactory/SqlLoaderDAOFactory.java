@@ -6,10 +6,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ibm.green.kostat.dao.CredentialDAO;
+import com.ibm.green.kostat.dao.IndustryCodeDAO;
 import com.ibm.green.kostat.dao.JisuDAO;
 import com.ibm.green.kostat.dao.SysInfoDAO;
 import com.ibm.green.kostat.dao.UserDAO;
 import com.ibm.green.kostat.dao.sqlloader.SqlLoaderCrendentialDAO;
+import com.ibm.green.kostat.dao.sqlloader.SqlLoaderIndustryCodeDAO;
 import com.ibm.green.kostat.dao.sqlloader.SqlLoaderJisuDAO;
 import com.ibm.green.kostat.dao.sqlloader.SqlLoaderSysInfoDAO;
 import com.ibm.green.kostat.dao.sqlloader.SqlLoaderUserDAO;
@@ -69,6 +71,12 @@ public class SqlLoaderDAOFactory extends DAOFactory {
 	public JisuDAO getJisuDAO() {
 
 		return new SqlLoaderJisuDAO();
+	}
+
+	@Override
+	public IndustryCodeDAO getIndustryCodeDAO() {
+
+		return new SqlLoaderIndustryCodeDAO();
 	}
 
 }
