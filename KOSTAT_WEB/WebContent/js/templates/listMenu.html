@@ -1,21 +1,13 @@
-<div class="l-list-top-title">
-	<div class="l-list-top">
-		<div class="l-list-title{{listNumber}}"></div>
+<div id="c-list-{{listNumber}}">
+	<div class="l-list-mid-{{line-height}}">
+		<ul>
+			{{#list}}
+			<li class="{{className}}" id="{{id}}">
+				<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
+				<label><span>{{id}} {{name}}</span></label>
+			</li>
+			{{/list}}
+		</ul>
 	</div>
-	<div class="l-list-top-bg"></div>
-</div>
-<div class="l-list">
-	<div id="c-list-{{listNumber}}">
-		<div class="l-list-mid-{{line-height}}">
-			<ul>
-				{{#list}}
-				<li class="{{className}}" id="{{id}}">
-					<input type="radio" value="{{id}}" name="{{className}}" style="display: none;">
-					<label><span>{{id}} {{name}}</span></label>
-				</li>
-				{{/list}}
-			</ul>
-		</div>
-		<div class="l-list-bottom"></div>
-	</div>
+	<div class="l-list-bottom"></div>
 </div>

@@ -64,7 +64,29 @@
 						</div>
 					</div>
 				</div>
+
 				<div id="accordion">
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title1"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category1" class="l-list"></div>
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title2"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category2" class="l-list"></div>
+					<div class="l-list-top-title">
+						<div class="l-list-top">
+							<div class="l-list-title3"></div>
+						</div>
+						<div class="l-list-top-bg"></div>
+					</div>
+					<div id="category3" class="l-list"></div>				
 				</div>
 			</div>
 		</div><div id="main"> <!--너비%값-->

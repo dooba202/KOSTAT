@@ -21,7 +21,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 	var selections = []; //to store category selections
 	
-	 var restURL = "http://localhost:9080/kostat/rest/";
+	 var restURL = "http://localhost:9081/kostat/rest/";
      
      var growl = function (type, msgObj) {
             var showType = 'showErrorToast' ; //default showing type is error
@@ -98,9 +98,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		var emptyCollection = new category();
 		
 		var category_init = function() {
-			$("#accordion").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: sanupCollection.toJSON() }).el);
-			$("#accordion").append(listMenuView2.render({'listNumber':3,'line-height': 0, className: "product", list: emptyCollection.toJSON() }).el);
-			$("#accordion").append(listMenuView3.render({'listNumber':2,'line-height': 0, className: "saup", list: emptyCollection.toJSON() }).el);
+			$("#category1").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: sanupCollection.toJSON() }).el);
+			$("#category2").append(listMenuView2.render({'listNumber':3,'line-height': 5, className: "product", list: pumCollection.toJSON() }).el);
+			$("#category3").append(listMenuView3.render({'listNumber':2,'line-height': 5, className: "saup", list: saupCollection.toJSON() }).el);
 			
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
@@ -224,16 +224,16 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString);
 								dataExplorerView2.query(selectedBtnResult[1] + lastWord + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + lastWord + ' ' + queryString);
-								console.log( "결과내재검색1: " + selectedBtnResult[0] + lastWord + ' ' + queryString );
-								console.log( "결과내재검색2: " + selectedBtnResult[1] + lastWord + ' ' + queryString );
-								console.log( "결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
+								logger.log( "결과내재검색1: " + selectedBtnResult[0] + lastWord + ' ' + queryString );
+								logger.log( "결과내재검색2: " + selectedBtnResult[1] + lastWord + ' ' + queryString );
+								logger.log( "결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
 							} else {
 								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
 								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + ' ' + queryString);
-								console.log( "추가검색1: " + selectedBtnResult[0] + ' ' + queryString);
-								console.log( "추가검색2: " + selectedBtnResult[1] + ' ' + queryString);
-								console.log( "추가검색3: " + selectedBtnResult[2] + ' ' + queryString);
+								logger.log( "추가검색1: " + selectedBtnResult[0] + ' ' + queryString);
+								logger.log( "추가검색2: " + selectedBtnResult[1] + ' ' + queryString);
+								logger.log( "추가검색3: " + selectedBtnResult[2] + ' ' + queryString);
 							}
 							if ($("#c-search-check" ).is(':checked' )) {
 								lastWord += " " + queryString;
@@ -252,9 +252,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								requestingObj = {};
 							});
 						},
-						'error' : function (xhr, textStatus, error){
+						'error' : function (e){
 							$( ".placeholder" ).css({display:"block" });
-							growl( "showErrorToast" , error);
+							growl( "showErrorToast" , e);
 						}
 					});
 				        
@@ -411,8 +411,13 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(id);
+						$(".c-display-selected-1").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-2").text("품목 분류");
+						$(".c-display-selected-3").text("사업체 분류");
 						selections[0] = id;
+						selections[1] = null;
+						selections[2] = null;
+						
 						var filteredCollection = new category( pumCollection.where({parent: id}) );
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection.toJSON()});
@@ -429,10 +434,14 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						
 						mCustomScrollSelectable(".l-list li");
 						
-						//$("#accordion").accordion("option","active",1);
+						if (minHeight > 0) {
+							$("#accordion").accordion("option","active",1);
+						}
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(id);
+						$(".c-display-selected-2").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-3").text("사업체 분류");
 						selections[1] = id;
+						selections[2] = null;
 						var filteredCollection = new category( saupCollection.where({parent: id}) );
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection.toJSON()});
@@ -446,9 +455,11 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							}
 						});
 						mCustomScrollSelectable(".l-list li");
-						$("#accordion").accordion("option","active",2);
+						if (minHeight > 0) {
+							$("#accordion").accordion("option","active",2);
+						}
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(id);
+						$(".c-display-selected-3").text(id).effect( "bounce", "slow" );
 						selections[2] = id;
 						lastWord = "";
 						$("#c-search-check").prop("checked", false);
