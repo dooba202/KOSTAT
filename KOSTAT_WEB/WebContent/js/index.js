@@ -412,8 +412,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
 						$(".c-display-selected-1").text(id).effect( "bounce", "slow" );
-						$(".c-display-selected-2").text("사업체 분류");
-						$(".c-display-selected-3").text("품목 분류");
+						$(".c-display-selected-2").text("품목 분류");
+						$(".c-display-selected-3").text("사업체 분류");
 						selections[0] = id;
 						selections[1] = null;
 						selections[2] = null;
@@ -439,7 +439,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						}
 					} else if (className == "product") {
 						$(".c-display-selected-2").text(id).effect( "bounce", "slow" );
-						$(".c-display-selected-3").text("품목 분류");
+						$(".c-display-selected-3").text("사업체 분류");
 						selections[1] = id;
 						selections[2] = null;
 						var filteredCollection = new category( saupCollection.where({parent: id}) );
