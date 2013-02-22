@@ -9,6 +9,7 @@
 	 FROM KS_CODE_SAN
 	 ORDER BY ID_ORDER
 	</select>
+
 	<select id="getCodeListForPumId" >
 	SELECT sanid_top
 	  , pumid
@@ -18,6 +19,7 @@
 	    SANID
 	  , PUMID
 	</select>
+
 	<select id="getCodeListForSaupId" >
 	SELECT * 
 	FROM KS_CODE_SAUP
@@ -26,6 +28,43 @@
 	  , PUMID
 	  , SAUPID
 	</select>
+	
+	<select id="getQueryString" >
+	with copy
+	as (select 1 num from dual union all
+	    select 2 num from dual union all
+	    select 3 num from dual 
+	   )
+	SELECT s.SANID
+	     , s.PUMID
+	     , s.SAUPID
+	    , c.num
+	    , decode(c.num,
+	          1, '지정사이트',
+	              2, '경제뉴스',
+	              3, '포탈'
+	       ) as SECTION
+	     , decode( ? ,     ---- param1
+	              'ALL' , trim(w.w_base || ' ' || w.w_all), 
+	              'UP' , decode(num, 2,trim(w.w_base), trim(w.w_base || ' ' || w.w_up)),
+	              'DOWN' , trim(w.w_base || ' ' || w.w_down)
+	       ) as QUERY_STR
+	    , decode(c.num,
+	            1, w.src_name, 
+	            2, 'KS-ECO-PROJ' ,
+	            3, 'KS-PTL-PROJ'
+	     ) as SOURCE  
+	  FROM KS_CODE_SAUP s
+	     , KS_CODE_WORD w
+	     , copy c
+	 where s.PUMID = w.pumid
+	   and s.SAUPID = w.SAUPID
+	   and s.pumid = ?      ---- param2
+	   and s.saupid = ?     ---- param3
+	 ORDER BY 
+	    c.num
+	</select>
+	
 
 </dbQuery>
 
