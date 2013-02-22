@@ -54,8 +54,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="accordion">
-				</div>
+				<div id="accordion"></div>
 			</div>
 		</div><div id="main"> <!--너비%값-->
 			<div class="l-main-inner">
