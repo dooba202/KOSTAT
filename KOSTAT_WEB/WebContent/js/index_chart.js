@@ -250,29 +250,31 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						$(".placeholder").css({display:"none"});
 						if (gubun == "jisu") { 
 							$("#c-chart-title-0").text("지수");
-							$("#c-chart-title-1").text("전월비");
-							$("#c-chart-title-2").text("전년동월비");
 						} else {
 							$("#c-chart-title-0").text("물량");
-							$("#c-chart-title-1").text("전월비");
-							$("#c-chart-title-2").text("전년동월비");
 						}
+						$("#c-chart-title-1").text("전월비");
+						$("#c-chart-title-2").text("전년동월비");
 						chartView1.render(data1[0], "");
 						chartView2.render(data2[0], "%");
 						chartView3.render(data3[0], "%");
+						
+						if ( selections[1] == 0) {
+							$("#c-category-title").addClass("c-category-title1");
+							$("#c-category-title").removeClass("c-category-title2");
+							$("#c-category-title").removeClass("c-category-title2");
+						} else if ( selections[2] == 0){
+							$("#c-category-title").addClass("c-category-title2");
+							$("#c-category-title").removeClass("c-category-title1");
+							$("#c-category-title").removeClass("c-category-title3");
+						} else {
+							$("#c-category-title").addClass("c-category-title3");
+							$("#c-category-title").removeClass("c-category-title1");
+							$("#c-category-title").removeClass("c-category-title2");
+						}
 					}).fail( function(e) {
 						$(".placeholder").css({display:"block"});
 					});
-					
-					/* temp code */
-					if ($.trim($(".c-display-selected-3").text()) == "전체") {
-						$("#c-category-title").addClass("c-category-title2");
-						$("#c-category-title").removeClass("c-category-title3");
-					} else {
-						$("#c-category-title").addClass("c-category-title3");
-						$("#c-category-title").removeClass("c-category-title2");
-					}
-					/* temp code end */
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
@@ -316,7 +318,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-1").text(label).effect( "bounce", "slow" );
 						$(".c-display-selected-2").text("품목 분류");
 						$(".c-display-selected-3").text("사업체 분류");
 						selections[0] = id;
@@ -329,23 +331,23 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection});
 						
-						$("listMenuView2.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
-							scrollButtons:{
-								enable:true
-							},
-							advanced:{
-								updateOnBrowserResize:true, 
-								updateOnContentResize:true
-							}
-						});
-						
+						//$("listMenuView2.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar("destroy");
 						mCustomScrollSelectable(".l-list li");
 						
 						if (minHeight > 0) {
 							$("#accordion").accordion("option","active",1);
+							$("#category2 .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+								scrollButtons:{
+									enable:true
+								},
+								advanced:{
+									updateOnBrowserResize:true, 
+									updateOnContentResize:true
+								}
+							});
 						}
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-2").text(label).effect( "bounce", "slow" );
 						$(".c-display-selected-3").text("사업체 분류");
 						selections[1] = id;
 						selections = selections.slice(0,2);
@@ -357,7 +359,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 						
-						$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+						//$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar("destroy");
+						$("#category3 .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 							scrollButtons:{
 								enable:true
 							},
@@ -372,7 +375,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 							$("#accordion").accordion("option","active",2);
 						}
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-3").text(label).effect( "bounce", "slow" );
 						selections[2] = id;
 					} 
 				}
