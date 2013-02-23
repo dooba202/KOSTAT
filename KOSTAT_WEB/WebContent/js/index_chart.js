@@ -21,7 +21,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 	
 	var selections = []; //to store category selections
 	
-	var restURL = "http://localhost:9081/kostat/rest/";
+	var restURL = window.location.protocol + "//" + window.location.host+ "/kostat/rest/";
 	
 	var growl = function(type, msgObj) {
 		var showType = 'showErrorToast'; //default showing type is error

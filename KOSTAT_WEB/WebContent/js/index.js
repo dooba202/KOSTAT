@@ -21,8 +21,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 	var selections = []; //to store category selections
 	
-	var restURL = "http://localhost:9081/kostat/rest/";
-	var dataExplorerURL = "http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?";
+	var restURL = window.location.protocol + "//" + window.location.host + "/kostat/rest/";
+	var dataExplorerURL = window.location.protocol + "//" + window.location.hostname + "/vivisimo/cgi-bin/query-meta.exe?";
      
     var growl = function (type, msgObj) {
     	var showType = 'showErrorToast' ; //default showing type is error
