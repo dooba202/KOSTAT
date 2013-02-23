@@ -325,6 +325,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						selections[1] = id;
 						selections = selections.slice(0,2);
 						var filteredCollection = new category( saupCollection.where({parent: id}) ).toJSON();
+						filteredCollection.reverse();
+						filteredCollection.push({"id":0, "name": "전체"});
+						filteredCollection.reverse();
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 
