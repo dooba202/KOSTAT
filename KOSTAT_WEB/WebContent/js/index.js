@@ -103,7 +103,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
 			//$("#accordion").on( "accordionactivate", function( event, ui ) {});
-			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+			$("#category1 .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 				scrollButtons:{
 					enable:true
 				},
@@ -304,7 +304,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection});
 						
-						$("listMenuView2.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+						$("#category2 > .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 							scrollButtons:{
 								enable:true
 							},
@@ -327,18 +327,25 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						var filteredCollection = new category( saupCollection.where({parent: id}) ).toJSON();
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
-						$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
-							scrollButtons:{
-								enable:true
-							},
-							advanced:{
-								updateOnBrowserResize:true, 
-								updateOnContentResize:true
-							}
-						});
-						mCustomScrollSelectable(".l-list li");
+
+						
 						if (minHeight > 0) {
 							$("#accordion").accordion("option","active",2);
+							mCustomScrollSelectable(".l-list li");
+							/*
+							if (minHeight = 10) {
+								
+								$("#category3 > .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+									scrollButtons:{
+										enable:true
+									},
+									advanced:{
+										updateOnBrowserResize:true, 
+										updateOnContentResize:true
+									}
+								});
+							}
+							*/
 						}
 					} else if (className == "saup") {
 						$(".c-display-selected-3").text(label).effect( "bounce", "slow" );

@@ -142,7 +142,11 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 			$("#category3").append(listMenuView3.render({'listNumber':2,'line-height': 0, className: "saup", list: emptyCollection.toJSON() }).el);
 			
 			mCustomScrollSelectable(".l-list li");
-			$("#accordion").accordion({ heightStyle: "content" });
+			$("#accordion").accordion({ heightStyle: "content",
+				activate: function( event, ui ) {
+					//something
+				}	
+			});
 			//$("#accordion").on( "accordionactivate", function( event, ui ) {});
 			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 				scrollButtons:{
@@ -336,7 +340,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						
 						if (minHeight > 0) {
 							$("#accordion").accordion("option","active",1);
-							$("#category2 .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+							$("#category2 > .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 								scrollButtons:{
 									enable:true
 								},
@@ -360,7 +364,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 						
 						//$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar("destroy");
-						$("#category3 .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+						/*
+						$("#category3 > .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 							scrollButtons:{
 								enable:true
 							},
@@ -369,6 +374,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 								updateOnContentResize:true
 							}
 						});
+						*/
 						
 						mCustomScrollSelectable(".l-list li");
 						if (minHeight > 0) {
