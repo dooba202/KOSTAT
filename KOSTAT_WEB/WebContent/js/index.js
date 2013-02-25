@@ -21,7 +21,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 	var selections = []; //to store category selections
 	
-	 var restURL = "http://localhost:9081/kostat/rest/";
+	 var restURL = "http://localhost:9080/kostat/rest/";
      
      var growl = function (type, msgObj) {
             var showType = 'showErrorToast' ; //default showing type is error
@@ -178,7 +178,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					var sanId = selections[0];
 					var pumId = selections[1];
 					var saupId = '';
-					if ( selections[2]=="" ){
+					if ( selections[2] == "" || selections[2] == null ){
 						saupId = '0';
 					} else {
 						saupId = selections[2];
