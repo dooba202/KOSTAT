@@ -322,9 +322,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(label).effect( "bounce", "slow" );
-						$(".c-display-selected-2").text("품목 분류");
-						$(".c-display-selected-3").text("사업체 분류");
+						$(".c-display-selected-1 .center").text(label);
+						$(".c-display-selected-2 .center").text("품목 분류");
+						$(".c-display-selected-3 .center").text("사업체 분류");
 						selections[0] = id;
 						selections = selections.slice(0,1);
 						
@@ -351,8 +351,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 							});
 						}
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(label).effect( "bounce", "slow" );
-						$(".c-display-selected-3").text("사업체 분류");
+						$(".c-display-selected-2 .center").text(label);
+						$(".c-display-selected-3 .center").text("사업체 분류");
 						selections[1] = id;
 						selections = selections.slice(0,2);
 						var filteredCollection = new category( saupCollection.where({parent: id}) ).toJSON();
@@ -381,7 +381,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 							$("#accordion").accordion("option","active",2);
 						}
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(label).effect( "bounce", "slow" );
+						$(".c-display-selected-3 .center").text(label);
 						selections[2] = id;
 					} 
 				}

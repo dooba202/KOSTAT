@@ -415,25 +415,54 @@ html, body {
 }
 .c-display-selected div {
 	font-family: "NanumGothic", 나눔고딕, NG, NGE, "Malgun Gothic";
-	font-size: 0.75em;
+	font-size: 0.9em;
 	color: #555;
 	text-align: center;
 	line-height: 36px;
 	display: inline-block;
+	vertical-align: top;
 }
 .c-display-selected-1 {
-	width: 110px;
-	height: 36px;
-	margin-left: 2px;
 	display: inline-block;
-	background: url("../images/main-c-display-selected-1.png") no-repeat;
+}
+.c-display-selected-1 .left {
+	width: 4px;
+	height: 36px;
+	background: url("../images/main-c-display-selected-1-left.png") no-repeat;
+}
+.c-display-selected-1 .center {
+	height: 36px;
+	padding: 0 10px;
+	margin-left: -4px;
+	background: url("../images/main-c-display-selected-1-center.png") repeat-x;
+}
+.c-display-selected-1 .right {
+	width: 20px;
+	height: 36px;
+	margin-left: -4px;
+	background: url("../images/main-c-display-selected-1-right.png") no-repeat;
 }
 .c-display-selected-2, .c-display-selected-3 {
-	width: 130px;
 	height: 36px;
-	margin-left: -28px;
+	margin-left: -27px;
 	display: inline-block;
-	background: url("../images/main-c-display-selected-2.png") no-repeat;
+}
+.c-display-selected-2 .left, .c-display-selected-3 .left {
+	width: 20px;
+	height: 36px;
+	background: url("../images/main-c-display-selected-2-left.png") no-repeat;
+}
+.c-display-selected-2 .center, .c-display-selected-3 .center {
+	height: 36px;
+	padding: 0 10px;
+	margin-left: -4px;
+	background: url("../images/main-c-display-selected-2-center.png") repeat-x;
+}
+.c-display-selected-2 .right, .c-display-selected-3 .right {
+	width: 20px;
+	height: 36px;
+	margin-left: -4px;
+	background: url("../images/main-c-display-selected-2-right.png") no-repeat;
 }
 .c-date-picker-text {
 	float: left;

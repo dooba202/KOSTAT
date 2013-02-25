@@ -84,9 +84,21 @@
 				<div class="l-selector">
 					<div class="l-selector-inner">
 						<div class="c-display-selected">
-							<div class="c-display-selected-1">산업 분류</div>
-							<div class="c-display-selected-2">품목 분류</div>
-							<div class="c-display-selected-3">사업체 분류</div>
+							<div class="c-display-selected-1">
+								<div class="left"></div>
+								<div class="center">산업 분류</div>
+								<div class="right"></div>
+							</div>
+							<div class="c-display-selected-2">
+								<div class="left"></div>
+								<div class="center">품목 분류</div>
+								<div class="right"></div>
+							</div>
+							<div class="c-display-selected-3">
+								<div class="left"></div>
+								<div class="center">사업체 분류</div>
+								<div class="right"></div>
+							</div>
 						</div>
 						<div class="c-search">
 							<div class="c-search-button"></div>
