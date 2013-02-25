@@ -76,7 +76,7 @@
 	    select 2 num from dual union all
 	    select 3 num from dual 
 	   )
-	SELECT s.SANID
+	SELECT distinct s.SANID
 	     , s.PUMID
 	     , s.SAUPID
 	    , c.num
