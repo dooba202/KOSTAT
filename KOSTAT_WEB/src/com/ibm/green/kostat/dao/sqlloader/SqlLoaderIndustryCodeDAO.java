@@ -36,7 +36,7 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
 
 			IndustryCodeDTO dto = new IndustryCodeDTO();
-			dto.setId(resultSet.getString("SANID"));
+			dto.setCode(resultSet.getString("SANID"));
 			dto.setName(resultSet.getString("SANNAME"));
 			return dto;
 		}
@@ -48,7 +48,7 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
 
 			IndustryCodeDTO dto = new IndustryCodeDTO();
-			dto.setId(resultSet.getString("PUMID"));
+			dto.setCode(resultSet.getString("PUMID"));
 			dto.setName(resultSet.getString("PUMNAME"));
 			dto.setParent(resultSet.getString("SANID_TOP"));
 			return dto;
@@ -60,7 +60,7 @@ public class SqlLoaderIndustryCodeDAO implements IndustryCodeDAO {
 		public IndustryCodeDTO mapRow(ResultSet resultSet, int row)
 				throws SQLException, IllegalArgumentException,	IllegalAccessException, InvocationTargetException {
 			IndustryCodeDTO dto = new IndustryCodeDTO();
-			dto.setId(resultSet.getString("SAUPID"));
+			dto.setCode(resultSet.getString("SAUPID"));
 			dto.setName(resultSet.getString("SAUPNAME"));
 			dto.setParent(resultSet.getString("PUMID"));			
 			return dto;

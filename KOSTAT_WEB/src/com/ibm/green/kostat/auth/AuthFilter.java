@@ -20,8 +20,7 @@ import com.ibm.green.kostat.enums.UserType;
 import com.ibm.green.kostat.rest.services.AuthService;
 
 
-// TODO : temporarily disabled
-//@WebFilter(urlPatterns={"/*"} )
+@WebFilter(urlPatterns={"/*"} )
 public class AuthFilter implements Filter {
 	
 	FilterConfig filterConfig;

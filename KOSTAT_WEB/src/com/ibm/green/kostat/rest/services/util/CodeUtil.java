@@ -30,8 +30,8 @@ public class CodeUtil {
 	static {
 		serializer = JSONSerializer.getSerializer(JSONSerializer.JACKSON); 
 		
-		filterFieldsNoParent  = new String[]{"id", "name"};
-		filterFieldsAll = new String[]{"id", "name", "parent"};
+		filterFieldsNoParent  = new String[]{"id", "name", "code"};
+		filterFieldsAll = new String[]{"id", "name", "parent", "code"};
 	}
 	
 	
