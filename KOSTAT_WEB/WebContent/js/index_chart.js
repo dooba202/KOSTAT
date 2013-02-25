@@ -322,6 +322,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
+						$(".c-display-selected-1").effect("pulsate","slow");
 						$(".c-display-selected-1 .center").text(label);
 						$(".c-display-selected-2 .center").text("품목 분류");
 						$(".c-display-selected-3 .center").text("사업체 분류");
@@ -351,6 +352,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 							});
 						}
 					} else if (className == "product") {
+						$(".c-display-selected-2").effect("pulsate","slow");
 						$(".c-display-selected-2 .center").text(label);
 						$(".c-display-selected-3 .center").text("사업체 분류");
 						selections[1] = id;
@@ -381,6 +383,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 							$("#accordion").accordion("option","active",2);
 						}
 					} else if (className == "saup") {
+						$(".c-display-selected-3").effect("pulsate","slow");
 						$(".c-display-selected-3 .center").text(label);
 						selections[2] = id;
 					} 

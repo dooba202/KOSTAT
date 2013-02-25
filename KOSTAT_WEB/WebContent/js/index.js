@@ -294,6 +294,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
+						$(".c-display-selected-1").effect("pulsate","slow");
 						$(".c-display-selected-1 .center").text(label);
 						$(".c-display-selected-2 .center").text("품목 분류");
 						$(".c-display-selected-3 .center").text("사업체 분류");
@@ -320,6 +321,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							$("#accordion").accordion("option","active",1);
 						}
 					} else if (className == "product") {
+						$(".c-display-selected-2").effect("pulsate","slow");
 						$(".c-display-selected-2 .center").text(label);
 						$(".c-display-selected-3 .center").text("사업체 분류");
 						selections[1] = id;
@@ -351,6 +353,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							*/
 						}
 					} else if (className == "saup") {
+						$(".c-display-selected-3").effect("pulsate","slow");
 						$(".c-display-selected-3 .center").text(label);
 						selections[2] = id;
 						lastWord = "";
