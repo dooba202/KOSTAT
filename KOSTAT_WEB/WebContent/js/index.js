@@ -280,8 +280,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								}
 								if (onLoadingTarget["dataExplorer2"]) {
 									eventHandler.loadFinish("dataExplorer2");
+									growl( "showErrorToast" , "네트웍 문제로 처리가 지연되었습니다.");
 								}
-								growl( "showErrorToast" , "네트웍 문제로 처리가 지연되었습니다.");
+								
 							}, 10000);
 						},
 						'error' : function (e){
