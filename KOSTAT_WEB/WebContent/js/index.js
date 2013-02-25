@@ -20,6 +20,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		logger.setLevel("ALL");
 		
 	var selections = []; //to store category selections
+	var onLoadingTarget = {};
 	
 	var restURL = window.location.protocol + "//" + window.location.host + "/kostat/rest/";
 	var dataExplorerURL = window.location.protocol + "//" + window.location.hostname + "/vivisimo/cgi-bin/query-meta.exe?";
@@ -269,6 +270,19 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								doNothing = false ;
 								requestingObj = {};
 							});
+							
+							setTimeout(function() {
+								if (onLoadingTarget["dataExplorer0"]) {
+									eventHandler.loadFinish("dataExplorer0");
+								}
+								if (onLoadingTarget["dataExplorer1"]) {
+									eventHandler.loadFinish("dataExplorer1");
+								}
+								if (onLoadingTarget["dataExplorer2"]) {
+									eventHandler.loadFinish("dataExplorer2");
+								}
+								growl( "showErrorToast" , "네트웍 문제로 처리가 지연되었습니다.");
+							}, 10000);
 						},
 						'error' : function (e){
 							$( ".placeholder" ).css({display:"block" });
@@ -377,21 +391,33 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 				},
 				"loadStart": function(name) {
 					if (name == "dataExplorer0"){
+						onLoadingTarget["dataExplorer0"] = "#target1";
 						$('#target1').showLoading();
 					} else if (name == "dataExplorer1"){
+						onLoadingTarget["dataExplorer1"] = "#target2";
 						$('#target2').showLoading();
 					} else if (name == "dataExplorer2"){
+						onLoadingTarget["dataExplorer2"] = "#target3";
 						$('#target3').showLoading();
 					} 
 				},
 				"loadFinish": function(name) {
 					
 					if (name == "dataExplorer0"){
-						$('#target1').hideLoading();
+						if (onLoadingTarget["dataExplorer0"]) {
+							delete onLoadingTarget["dataExplorer0"];
+							$('#target1').hideLoading();
+						}
 					} else if (name == "dataExplorer1"){
-						$('#target2').hideLoading();
+						if (onLoadingTarget["dataExplorer1"]) {
+							delete onLoadingTarget["dataExplorer1"];
+							$('#target2').hideLoading();
+						}
 					} else if (name == "dataExplorer2"){
-						$('#target3').hideLoading();
+						if (onLoadingTarget["dataExplorer2"]) {
+							delete onLoadingTarget["dataExplorer2"];
+							$('#target3').hideLoading();
+						}
 					} 
 					if (requestingObj[name]) {
 						requestingObj[name].resolve();
