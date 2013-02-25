@@ -395,7 +395,7 @@ html, body {
 	float: right;
 }
 #c-search-box {
-	width: 240px;
+	width: 160px;
 	height: 24px;
 	margin: 2px 10px;
 	padding: 4px;
@@ -482,7 +482,7 @@ html, body {
 	color: #555;
 }
 .c-search {
-	width: 170px;
+	width: 120px;
 	height: 60px;
 	float: right;
 	text-align: right;
