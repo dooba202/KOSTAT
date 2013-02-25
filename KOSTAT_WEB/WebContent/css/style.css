@@ -99,12 +99,6 @@ html, body {
 	width: 100px;
 	height: 74px;
 }
-.c-logout {
-	width: 88px;
-	height: 33px;
-	background: url("../images/header-c-logout.png") no-repeat;
-	cursor: pointer;
-}
 .l-side {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
