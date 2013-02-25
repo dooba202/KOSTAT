@@ -15,6 +15,7 @@
 		<sql resource="com/ibm/green/kostat/dao/sqlloader/sysinfo.xml" />		
 		<sql resource="com/ibm/green/kostat/dao/sqlloader/jisu.xml" />		
 		<sql resource="com/ibm/green/kostat/dao/sqlloader/industrycode.xml" />		
+		<sql resource="com/ibm/green/kostat/dao/sqlloader/mulyang.xml" />		
 	</sqlList>
 </sqlLoader>
 

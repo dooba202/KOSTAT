@@ -21,20 +21,21 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 	var selections = []; //to store category selections
 	
-	 var restURL = "http://localhost:9080/kostat/rest/";
+	var restURL = window.location.protocol + "//" + window.location.host + "/kostat/rest/";
+	var dataExplorerURL = window.location.protocol + "//" + window.location.hostname + "/vivisimo/cgi-bin/query-meta.exe?";
      
-     var growl = function (type, msgObj) {
-            var showType = 'showErrorToast' ; //default showing type is error
-            if (type == 'error' ) {
+    var growl = function (type, msgObj) {
+    	var showType = 'showErrorToast' ; //default showing type is error
+        	if (type == 'error' ) {
                   showType = 'showErrorToast' ;
-           } else if (type == 'success'){
+        	} else if (type == 'success'){
                   showType = 'showSuccessToast' ;
-           } // showNoticeToast //showWarningToast //showStickyWarningToast
+        	} // showNoticeToast //showWarningToast //showStickyWarningToast
            
             var responsed = $.parseJSON(msgObj.responseText);
             if (typeof (msgObj) == 'string') {
                   $().toastmessage(showType,msgObj);
-           } else {
+            } else {
                    if (responsed.redirect) {
                         $().toastmessage( 'showToast' , {
                             text     : responsed.userMessage + "<br/> 로그인 페이지로 이동합니다. <br/> 바로 이동하시려면 이 창을 닫거나, <br/>5초 뒤에 로그인 페이지로 이동 합니다.",
@@ -86,9 +87,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		var dataExplorerView1 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView2 = new dataExplorer({"width": "100%","height": "320px"});
 		var dataExplorerView3 = new dataExplorer({"width": "100%","height": "320px"});
-		dataExplorerView1.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-C24-PROJ&query=");
-		dataExplorerView2.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-ECO-PROJ&query=");
-		dataExplorerView3.setSource("http://211.109.180.11/vivisimo/cgi-bin/query-meta.exe?v%3Aproject=KS-PTL-PROJ&query=");
 		
 		var moduleData = module.config();
 		var sanupCollection = new category(moduleData.sanup);
@@ -99,13 +97,13 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 		var category_init = function() {
 			$("#category1").append(listMenuView1.render({'listNumber':1,'line-height': 5, className: "sanup", list: sanupCollection.toJSON() }).el);
-			$("#category2").append(listMenuView2.render({'listNumber':3,'line-height': 5, className: "product", list: pumCollection.toJSON() }).el);
-			$("#category3").append(listMenuView3.render({'listNumber':2,'line-height': 5, className: "saup", list: saupCollection.toJSON() }).el);
+			$("#category2").append(listMenuView2.render({'listNumber':3,'line-height': 0, className: "product", list: emptyCollection.toJSON() }).el);
+			$("#category3").append(listMenuView3.render({'listNumber':2,'line-height': 0, className: "saup", list: emptyCollection.toJSON() }).el);
 			
 			mCustomScrollSelectable(".l-list li");
 			$("#accordion").accordion({ heightStyle: "content" });
 			//$("#accordion").on( "accordionactivate", function( event, ui ) {});
-			$(".l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+			$("#category1 .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 				scrollButtons:{
 					enable:true
 				},
@@ -200,35 +198,39 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						'url' : restURL + 'keywords/'+ selectedBtn +'/'+ sanId +'/'+ pumId + '/' + saupId ,
 						'dataType' : 'json' ,
 						'success' : function (data){
-							//TODO : frame이름을 통해 queryString을 꺼내주는 소스
-							//frameName이 first인 것에 string을 각각 꺼내서
-							//selectedBtnResult를 읽어서 define
 							_.each(data, function (val, i){
 								var query = val.query;
-								//var query = "" ;
-								/*_.each(queryResult, function (v){
-									if ( query == "" ) {
-										query = v;
-									} else {
-										query = query + " " + "OR" + " " + v;
-									}
-									return query;
-								});*/
 								selectedBtnResult[i] = query;
 							});
+							
+							if (data[0].source !== null) {
+								dataExplorerView1.setSource(dataExplorerURL + "v%3Aproject=" + data[0].source + "&query=");
+								//make it show
+								$("#target1").css("display","block");
+							} else {
+								// make it hide
+								$("#target1").css("display","none");
+							}
+							dataExplorerView2.setSource(dataExplorerURL + "v%3Aproject=" + data[1].source + "&query=");
+							dataExplorerView3.setSource(dataExplorerURL + "v%3Aproject=" + data[2].source + "&query=");
+							
 							dataExplorerView1.setDefWords(selectedBtnResult[0]);
 							dataExplorerView2.setDefWords(selectedBtnResult[1]);
 							dataExplorerView3.setDefWords(selectedBtnResult[2]);
 							
 							if (lastWord.length > 0 && $("#c-search-check" ).is(':checked' )) {
-								dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString);
+								if (data[0].source !== null) {
+									dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString); //TODO: time from to add
+								}
 								dataExplorerView2.query(selectedBtnResult[1] + lastWord + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + lastWord + ' ' + queryString);
 								logger.log( "결과내재검색1: " + selectedBtnResult[0] + lastWord + ' ' + queryString );
 								logger.log( "결과내재검색2: " + selectedBtnResult[1] + lastWord + ' ' + queryString );
 								logger.log( "결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
 							} else {
-								dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString);
+								if (data[0].source !== null) {
+									dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString); //TODO: time from to add
+								}
 								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + ' ' + queryString);
 								logger.log( "추가검색1: " + selectedBtnResult[0] + ' ' + queryString);
@@ -242,12 +244,14 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							}
 							
 							requestingObj[dataExplorerView1.reportID] = $.Deferred();
+							if (data[0].source == null) {
+								requestingObj[dataExplorerView1.reportID].resolve();
+							};
 							requestingObj[dataExplorerView2.reportID] = $.Deferred();
 							requestingObj[dataExplorerView3.reportID] = $.Deferred();
 							doNothing = true ;
                               
 							$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then( function(){
-								//$('body').css ("overflow", "auto");
 								doNothing = false ;
 								requestingObj = {};
 							});
@@ -257,79 +261,9 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							growl( "showErrorToast" , e);
 						}
 					});
-				        
-				        // /kostat/rest/keywords/{{증가,감소구분}}/{{selectedDepthCode}}/{{from : yyyymmdd}}/{{to : yyyymmdd}}
-				        /*$.ajax({
-							'url' : 'kostat/rest/keywords/' + selectedBtnId + '/' + selectedDepthCode + '/' + timeFrom + '/' + timeTo,
-							'dataType' : 'json',
-							'success' : function(data){
-								selectedKeywordSet = data.name; //키워드 조합
-							}
-			        	})	*/
-
-					
 				} else {
 					alert("모든 분류가 선택되지 않았습니다.");
 				}
-				
-				/*if (selections.length > 2) {
-					$(".placeholder").css({display:"none"});
-					
-					var queryString = $('#c-search-box').val(); 
-					if (!notFirst) {
-						$('#frame1').append(dataExplorerView1.el);
-						$('#frame2').append(dataExplorerView2.el);
-						$('#frame3').append(dataExplorerView3.el);
-						notFirst = true;
-					}*/
-					
-					/*
-					 * ServerSide job emulate
-					 */
-					/*var selectedBtn = $(".c-keyword-set :radio:checked").val();
-					if (selectedBtn == "all") {
-						dataExplorerView1.setDefWords("동일산업 합금철");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철");
-					} else if(selectedBtn == "increase") {
-						dataExplorerView1.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철 증가 OR 증대 OR 반등 OR 상승 OR 확대");
-					} else if(selectedBtn == "decrease") {
-						dataExplorerView1.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
-						dataExplorerView2.setDefWords("동일산업 합금철");
-						dataExplorerView3.setDefWords("동일산업 합금철 감소 OR 하락 OR 축소");
-					};*/
-					// 선택을 바꾸면 defWords도 바꾸고 lastWord도 날리고 추가 입력어로 쿼리 요청도 받고
-					
-					/*if (lastWord.length > 0 && $("#c-search-check").is(':checked')) {
-						dataExplorerView1.query(lastWord + queryString);
-						dataExplorerView2.query(lastWord + queryString);
-						dataExplorerView3.query(lastWord + queryString);
-					} else {
-						dataExplorerView1.query(queryString);
-						dataExplorerView2.query(queryString);
-						dataExplorerView3.query(queryString);
-					}
-					if ($("#c-search-check").is(':checked')) {
-						lastWord += " " + queryString + " ";
-					} else { 
-						lastWord = queryString + " ";
-					}*/
-					
-					/*requestingObj[dataExplorerView1.reportID] = $.Deferred();
-					requestingObj[dataExplorerView2.reportID] = $.Deferred();
-					requestingObj[dataExplorerView3.reportID] = $.Deferred();
-					doNothing = true;
-					
-					$.when(requestingObj[dataExplorerView1.reportID], requestingObj[dataExplorerView2.reportID], requestingObj[dataExplorerView3.reportID]).then(function(){
-						//$('body').css("overflow", "auto");
-						doNothing = false; 
-						requestingObj = {};
-					});*/
-				/*} else {
-					alert("모든 분류가 선택되지 않았습니다.");
-				}*/
 			});
 		});
 		$(".c-date-from, .c-date-to").datepicker({
@@ -340,89 +274,37 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 			changeMonth:true,
 			changeYear:true,
 			showButtonPanel: true,
-			/*
-	        beforeShow: function(input, instance) { 
-	        	$(input).datepicker('setDate', new Date());
-	        },
-	        */
 	        onClose: function(dateText, inst) {
 	        	var selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
 	        	$(this).datepicker('setDate', selectedDate);
 	        }
-			/*,
-	        onChangeMonthYear: function(year, month) {
-	        	var selectedDate = new Date(year, month -1);
-	        	$(this).datepicker('setDate', selectedDate);
-	        }*/
 		});
 		var today = new Date();
 		var monthAgo = new Date(today.getFullYear(), today.getMonth() - 1);
 		$(".c-date-from").datepicker('setDate', monthAgo);
 		$(".c-date-to").datepicker('setDate', today);
 		
-		/*
-		var resultView = new xmlResult;
-		function parseXml(xml) {
-			var resultObj = {"documents": []};
-			var item = $(xml).find("document");
-
-			  $(item).each(function() {
-				  var document = {};
-				  $(this).find('content').each(function() {
-					  document[$(this).attr('name')] = $(this).text();
-				  });
-				  resultObj["documents"].push(document);
-				  //$("#results").append($(this).text()+ "<br />");
-			  });
-			  return resultObj;
-
-		}
-		*/
 		$(function(){
 		    $("#c-search-box").keypress(function(e){
 		        if(e.keyCode==13)
 		            $('.c-search-button').click();
 		    });
-			/*
-		    $.ajax({
-		        url: "http://211.109.180.11/vivisimo/cgi-bin/velocity.exe",
-		        //url: 'xml/test.xml',
-		    	type: 'GET',
-		        dataType: "xml",
-		        data: {
-		        	'query': "철강",
-		        	'sources': "KS-KMJ-SC",
-		        	'v.app': "api-rest",
-		        	'v.function': "query-search",
-		        	'v.indent':	"true",
-		        	'v.password': "passw0rd",
-		        	'v.username': "admin"
-		        },
-		        success: function(data) {
-		        	$("#results").append(
-		        			resultView.render(parseXml(data)).el
-		        	);
-		        }
-		    });
-		    */
 		});		
-		//this.router = new router();
 		
 		eventHandler = {
 				"selectClick": function(className, id, label) {
 					if (className =="sanup") {
-						$(".c-display-selected-1").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-1").text(label).effect( "bounce", "slow" );
 						$(".c-display-selected-2").text("품목 분류");
 						$(".c-display-selected-3").text("사업체 분류");
 						selections[0] = id;
-						selections[1] = null;
-						selections[2] = null;
+						selections = selections.slice(0,1);
 						
-						var filteredCollection = new category( pumCollection.where({parent: id}) );
+						var filteredCollection = new category( pumCollection.where({parent: id}) ).toJSON();
 						var minHeight = Math.min(filteredCollection.length ,10); 
-						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection.toJSON()});
+						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection});
 						
-						$("listMenuView2.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+						$("#category2 > .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
 							scrollButtons:{
 								enable:true
 							},
@@ -438,28 +320,38 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							$("#accordion").accordion("option","active",1);
 						}
 					} else if (className == "product") {
-						$(".c-display-selected-2").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-2").text(label).effect( "bounce", "slow" );
 						$(".c-display-selected-3").text("사업체 분류");
 						selections[1] = id;
-						selections[2] = null;
-						var filteredCollection = new category( saupCollection.where({parent: id}) );
+						selections = selections.slice(0,2);
+						var filteredCollection = new category( saupCollection.where({parent: id}) ).toJSON();
+						filteredCollection.reverse();
+						filteredCollection.push({"id":0, "name": "전체"});
+						filteredCollection.reverse();
 						var minHeight = Math.min(filteredCollection.length ,10); 
-						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection.toJSON()});
-						$("listMenuView3.el .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
-							scrollButtons:{
-								enable:true
-							},
-							advanced:{
-								updateOnBrowserResize:true, 
-								updateOnContentResize:true
-							}
-						});
-						mCustomScrollSelectable(".l-list li");
+						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
+
+						
 						if (minHeight > 0) {
 							$("#accordion").accordion("option","active",2);
+							mCustomScrollSelectable(".l-list li");
+							/*
+							if (minHeight = 10) {
+								
+								$("#category3 > .l-list-mid-5, .l-list-mid-10").mCustomScrollbar({
+									scrollButtons:{
+										enable:true
+									},
+									advanced:{
+										updateOnBrowserResize:true, 
+										updateOnContentResize:true
+									}
+								});
+							}
+							*/
 						}
 					} else if (className == "saup") {
-						$(".c-display-selected-3").text(id).effect( "bounce", "slow" );
+						$(".c-display-selected-3").text(label).effect( "bounce", "slow" );
 						selections[2] = id;
 						lastWord = "";
 						$("#c-search-check").prop("checked", false);
@@ -467,7 +359,6 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					} 
 				},
 				"loadStart": function(name) {
-					//$('body').css("overflow", "hidden");
 					if (name == "dataExplorer0"){
 						$('#target1').showLoading();
 					} else if (name == "dataExplorer1"){

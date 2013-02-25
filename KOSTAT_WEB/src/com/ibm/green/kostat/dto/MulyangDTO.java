@@ -1,13 +1,10 @@
 package com.ibm.green.kostat.dto;
 
-/**
- * Data Transfer Object for Index of JISU / MULYANG
- */
-public class JisuDTO implements JisuValue{
-	
-	String sanId;
-	
+public class MulyangDTO implements JisuValue {
+
 	String pumId;
+	
+	String saupId;
 	
 	String yyyymm;
 	
@@ -19,20 +16,20 @@ public class JisuDTO implements JisuValue{
 	
 	long secTime;
 
-	public String getSanId() {
-		return sanId;
-	}
-
-	public void setSanId(String sanId) {
-		this.sanId = sanId;
-	}
-
 	public String getPumId() {
 		return pumId;
 	}
 
 	public void setPumId(String pumId) {
 		this.pumId = pumId;
+	}
+
+	public String getSaupId() {
+		return saupId;
+	}
+
+	public void setSaupId(String saupId) {
+		this.saupId = saupId;
 	}
 
 	public String getYyyymm() {
@@ -73,6 +70,5 @@ public class JisuDTO implements JisuValue{
 
 	public void setSecTime(long secTime) {
 		this.secTime = secTime;
-	}
-
+	}	
 }
