@@ -4,16 +4,15 @@ public class IndustryCodeDTO {
 	
 	String id;
 	
+	String code;
+	
 	String name;
 	
 	String parent;
 
+	// id is generated with code and parent. It's unique
 	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		return (parent != null) ? parent + "." + code : code; 
 	}
 
 	public String getName() {
@@ -30,6 +29,14 @@ public class IndustryCodeDTO {
 
 	public void setParent(String parent) {
 		this.parent = parent;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
