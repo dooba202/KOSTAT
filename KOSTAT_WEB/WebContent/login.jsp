@@ -231,7 +231,7 @@ $(function(){
 <div id="l-container">
 	<div id="c-content"></div>
 	<div id="l-form">
-		<form id="loginform" name="form" method="post" action="index_chart.jsp" enctype="application/x-www-form-urlencoded">
+		<form id="loginform" name="form" method="post" action="index.jsp" enctype="application/x-www-form-urlencoded">
 			<div id="c-form-top"></div>
 			<div id="c-form-middle">
 				<input type="text" id="c-id" name="userID" maxlength="20"></input>
