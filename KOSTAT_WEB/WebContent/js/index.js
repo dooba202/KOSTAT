@@ -192,7 +192,21 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						timeTo = timeTemp;
 						$(".c-date-to").datepicker( 'setDate', timeTemp );
 					}
-					//날짜 순서가 바뀌었을때 앞뒤 선택 변환
+					//date format converting to YYYY/MM/DD
+					timeFromMonth = timeFrom.getMonth() + 1;
+					timeToMonth = timeTo.getMonth() + 1;
+					if (timeFromMonth < 10) {
+						timeFromMonth = "0" + timeFromMonth;
+					} else {
+						timeFromMonth = "" + timeFromMonth;
+					}
+					if (timeToMonth < 10) {
+						timeToMonth = "0" + timeToMonth;
+					} else {
+						timeToMonth = "" + timeToMonth;
+					}
+					var timeFromStr = timeFrom.getFullYear() + "/" + timeFromMonth + "/" + timeFrom.getDate();
+					var timeToStr = timeTo.getFullYear() + "/" + timeToMonth + "/" + timeTo.getDate();
 					
 					$.ajax({
 						'url' : restURL + 'keywords/'+ selectedBtn +'/'+ sanId +'/'+ pumId + '/' + saupId ,
@@ -220,7 +234,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 							
 							if (lastWord.length > 0 && $("#c-search-check" ).is(':checked' )) {
 								if (data[0].source !== null) {
-									dataExplorerView1.query(selectedBtnResult[0] + lastWord + ' ' + queryString); //TODO: time from to add
+									dataExplorerView1.query(selectedBtnResult[0] + ' date:[' + timeFromStr + '..' + timeToStr +'] ' + lastWord + ' ' + queryString);
 								}
 								dataExplorerView2.query(selectedBtnResult[1] + lastWord + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + lastWord + ' ' + queryString);
@@ -229,7 +243,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								logger.log( "결과내재검색3: " + selectedBtnResult[2] + lastWord + ' ' + queryString );
 							} else {
 								if (data[0].source !== null) {
-									dataExplorerView1.query(selectedBtnResult[0] + ' ' + queryString); //TODO: time from to add
+									dataExplorerView1.query(selectedBtnResult[0] + ' date:[' + timeFromStr + '..' + timeToStr +'] ' + lastWord + ' ' + queryString);
 								}
 								dataExplorerView2.query(selectedBtnResult[1] + ' ' + queryString);
 								dataExplorerView3.query(selectedBtnResult[2] + ' ' + queryString);
