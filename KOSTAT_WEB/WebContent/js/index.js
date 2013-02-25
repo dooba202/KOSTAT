@@ -363,7 +363,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						filteredCollection.reverse();
 						*/
 						
-						var minHeight = Math.min(filteredCollection.length ,10); 
+						var minHeight = Math.min(filteredCollection.length ,11); 
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 
 						

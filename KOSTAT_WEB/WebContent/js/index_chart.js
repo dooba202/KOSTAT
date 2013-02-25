@@ -365,7 +365,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, chart){
 						filteredCollection.push({"id":0, "code": 0, "name": "전체"});
 						filteredCollection.reverse();
 						
-						var minHeight = Math.min(filteredCollection.length ,10); 
+						var minHeight = Math.min(filteredCollection.length ,11); 
 						
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 						
