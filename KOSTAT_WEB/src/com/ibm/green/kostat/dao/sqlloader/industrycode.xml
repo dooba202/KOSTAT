@@ -64,7 +64,7 @@
 	  from mi_sauppum m
 	     , mi_saup s
 	 where m.saupid=s.SAUPID
-	   and s.SANID not like 'C%'
+	   and s.SANID like 'C%'
 	 order by m.saupid	
 	</select>
 	
