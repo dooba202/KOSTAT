@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.ibm.green.exception.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,7 @@
 		margin: 0;
 		padding: 0;
 	}
+	
 	#l-container {
 		width: 100%;
 		min-height: 100%;
@@ -36,23 +38,13 @@
 	#l-message {
 		position: relative;
 		width: 360px;
-		margin: 100px auto;
+		margin: 0 auto;
 		padding: 10px;
 		text-align: center;
 		font-family: 돋움, Dotum;
 		font-size: 0.8em;
 		font-weight: bold;
-		color: #fff;
-		background: #8997B5;
-	    background: -webkit-gradient(linear,left top,left bottom,from(#8997B5),to(#656E84));
-	    background: -moz-linear-gradient(top,#8997B5,#656E84);
-	    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8997B5', endColorstr='#656E84');
-	    -webkit-border-radius: 2px;
-		-moz-border-radius: 2px;
-		border-radius: 2px;
-		-webkit-box-shadow: 0 8px 6px -6px #aaa;
-		-moz-box-shadow: 0 8px 6px -6px #aaa;
-		box-shadow: 0 8px 6px -6px #aaa;
+		color: #555;
 	}
 	
 	#l-form {
@@ -156,7 +148,7 @@
 		background: url('images/login-l-pw-focus.png') !important;
 	}
 	#footer {
-		margin: 60px 120px;
+		margin: 60px 140px 10px 0;
 		text-align: center;
 	}
 	#c-logo-kostat {
@@ -228,10 +220,22 @@ $(function(){
 </script>
 </head>
 <body>
+<%
+	String message = "";
+	try {
+		String code = request.getParameter("code");
+		if (code != null) {
+			ErrorCode errCode = ErrorCode.fromCode(code);
+			message = errCode.getDescription(request.getLocale());
+		}
+	} catch (Exception ex) {
+		message = ErrorCode.COMMON_UNKNOWN.getDescription(request.getLocale());
+	}
+ %>
 <div id="l-container">
 	<div id="c-content"></div>
 	<div id="l-form">
-		<form id="loginform" name="form" method="post" action="index.jsp" enctype="application/x-www-form-urlencoded">
+		<form id="loginform" name="form" method="post" action="/kostat/rest/auth/form" enctype="application/x-www-form-urlencoded">
 			<div id="c-form-top"></div>
 			<div id="c-form-middle">
 				<input type="text" id="c-id" name="userID" maxlength="20"></input>
@@ -245,11 +249,11 @@ $(function(){
 				<input id="submit-btn" class="disable" type="submit" value="" disabled="disabled"></input>
 			</div>
 		</form>
-		<div id="l-message"></div>
 		<div id="footer">
 			<div id="c-logo-kostat"></div>
 			<div id="c-logo-ibm"></div>
 		</div>
+		<div id="l-message"><%=message%></div>
 	</div>
 </div>
 </body>
