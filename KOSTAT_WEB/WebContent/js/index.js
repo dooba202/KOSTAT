@@ -320,16 +320,16 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		});		
 		
 		eventHandler = {
-				"selectClick": function(className, id, label) {
+				"selectClick": function(className, code, label) {
 					if (className =="sanup") {
 						$(".c-display-selected-1").effect("pulsate","slow");
 						$(".c-display-selected-1 .center").text(label);
 						$(".c-display-selected-2 .center").text("품목 분류");
 						$(".c-display-selected-3 .center").text("사업체 분류");
-						selections[0] = id;
+						selections[0] = code;
 						selections = selections.slice(0,1);
 						
-						var filteredCollection = new category( pumCollection.where({parent: id}) ).toJSON();
+						var filteredCollection = new category( pumCollection.where({parent: code}) ).toJSON();
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView2.render({'listNumber':3,'line-height': minHeight, 'className': "product", 'list': filteredCollection});
 						
@@ -352,14 +352,16 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 						$(".c-display-selected-2").effect("pulsate","slow");
 						$(".c-display-selected-2 .center").text(label);
 						$(".c-display-selected-3 .center").text("사업체 분류");
-						selections[1] = id;
+						selections[1] = code;
 						selections = selections.slice(0,2);
-						var filteredCollection = new category( saupCollection.where({parent: id}) ).toJSON();
+						var filteredCollection = new category( saupCollection.where({parent: code}) ).toJSON();
+						
 						/*
 						filteredCollection.reverse();
-						filteredCollection.push({"id":0, "name": "전체"});
+						filteredCollection.push({"id":0, "code":0, "name": "전체"});
 						filteredCollection.reverse();
 						*/
+						
 						var minHeight = Math.min(filteredCollection.length ,10); 
 						listMenuView3.render({'listNumber':2,'line-height': minHeight, 'className': "saup", 'list': filteredCollection});
 
@@ -385,7 +387,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 					} else if (className == "saup") {
 						$(".c-display-selected-3").effect("pulsate","slow");
 						$(".c-display-selected-3 .center").text(label);
-						selections[2] = id;
+						selections[2] = code;
 						lastWord = "";
 						$("#c-search-check").prop("checked", false);
 						$('#c-search-box').val("");
