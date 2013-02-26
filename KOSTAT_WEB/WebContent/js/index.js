@@ -21,6 +21,7 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 		
 	var selections = []; //to store category selections
 	var onLoadingTarget = {};
+	var timer = null;
 	
 	var restURL = window.location.protocol + "//" + window.location.host + "/kostat/rest/";
 	var dataExplorerURL = window.location.protocol + "//" + window.location.hostname + "/vivisimo/cgi-bin/query-meta.exe?";
@@ -271,7 +272,8 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								requestingObj = {};
 							});
 							
-							setTimeout(function() {
+							/*
+							timer = setTimeout(function() {
 								if (onLoadingTarget["dataExplorer0"]) {
 									eventHandler.loadFinish("dataExplorer0");
 								}
@@ -280,10 +282,11 @@ function( module, $, Backbone, _, Logger, category, listMenu, dataExplorer){
 								}
 								if (onLoadingTarget["dataExplorer2"]) {
 									eventHandler.loadFinish("dataExplorer2");
-									//growl( "showErrorToast" , "네트웍 문제로 처리가 지연되었습니다.");
+									growl( "showErrorToast" , "네트웍 문제로 처리가 지연되었습니다.");
 								}
 								
 							}, 15000);
+							*/
 						},
 						'error' : function (e){
 							$( ".placeholder" ).css({display:"block" });
