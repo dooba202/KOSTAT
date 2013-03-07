@@ -35,7 +35,7 @@
 					<div class="c-logo"></div><!--로고 영역-->
 				</div> <!--너비 고정-->
 				<div class="l-logout">
-					<div class="c-logout"></div><!--로그아웃버튼 영역-->
+					<a href="logout.jsp"><img src="images/header-c-logout.png" border=0/></a>
 				</div> <!--너비 고정-->
 				</div>
 			<div class="l-header-border"></div>

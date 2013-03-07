@@ -58,11 +58,11 @@ function($,Backbone, _, Mustache, template, Logger) {
 		
 		select: function(e) {
 			if (e && e.currentTarget) {
-				var id = $(e.currentTarget).attr("id");
+				var code = $(e.currentTarget).attr("code");
 				var className = $(e.currentTarget).find('input').attr("name");
 				var label = $(e.currentTarget).find('label').text(); 
-				if (id !== "n/a") {
-					this.eventTrigger("selectClick", className, id, label);
+				if (code !== "n/a") {
+					this.eventTrigger("selectClick", className, code, label);
 				}
 			}
 		}
