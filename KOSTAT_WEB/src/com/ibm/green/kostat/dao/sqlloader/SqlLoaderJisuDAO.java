@@ -66,6 +66,11 @@ public class SqlLoaderJisuDAO implements JisuDAO {
 		
 		try {
 			
+			boolean bPumIdZero = false;
+			if ((pumId == null) || (pumId.equals("0"))) {
+				bPumIdZero = true;
+			}
+			
 			Object[] params = new Object[4];
 			params[0] = sanId;
 			params[1] = pumId;
@@ -78,10 +83,18 @@ public class SqlLoaderJisuDAO implements JisuDAO {
 				queryName = "getJisuListWithIndustryCode";
 				break;
 			case jisuLM: // 전월비
-				queryName = "getJisuLMListWithIndustryCode";
+				if (bPumIdZero) {
+					queryName = "getJisuLMListWithIndustryCode";
+				} else {
+					queryName = "getJisuLMListWithIndustryCodeForNotZeroPumId";
+				}
 				break;
 			case jisuSM: // 전년동월비
-				queryName = "getJisuSMListWithIndustryCode";
+				if (bPumIdZero) {
+					queryName = "getJisuSMListWithIndustryCode";
+				} else {
+					queryName = "getJisuSMListWithIndustryCodeForNotZeroPumId";
+				}
 				break;
 			}
 			
