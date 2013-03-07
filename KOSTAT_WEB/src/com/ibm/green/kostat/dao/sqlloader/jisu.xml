@@ -73,7 +73,8 @@
 	 where jisuid = 'O11'
 	   and rate_gu = 'LM'-- 'LM' 전월비 / 'SM' 전년동월비
 	   and jisu_gu in ('P1','S1','D1','E1','H1')
-	   and sanid = ? -- 산업코드
+--	   and sanid = ? -- 산업코드
+	   and sanid like ? || '%'
 	   and pumid = ? -- 품목코드
 	   and DATE_DESC between ? and ?
 	 order by 
@@ -122,7 +123,8 @@
 	 where jisuid = 'O11'
 	   and rate_gu = 'SM'-- 'LM' 전월비 / 'SM' 전년동월비
 	   and jisu_gu in ('P1','S1','D1','E1','H1')
-	   and sanid = ? -- 산업코드
+--	   and sanid = ? -- 산업코드
+	   and sanid like ? || '%'
 	   and pumid = ?  -- 품목코드 
 	   and DATE_DESC between ? and ? 
 	 order by 
