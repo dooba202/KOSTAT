@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <dbQuery jdbc="KOSTAT" category="mulyang">
 
@@ -8,11 +8,11 @@
 	    m.pumid,
 	    0 as SAUPID,
 		m.JOSA_YM,
-	    (select description 
-	          from code_mst
-	         where code_grp = 'JISU_GU'
-	           and code = m.jisu_gu
-	       ) AS JISU_GU_NM,
+	    (select dataname 
+	       from mi_cls_datacode
+	      where classid = 'JISU_GU'
+	        and datacode = m.jisu_gu
+            ) AS JISU_GU_NM,
 	     josa_ym,       
 	      to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
 	     , m.mul as MULYANG
@@ -38,11 +38,11 @@
 	   )
 	select pumid,
 		    saupid,
-		 (select description 
-	          from code_mst
-	         where code_grp = 'JISU_GU'
-	           and code = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
-	       ) AS JISU_GU_NM,	    
+		(select dataname 
+	          from mi_cls_datacode
+	         where classid = 'JISU_GU'
+	           and datacode = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
+               ) AS JISU_GU_NM,	    
 		    josa_ym,
 	     to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec,
 	     decode(c.num,
@@ -75,11 +75,11 @@
 	   )
 	select pumid, saupid, josa_ym
 	     , to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
-	  , (select description 
-	          from code_mst
-	         where code_grp = 'JISU_GU'
-	           and code = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
-	       ) AS JISU_GU_NM
+	  , (select dataname
+	          from mi_cls_datacode
+	         where classid = 'JISU_GU'
+	           and datacode = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
+               ) AS JISU_GU_NM
 	     , nvl(decode(c.num, 1,P1,2,S1,3,D1,4,E1,5,H1),0) as MULYANG
 	-- , m.*
 	  from mi_dong1_analysis m
@@ -109,11 +109,11 @@
 	   )
 	select  pumid, saupid, josa_ym
 	     , to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
-	  , (select description 
-	          from code_mst
-	         where code_grp = 'JISU_GU'
-	           and code = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
-	       ) AS JISU_GU_NM
+	  , (select dataname 
+	          from mi_cls_datacode
+	         where classid = 'JISU_GU'
+	           and datacode = decode(c.num, 1,'P1',2,'S1',3,'D1',4,'E1',5,'H1')
+               ) AS JISU_GU_NM
 	     , nvl(decode(c.num, 1,P1,2,S1,3,D1,4,E1,5,H1),0) as MULYANG
 	-- , m.*
 	  from mi_dong1_analysis m

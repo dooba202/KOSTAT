@@ -4,24 +4,24 @@
 
 	<select id="select" >
 		SELECT US.*
-		FROM SYSTEM.KOSTAT_USER US
+		FROM KOSTAT_USER US
 		WHERE
 			US.USER_ID = ?
 	</select>
 
 	<select id="selectAll" >
 		SELECT US.*
-		FROM SYSTEM.KOSTAT_USER US
+		FROM KOSTAT_USER US
 	</select>
 
 	<select id="insert" >
 		-- BE CAREFULLY OF THE SEQUENCE OF FIELDS	
-		INSERT INTO SYSTEM.KOSTAT_USER (USER_TYPE, USER_ID)
+		INSERT INTO KOSTAT_USER (USER_TYPE, USER_ID)
 		VALUES (?, ?)	
 	</select>
 
 	<select id="udpate" >
-		UPDATE SYSTEM.KOSTAT_USER US
+		UPDATE KOSTAT_USER US
 		SET 
 			US.USER_TYPE = ?
 		WHERE
@@ -31,7 +31,7 @@
 
 	<select id="delete" >
 		DELETE
-		FROM SYSTEM.KOSTAT_USER US
+		FROM KOSTAT_USER US
 		WHERE US.USER_ID = ?
 	</select>
 

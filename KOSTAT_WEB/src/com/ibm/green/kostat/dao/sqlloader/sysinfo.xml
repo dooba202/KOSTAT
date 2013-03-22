@@ -4,13 +4,13 @@
 
 	<select id="select" >
 		SELECT * 
-		FROM SYSTEM.KOSTAT_SYSINFO S1
+		FROM KOSTAT_SYSINFO S1
 		WHERE S1.INFO_KEY = ? 
 	</select>
 
 	<select id="selectAll" >
 		SELECT * 
-		FROM SYSTEM.KOSTAT_SYSINFO S1
+		FROM KOSTAT_SYSINFO S1
 	</select>
 
 
