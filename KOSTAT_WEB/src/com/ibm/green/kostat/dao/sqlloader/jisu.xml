@@ -3,43 +3,48 @@
 <dbQuery jdbc="KOSTAT" category="jisu">
 
 	<select id="getJisuListWithIndustryCode" >
-		select  
+		select
 			sanid
 		  , pumid
 		  , j.jisu_gu
-		     , (select dataname 
+		     , (select dataname
 		          from mi_cls_datacode
 			 where classid = 'JISU_GU'
 			   and datacode = j.jisu_gu
 		       ) AS "JISU_GU_NM"
 		  , josa_ym
 		  , to_number( to_date(josa_ym,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
-		  , sum(jisu) / count(*) "JISU"
+		  , jisu "JISU"
+		  , J.*
 		  from mi_jisu j
+		     , (SELECT ? D_SANID, ? D_PUMID FROM DUAL) P
 		where 1=1
-		   and jisu_gu in ('P1','S1','D1','E1','H1')
-		   and jisuid = 'ON1'
-		   and (sanid = ? 
-       		        OR 1=1
-                       )
-		   and pumid =  ? 
-		   and josa_ym between ? and ? 
-		 group by 
-		    josa_ym
-		  , jisu_gu
-		  , jisuid
-		  , sanid
-		  , pumid
-		 order by 
-		    jisu_gu
-		  , josa_ym
-		  , sanid
+		   and (
+		   	  (jisu_gu in ('P1','S1','H1')
+		           and jisuid = 'O11')
+		       or
+		          (jisu_gu in ('D1','E1')
+		           and jisuid = 'ON1')
+		       )
+		   and (
+		   		--  산업별
+		   		(sanid = D_SANID AND  '0' =  D_PUMID AND SPECODE = '0')
+		   		OR
+		   		-- 품목별
+		   		(sanid LIKE D_SANID||'_' AND  pumid =  D_PUMID AND  '0' !=  D_PUMID)
+		   		)
+		   and josa_ym between ? and ?
+		   AND SIDOID = '00'
+		 order by
+		    J.jisu_gu
+		  , J.josa_ym
+		  , J.sanid
 	</select>
 	
 	<select id="getJisuLMListWithIndustryCode">
 	-- 산업별 지수 전월비 
 	select sanid, pumid, jisu_gu,
-         (select dataname 
+         (select dataname
 	    from mi_cls_datacode
 	   where classid = 'JISU_GU'
 	     and datacode = j.jisu_gu
@@ -48,15 +53,20 @@
 	  , to_number( to_date(DATE_DESC,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
 	  , j.rate JISU
 	  from mi_jisu_analysis j
-	 where jisuid = 'O11'
-	   and rate_gu = 'LM'-- 'LM' 전월비 / 'SM' 전년동월비
-	   and jisu_gu in ('P1','S1','D1','E1','H1')
-	   and (sanid = ? -- 산업코드
-		or 1=1
+	 where (
+	   	  (jisu_gu in ('P1','S1','H1')
+	           and jisuid = 'S11') -- 계절지수
+	       or
+	          (jisu_gu in ('D1','E1')
+	           and jisuid = 'SN1') -- 계절지수
 	       )
+	   and rate_gu = 'LM'-- 'LM' 전월비 / 'SM' 전년동월비
+	   and sanid = ? -- 산업코드
 	   and pumid = ?  -- 품목코드
-	   and DATE_DESC between ? and ? 
-	 order by 
+	   and DATE_DESC between ? and ?
+           AND sidoid = '00'
+           AND specode ='0'
+	 order by
 	       j.sanid
 	     , j.jisu_gu
 	     , j.date_desc
@@ -93,53 +103,62 @@
 	<select id="getJisuSMListWithIndustryCode">
 	-- 산업별 지수 전년동월비
 	select sanid, pumid, jisu_gu,
-	 	(select dataname 
+	 	(select dataname
 	          from mi_cls_datacode
 	   	 where classid = 'JISU_GU'
 	           and datacode = j.jisu_gu
           ) AS jisu_gu_nm
 	  , DATE_DESC josa_ym
 	  , to_number( to_date(DATE_DESC,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
-	  , j.rate JISU 
+	  , j.rate JISU
 	  from mi_jisu_analysis j
-	 where jisuid = 'O11'
-	   and rate_gu = 'SM'-- 'LM' 전월비 / 'SM' 전년동월비
-	   and jisu_gu in ('P1','S1','D1','E1','H1')
-	   and (sanid = ? -- 산업코드
-		or 1=1
+	 where (
+	   		  (jisu_gu in ('P1','S1','H1')
+	           and jisuid = 'O11')
+	       or
+	          (jisu_gu in ('D1','E1')
+	           and jisuid = 'ON1')
 	       )
-	   and pumid = ?  -- 품목코드 
-	   and DATE_DESC between ? and ? 
-	 order by 
+	   and rate_gu = 'SM'-- 'LM' 전월비 / 'SM' 전년동월비
+	   and sanid = ? -- 산업코드
+	   and (pumid = ? OR 1=1) -- 품목코드
+	   and DATE_DESC between ? and ?
+           AND sidoid = '00'
+           AND specode ='0'
+	 order by
 	       j.sanid
 	     , j.jisu_gu
-	     , j.date_desc	
+	     , j.date_desc
 	</select>	
 	
 	<select id="getJisuSMListWithIndustryCodeForNotZeroPumId">
-	select 
+	select
 		sanid, pumid, jisu_gu,
-		(select dataname 
+		(select dataname
 	          from mi_cls_datacode
 	         where classid = 'JISU_GU'
 	           and datacode = j.jisu_gu
                ) AS jisu_gu_nm
 	  , DATE_DESC josa_ym
 	  , to_number( to_date(DATE_DESC,'YYYYMM') - to_date('19700101','YYYYMMDD')) * (24 * 60 * 60 * 1000) as sec
-	  , j.rate JISU  
+	  , j.rate JISU
 	  from mi_jisu_analysis_m j
-	 where jisuid = 'O11'
-	   and rate_gu = 'SM'-- 'LM' 전월비 / 'SM' 전년동월비
-	   and jisu_gu in ('P1','S1','D1','E1','H1')
-	   and (sanid like ? || '%'
-		or 1=1
+	 where (
+	   	  (jisu_gu in ('P1','S1','H1')
+	           and jisuid = 'O11')
+	       or
+	          (jisu_gu in ('D1','E1')
+	           and jisuid = 'ON1')
 	       )
-	   and pumid = ?  -- 품목코드 
-	   and DATE_DESC between ? and ? 
-	 order by 
+	   AND rate_gu = 'SM'-- 'LM' 전월비 / 'SM' 전년동월비
+	   and (sanid = ? OR 1=1)
+	   and pumid = ?  -- 품목코드
+	   and DATE_DESC between ? and ?
+	   AND SIDOID= '00'
+	 order by
 	       j.sanid
 	     , j.jisu_gu
-	     , j.date_desc	
+	     , j.date_desc
 	</select>	
 
 
